@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="290" height="148" viewBox="0 0 290 148">
+                <defs><linearGradient id="anag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:#1F55FF;stop-opacity:.28"/><stop offset="1" style="stop-color:#1F55FF;stop-opacity:0"/></linearGradient></defs>
+                <path d="M0 30H290M0 70H290M0 110H290" stroke="#E8EAEE" stroke-dasharray="3 4"/>
+                <path d="M0 118 C24 118 24 100 48 100 C72 100 72 108 97 108 C121 108 121 76 145 76 C169 76 169 84 193 84 C217 84 217 50 242 50 C266 50 266 28 290 28 L290 148 L0 148Z" fill="url(#anag)"/>
+                <path d="M0 118 C24 118 24 100 48 100 C72 100 72 108 97 108 C121 108 121 76 145 76 C169 76 169 84 193 84 C217 84 217 50 242 50 C266 50 266 28 290 28" fill="none" stroke="#1F55FF" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M242 50V148" stroke="#1F55FF" stroke-dasharray="2 3" opacity=".5"/>
+                <circle cx="242" cy="50" r="5" fill="#FFFFFF" stroke="#1F55FF" stroke-width="2.4"/>
+                <g transform="translate(196 12)"><rect width="66" height="24" rx="7" fill="#0B0C0E"/><text x="33" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="500" fill="#FFFFFF">▲ Trend</text></g>
+              </svg>
