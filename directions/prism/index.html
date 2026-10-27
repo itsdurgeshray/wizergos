@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wizergos | Low Code Platform for BFSI</title>
+<meta name="description" content="Quickly Build Custom Web and Mobile Applications: Unlock Business Value">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+(function () {
+  var r = document.documentElement;
+  if (/[?&]figma\b/.test(location.search)) r.classList.add('figma');
+  var mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+  try { var t = localStorage.getItem('wzp-theme'); if (t === 'light' || t === 'dark') r.setAttribute('data-theme', t); } catch (e) {}
+  function mode() { r.setAttribute('data-mode', r.getAttribute('data-theme') || (mq && mq.matches ? 'dark' : 'light')); }
+  mode(); if (mq && mq.addEventListener) mq.addEventListener('change', mode); window.wzMode = mode;
+})();
+</script>
+<style>
+/* ───────── Tokens: AI violet on cool white; dark is a deep aubergine night ───────── */
+:root {
+  --bg: #F7F7FB; --paper: #FFFFFF; --ink: #17132E; --ink-2: #3D3760; --muted: #6E6990; --line: #E7E3F5; --line-2: #D8D1F2;
+  --v: #7057D9; --v-ink: #5B43C8; --lilac: #C7B8FF; --lav: #EFEBFF; --good: #1E9E6A;
+  --aur-1: rgba(112,87,217,.35); --aur-2: rgba(199,184,255,.7); --aur-3: rgba(255,182,227,.35);
+  --sh: 0 1px 2px rgba(23,19,46,.04), 0 16px 40px -18px rgba(75,54,184,.35);
+  --sh-lg: 0 2px 6px rgba(23,19,46,.05), 0 44px 90px -36px rgba(75,54,184,.5);
+  color-scheme: light;
+}
+[data-mode="dark"] {
+  --bg: #0C0A17; --paper: #15122A; --ink: #F4F2FF; --ink-2: #CFC8F0; --muted: #958FB8; --line: rgba(199,184,255,.11); --line-2: rgba(199,184,255,.2);
+  --v: #9B87F2; --v-ink: #C7B8FF; --lilac: #C7B8FF; --lav: rgba(155,135,242,.12); --good: #4ECB95;
+  --aur-1: rgba(112,87,217,.5); --aur-2: rgba(120,90,255,.28); --aur-3: rgba(220,120,200,.18);
+  --sh: 0 1px 0 rgba(255,255,255,.05) inset, 0 16px 40px -18px rgba(0,0,0,.9);
+  --sh-lg: 0 1px 0 rgba(255,255,255,.06) inset, 0 44px 90px -36px rgba(0,0,0,.95);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
+body { margin: 0 auto; max-width: 1440px; background: var(--bg); color: var(--ink); font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; font-size: 16px; line-height: 26px; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; }
+button { font: inherit; color: inherit; }
+h1, h2, h3, h6, p, figure, address { margin: 0; font-style: normal; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+.v { color: var(--v-ink); }
+.pill { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 100px; background: var(--lav); color: var(--v-ink); font-size: 14px; line-height: 20px; font-weight: 600; }
+.h2 { font-size: 48px; line-height: 56px; font-weight: 600; letter-spacing: -2px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 26px; border-radius: 100px; font-size: 16px; font-weight: 600; border: 0; cursor: pointer; white-space: nowrap; transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn-v { color: #fff; background: linear-gradient(180deg, #8670E6, #6247D0); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 16px 32px -14px rgba(112,87,217,.95); }
+.btn-ink { color: var(--bg); background: var(--ink); }
+.btn-soft { color: var(--ink); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn-soft:hover { box-shadow: inset 0 0 0 1px var(--v); }
+.btn-white { color: #17132E; background: #fff; }
+.btn-ghost { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
+.link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--v-ink); }
+.link svg { transition: transform .3s ease; } a:hover .link svg { transform: translate(2px, -2px); }
+.gloss { display: grid; place-items: center; color: #fff; border-radius: 50%; background: radial-gradient(circle at 34% 26%, #E9E2FF, #8C74EC 46%, #5338C2 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 14px 30px -12px rgba(112,87,217,.95); }
+
+/* ───────── Header ───────── */
+header.site { position: sticky; top: 0; z-index: 60; transition: background-color .3s ease, box-shadow .3s ease; }
+header.site.scrolled { background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: inset 0 -1px 0 var(--line); }
+.nav { height: 80px; display: flex; align-items: center; gap: 48px; }
+.logo { height: 30px; width: 132px; }
+.logo-d { display: none; } [data-mode="dark"] .logo-l { display: none; } [data-mode="dark"] .logo-d { display: block; }
+.menu { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.menu > li { position: relative; }
+.menu > li > a, .menu > li > button { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border: 0; border-radius: 100px; background: none; cursor: pointer; font-size: 16px; font-weight: 500; color: var(--ink-2); transition: background-color .2s ease, color .2s ease; }
+.menu > li > a:hover, .menu > li > button:hover { background: var(--lav); color: var(--ink); }
+.mega { position: absolute; top: 52px; left: -16px; width: 640px; padding: 8px; border-radius: 24px; background: var(--paper); box-shadow: var(--sh-lg), 0 0 0 1px var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; opacity: 0; visibility: hidden; transform: translateY(6px); transition: all .2s ease; }
+.mega::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.has-mega:hover .mega, .has-mega:focus-within .mega { opacity: 1; visibility: visible; transform: none; }
+.mega > div { padding: 18px 20px; border-radius: 18px; }
+.mega > div:first-child { background: var(--lav); }
+.mega h6 { font-size: 16px; line-height: 24px; font-weight: 700; }
+.mega small { display: block; margin: 14px 0 4px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--v-ink); }
+.mega a.mi { display: block; padding: 6px 0; font-size: 14px; line-height: 22px; color: var(--ink-2); }
+.mega a.mi:hover { color: var(--v-ink); }
+.nav-r { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.icon-btn { width: 44px; height: 44px; border-radius: 50%; border: 0; display: grid; place-items: center; cursor: pointer; color: var(--ink); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.i-sun { display: none; } [data-mode="dark"] .i-sun { display: block; } [data-mode="dark"] .i-moon { display: none; }
+.nav .btn { height: 44px; padding: 0 20px; font-size: 14px; }
+.burger { display: none; }
+.drawer { display: none; padding: 8px 0 24px; }
+.drawer.open { display: block; }
+.drawer a { display: block; padding: 10px 0; font-size: 16px; color: var(--ink-2); }
+.drawer b { display: block; padding-top: 14px; font-size: 12px; color: var(--v-ink); }
+
+/* ───────── Hero ───────── */
+.hero { position: relative; margin-top: -80px; padding-top: 80px; isolation: isolate; overflow: hidden; }
+.aurora { position: absolute; inset: -20% -10% 20%; z-index: -1; filter: blur(60px); }
+.aurora i { position: absolute; border-radius: 50%; animation: drift 18s ease-in-out infinite alternate; }
+.aurora i:nth-child(1) { width: 60%; height: 70%; right: -6%; top: 6%; background: var(--aur-1); }
+.aurora i:nth-child(2) { width: 46%; height: 56%; right: 22%; top: 30%; background: var(--aur-2); animation-delay: -6s; }
+.aurora i:nth-child(3) { width: 36%; height: 40%; right: 0; top: 54%; background: var(--aur-3); animation-delay: -12s; }
+@keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-6%, 4%) scale(1.08); } }
+.hero-grid { display: grid; grid-template-columns: 580px 1fr; gap: 24px; align-items: center; padding: 64px 0 40px; }
+.hero h1 { margin-top: 24px; font-size: 80px; line-height: 84px; font-weight: 600; letter-spacing: -4px; }
+.hero h1 .bf { position: relative; color: var(--v-ink); white-space: nowrap; }
+.hero h1 .bf svg { position: absolute; left: -4%; bottom: -14px; width: 108%; height: 22px; color: var(--lilac); }
+.hero .lede { margin-top: 28px; max-width: 460px; font-size: 18px; line-height: 30px; color: var(--ink-2); }
+.hero .cta { margin-top: 36px; display: flex; gap: 12px; }
+
+/* app assembles: components glide into the phone */
+.asm { position: relative; width: 100%; }
+.asm-in { position: absolute; left: 0; top: 0; width: 620px; height: 560px; transform-origin: 0 0; }
+.asm-in > * { position: absolute; }
+.phone { left: 330px; top: 10px; width: 270px; height: 540px; border-radius: 46px; padding: 12px; background: #17132E; box-shadow: inset 0 0 0 2px #3A3360, var(--sh-lg); }
+[data-mode="dark"] .phone { background: #241E44; box-shadow: inset 0 0 0 2px rgba(199,184,255,.25), var(--sh-lg); }
+.scr { position: relative; height: 100%; border-radius: 36px; background: var(--paper); padding: 30px 16px 16px; overflow: hidden; }
+.scr .nt { width: 80px; height: 22px; border-radius: 12px; background: #17132E; margin: -18px auto 14px; }
+[data-mode="dark"] .scr .nt { background: #241E44; }
+.scr .top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; line-height: 20px; font-weight: 700; }
+.slot { position: relative; margin-top: 14px; border-radius: 16px; border: 2px dashed var(--line-2); }
+.slot .fill { position: absolute; inset: -2px; border-radius: 16px; padding: 12px; background: var(--paper); box-shadow: 0 0 0 2px var(--v), 0 0 0 6px var(--lav); opacity: 0; animation: fillin 9s infinite; animation-delay: calc(var(--i) * 2s); }
+@keyframes fillin { 0%, 13% { opacity: 0; transform: scale(.96); } 16%, 88% { opacity: 1; transform: none; } 94%, 100% { opacity: 0; } }
+.field { height: 30px; border-radius: 8px; background: var(--lav); margin-top: 8px; }
+.lbl { height: 6px; width: 40%; border-radius: 6px; background: var(--line-2); }
+.bars { display: flex; align-items: flex-end; gap: 6px; height: 76px; }
+.bars i { flex: 1; border-radius: 4px 4px 2px 2px; background: var(--lilac); }
+.bars i:nth-child(odd) { background: var(--v); }
+.msg { padding: 6px 10px; border-radius: 10px 10px 10px 2px; background: var(--lav); font-size: 12px; line-height: 16px; color: var(--ink-2); width: 76%; }
+.msg.me { margin: 6px 0 0 auto; border-radius: 10px 10px 2px 10px; background: var(--v); color: #fff; width: 64%; }
+.comp { left: 10px; width: 190px; height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 16px 0 8px; border-radius: 18px; background: var(--paper); box-shadow: var(--sh), inset 0 0 0 1px var(--line); font-size: 16px; line-height: 20px; font-weight: 600; animation: glide 9s infinite; animation-delay: calc(var(--i) * 2s); }
+.comp .gloss { width: 40px; height: 40px; border-radius: 12px; }
+@keyframes glide { 0%, 2% { transform: translate(0, 0); opacity: 1; } 13% { transform: translate(var(--dx), var(--dy)) scale(.86); opacity: 1; } 15%, 90% { transform: translate(var(--dx), var(--dy)) scale(.86); opacity: 0; } 96% { transform: translate(0, 0); opacity: 0; } 100% { transform: translate(0, 0); opacity: 1; } }
+.trail { left: 0; top: 0; width: 620px; height: 560px; overflow: visible; }
+.trail path { fill: none; stroke: var(--lilac); stroke-width: 2; stroke-dasharray: 3 7; }
+.pub { left: 230px; top: 470px; display: flex; gap: 4px; padding: 6px; border-radius: 100px; background: var(--paper); box-shadow: var(--sh), inset 0 0 0 1px var(--line); }
+.pub span { height: 30px; padding: 0 12px; border-radius: 100px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; color: var(--muted); }
+.pub span.on { background: var(--v); color: #fff; }
+
+.trust { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; padding: 32px 0 72px; }
+.trust p { font-size: 14px; line-height: 22px; font-weight: 500; color: var(--muted); }
+.logos { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.logos img { width: auto; opacity: .6; transition: opacity .3s ease; }
+.logos img:hover { opacity: 1; }
+[data-mode="dark"] .logos img { filter: invert(1); opacity: .55; }
+
+/* ───────── Statement ───────── */
+.statement { padding: 112px 0; }
+.st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
+.say { margin-top: 20px; font-size: 44px; line-height: 54px; font-weight: 600; letter-spacing: -2px; }
+.say .v { background: linear-gradient(90deg, #7057D9, #A38FF0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-mode="dark"] .say .v { background: linear-gradient(90deg, #C7B8FF, #9B87F2); -webkit-background-clip: text; background-clip: text; }
+.report { display: flex; align-items: center; gap: 20px; padding: 24px 0; box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line); }
+.report .gloss { width: 64px; height: 64px; border-radius: 20px; flex-shrink: 0; }
+.report b { display: block; font-size: 20px; line-height: 28px; font-weight: 600; }
+.report .link { margin-top: 6px; }
+.stats { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px 40px; }
+.stat .n { font-size: 48px; line-height: 52px; font-weight: 600; letter-spacing: -2px; color: var(--v-ink); }
+.stat .n small { font-size: 16px; letter-spacing: 0; font-weight: 500; color: var(--muted); }
+.stat b { display: block; margin-top: 6px; font-size: 16px; line-height: 22px; font-weight: 600; }
+.stat p { margin-top: 4px; font-size: 14px; line-height: 22px; color: var(--muted); }
+
+/* ───────── Products: suite switcher ───────── */
+.products { padding: 112px 0; }
+.suite { margin-top: 48px; display: grid; grid-template-columns: 360px 1fr; gap: 48px; align-items: stretch; }
+.picks { display: flex; flex-direction: column; gap: 8px; }
+.pick { text-align: left; border: 0; cursor: pointer; padding: 22px 24px; border-radius: 24px; background: transparent; transition: background-color .3s ease, box-shadow .3s ease; }
+.pick small { display: block; font-size: 14px; line-height: 18px; font-weight: 600; color: var(--v-ink); }
+.pick b { display: block; margin-top: 4px; font-size: 26px; line-height: 32px; font-weight: 600; letter-spacing: -1px; color: var(--muted); transition: color .3s ease; }
+.pick ul { list-style: none; margin: 0; padding: 0; max-height: 0; overflow: hidden; transition: max-height .5s ease, margin .5s ease; }
+.pick li a { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; box-shadow: inset 0 -1px 0 var(--line); font-size: 16px; line-height: 22px; font-weight: 500; color: var(--ink-2); }
+.pick li a:hover { color: var(--v-ink); }
+.pick li a svg { color: var(--v-ink); }
+.pick[aria-selected="true"] { background: var(--paper); box-shadow: var(--sh), inset 0 0 0 1px var(--line); }
+.pick[aria-selected="true"] b { color: var(--ink); }
+.pick[aria-selected="true"] ul { max-height: 220px; margin-top: 14px; }
+.show { position: relative; border-radius: 36px; overflow: hidden; min-height: 520px; background: radial-gradient(70% 70% at 70% 30%, var(--aur-2), transparent 70%), radial-gradient(60% 60% at 20% 90%, var(--aur-3), transparent 70%), var(--lav); }
+[data-mode="dark"] .show { background: radial-gradient(70% 70% at 70% 30%, rgba(112,87,217,.4), transparent 70%), radial-gradient(60% 60% at 20% 90%, rgba(220,120,200,.14), transparent 70%), #15122A; box-shadow: inset 0 0 0 1px var(--line); }
+.scene { position: absolute; inset: 0; opacity: 0; transform: translateY(12px) scale(.98); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
+.scene.on { opacity: 1; transform: none; }
+.ui { position: absolute; background: var(--paper); border-radius: 20px; padding: 18px; box-shadow: var(--sh-lg); font-size: 14px; line-height: 20px; color: var(--ink-2); }
+[data-mode="dark"] .ui { background: #1C1838; box-shadow: inset 0 0 0 1px var(--line-2), var(--sh-lg); }
+.ui .t { display: flex; justify-content: space-between; align-items: center; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.chip { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 100px; background: var(--lav); color: var(--v-ink); font-size: 12px; line-height: 16px; font-weight: 600; }
+.chip.ok { background: rgba(30,158,106,.12); color: var(--good); }
+.row { display: flex; align-items: center; gap: 10px; height: 42px; box-shadow: inset 0 -1px 0 var(--line); }
+.row:last-child { box-shadow: none; }
+.ri { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; background: var(--lav); color: var(--v-ink); }
+.meter { height: 8px; border-radius: 8px; background: var(--lav); overflow: hidden; } .meter i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #C7B8FF, #7057D9); }
+
+/* ───────── Capabilities: compact accordion ───────── */
+.caps { padding: 112px 0; }
+.acc { margin-top: 56px; box-shadow: inset 0 1px 0 var(--line); }
+.ai { box-shadow: inset 0 -1px 0 var(--line); }
+.ai > button { width: 100%; display: grid; grid-template-columns: 72px 1fr 48px; gap: 16px; align-items: center; padding: 26px 0; border: 0; background: none; cursor: pointer; text-align: left; }
+.ai .gloss { width: 52px; height: 52px; border-radius: 16px; transition: transform .4s ease; }
+.ai h3 { font-size: 26px; line-height: 34px; font-weight: 600; letter-spacing: -1px; color: var(--muted); transition: color .3s ease; }
+.ai .pm { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--lav); color: var(--v-ink); transition: transform .4s ease, background-color .3s ease; }
+.ai:hover h3, .ai.open h3 { color: var(--ink); }
+.ai.open .pm { transform: rotate(45deg); background: var(--v); color: #fff; }
+.ai.open .gloss { transform: rotate(-8deg) scale(1.06); }
+.ai .body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s cubic-bezier(.2,.7,.2,1); }
+.ai.open .body { grid-template-rows: 1fr; }
+.ai .body > div { overflow: hidden; }
+.ai .inner { padding: 0 64px 32px 88px; }
+.ai .intro { color: var(--ink-2); margin-bottom: 14px; }
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
+.ticks li { position: relative; padding-left: 32px; color: var(--ink-2); }
+.ticks li::before { content: ""; position: absolute; left: 0; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--v); box-shadow: 0 0 0 4px var(--lav); }
+.ticks li::after { content: ""; position: absolute; left: 6px; top: 10px; width: 8px; height: 4px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg); }
+
+/* ───────── Why: kinetic rows ───────── */
+.why { padding: 112px 0; overflow: hidden; }
+.kin { margin-top: 56px; display: grid; gap: 16px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.lane { display: flex; gap: 16px; width: max-content; animation: lane 40s linear infinite; }
+.lane.rev { animation-direction: reverse; }
+.kin:hover .lane { animation-play-state: paused; }
+@keyframes lane { to { transform: translateX(-50%); } }
+.chipb { display: inline-flex; align-items: center; gap: 16px; height: 88px; padding: 0 36px 0 16px; border-radius: 100px; background: var(--paper); box-shadow: var(--sh), inset 0 0 0 1px var(--line); white-space: nowrap; }
+.chipb .gloss { width: 56px; height: 56px; }
+.chipb b { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -1px; }
+.chipb small { font-size: 14px; font-weight: 600; color: var(--v-ink); }
+.chipb.alt { background: linear-gradient(120deg, #7057D9, #A38FF0); box-shadow: 0 16px 36px -16px rgba(112,87,217,.9); color: #fff; }
+.chipb.alt small { color: rgba(255,255,255,.8); }
+.chipb.alt .gloss { background: rgba(255,255,255,.2); box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
+
+/* ───────── Testimonials: marquee ───────── */
+.tst { padding: 112px 0; }
+.stream { margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.s-track { display: flex; gap: 24px; width: max-content; padding: 8px 0 24px; animation: lane 70s linear infinite; }
+.stream:hover .s-track { animation-play-state: paused; }
+.q { width: 520px; padding: 36px; border-radius: 32px; background: var(--paper); box-shadow: var(--sh), inset 0 0 0 1px var(--line); display: flex; flex-direction: column; }
+.q .mk { width: 40px; height: 32px; color: var(--v); }
+.q h3 { margin-top: 20px; font-size: 26px; line-height: 34px; font-weight: 600; letter-spacing: -1px; }
+.q p { margin-top: 14px; font-size: 16px; line-height: 28px; color: var(--muted); }
+.q .who { margin-top: auto; padding-top: 28px; display: flex; align-items: center; gap: 14px; }
+.q .who .gloss { width: 48px; height: 48px; font-size: 14px; font-weight: 700; }
+.q .nm b { display: block; font-size: 16px; line-height: 24px; font-weight: 600; }
+.q .nm span { display: block; font-size: 14px; line-height: 20px; color: var(--muted); }
+
+/* ───────── Resources: hover-reveal editorial list ───────── */
+.res { padding: 112px 0; }
+.list { margin-top: 48px; box-shadow: inset 0 1px 0 var(--line); }
+.item { position: relative; display: grid; grid-template-columns: 160px 1fr 1fr 56px; gap: 40px; align-items: start; padding: 40px 0; box-shadow: inset 0 -1px 0 var(--line); transition: padding .4s ease; }
+.item:hover { padding-left: 16px; }
+.item .k { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--v-ink); }
+.item .k span { display: block; color: var(--muted); font-weight: 500; }
+.item h3 { font-size: 30px; line-height: 38px; font-weight: 600; letter-spacing: -1px; }
+.item p { color: var(--muted); }
+.item .go { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--lav); color: var(--v-ink); transition: background-color .3s ease, color .3s ease, transform .3s ease; }
+.item:hover .go { background: var(--v); color: #fff; transform: rotate(-45deg); }
+.item .thumb { display: none; }
+.peek { position: fixed; z-index: 70; left: 0; top: 0; width: 320px; height: 220px; border-radius: 24px; overflow: hidden; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(.8) rotate(-4deg); transition: opacity .3s ease, transform .4s cubic-bezier(.2,.7,.2,1); box-shadow: var(--sh-lg); }
+.peek.on { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-4deg); }
+.peek svg, .thumb svg { width: 100%; height: 100%; }
+
+/* ───────── CTA: aurora band ───────── */
+.cta-band { position: relative; margin: 0 40px; padding: 120px 40px; border-radius: 48px; overflow: hidden; isolation: isolate; text-align: center; color: #fff; background: #4B36B8; }
+.cta-band .aur { position: absolute; inset: -30%; z-index: -1; filter: blur(70px); }
+.cta-band .aur i { position: absolute; border-radius: 50%; animation: drift 14s ease-in-out infinite alternate; }
+.cta-band .aur i:nth-child(1) { width: 50%; height: 60%; left: 10%; top: 10%; background: #7057D9; }
+.cta-band .aur i:nth-child(2) { width: 46%; height: 56%; right: 6%; top: 24%; background: #C7B8FF; opacity: .7; animation-delay: -5s; }
+.cta-band .aur i:nth-child(3) { width: 40%; height: 46%; left: 34%; bottom: 0; background: #FF9AD5; opacity: .45; animation-delay: -9s; }
+[data-mode="dark"] .cta-band { background: #1B1440; box-shadow: inset 0 0 0 1px var(--line-2); }
+[data-mode="dark"] .cta-band .aur i:nth-child(2) { opacity: .35; }
+.cta-band .h2 { color: #fff; }
+.cta-band p { max-width: 480px; margin: 18px auto 0; font-size: 18px; line-height: 30px; color: rgba(255,255,255,.86); }
+.cta-band .cta { margin-top: 40px; display: flex; justify-content: center; gap: 12px; }
+
+/* ───────── Footer ───────── */
+footer { padding: 104px 0 40px; }
+.f-grid { display: grid; grid-template-columns: 340px 1fr 1fr 1fr; gap: 48px; }
+.f-grid h6 { margin-bottom: 16px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--v-ink); }
+.f-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 14px; line-height: 22px; }
+.f-grid a { color: var(--ink-2); } .f-grid a:hover { color: var(--v-ink); }
+.f-grid .sl { font-size: 12px; line-height: 16px; color: var(--muted); margin-top: 6px; }
+.addr { margin-top: 20px; font-size: 14px; line-height: 22px; color: var(--muted); }
+.social { margin-top: 20px; display: flex; gap: 8px; }
+.social a { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--lav); color: var(--v-ink); }
+.social a:hover { background: var(--v); color: #fff; }
+.f-bar { margin-top: 56px; padding-top: 28px; box-shadow: inset 0 1px 0 var(--line); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; font-size: 14px; line-height: 20px; color: var(--muted); }
+.certs { display: flex; gap: 28px; flex-wrap: wrap; }
+.cert { display: flex; align-items: center; gap: 10px; }
+.cert img { width: 40px; height: 40px; border-radius: 50%; background: #fff; }
+.cert b { display: block; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.cert small { display: block; font-size: 12px; line-height: 16px; }
+
+.js .rv { opacity: 0; transform: translateY(20px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+.js .rv.in { opacity: 1; transform: none; }
+.figma *, .figma *::before, .figma *::after { animation: none !important; transition: none !important; }
+.figma .rv { opacity: 1 !important; transform: none !important; }
+.figma .slot .fill { opacity: 1; }
+.figma .comp { opacity: 0; }
+.figma .ai .body { grid-template-rows: 1fr; }
+.figma .item .thumb { display: block; grid-column: 2 / 4; width: 480px; height: 330px; border-radius: 24px; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } .slot .fill { opacity: 1; } .comp { opacity: 0; } }
+
+/* ───────── Responsive ───────── */
+@media (max-width: 1080px) {
+  .hero-grid, .st-grid, .suite { grid-template-columns: 1fr; }
+  .trust { grid-template-columns: 1fr; gap: 20px; }
+  .logos { flex-wrap: wrap; justify-content: flex-start; gap: 24px 40px; }
+  .show { min-height: 460px; }
+  .item { grid-template-columns: 120px 1fr 56px; } .item p { grid-column: 2; }
+  .f-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) { .menu, .nav-r .btn { display: none; } .burger { display: grid; } }
+@media (max-width: 640px) {
+  .wrap { padding: 0 20px; }
+  .hero h1 { font-size: 48px; line-height: 54px; letter-spacing: -2px; }
+  .hero .cta, .cta-band .cta { flex-direction: column; align-items: stretch; }
+  .h2 { font-size: 34px; line-height: 40px; letter-spacing: -1px; }
+  .say { font-size: 28px; line-height: 36px; }
+  .stats, .ticks, .f-grid { grid-template-columns: 1fr; }
+  .show { min-height: 400px; }
+  .ai > button { grid-template-columns: 52px 1fr 44px; }
+  .ai h3 { font-size: 20px; line-height: 28px; }
+  .ai .inner { padding: 0 0 28px; }
+  .chipb { height: 64px; } .chipb b { font-size: 18px; } .chipb .gloss { width: 40px; height: 40px; }
+  .q { width: 300px; padding: 26px; }
+  .item { grid-template-columns: 1fr; gap: 12px; } .item p { grid-column: 1; } .item .go { display: none; }
+  .item .thumb { display: block; height: 180px; border-radius: 20px; overflow: hidden; }
+  .cta-band { margin: 0 12px; padding: 80px 20px; border-radius: 32px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site" id="top">
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary">
+      <a href="https://wizergos.com/index.html" aria-label="Wizergos home">
+        <img class="logo logo-l" src="../../assets/brand/wz-word-violet-ink.png" alt="Wizergos" width="132" height="30">
+        <img class="logo logo-d" src="../../assets/brand/wz-word-white.png" alt="Wizergos" width="132" height="30">
+      </a>
+      <ul class="menu">
+        <li><a href="https://wizergos.com/index.html">Home</a></li>
+        <li class="has-mega">
+          <button type="button">Products <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="mega">
+            <div>
+              <h6><a href="https://wizergos.com/winsuregos%20(1).html">Winsuregos</a></h6>
+              <small>Sales</small>
+              <a class="mi" href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales</a>
+              <a class="mi" href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents</a>
+              <a class="mi" href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management</a>
+              <small>Underwriting</small>
+              <a class="mi" href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance</a>
+              <a class="mi" href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance</a>
+            </div>
+            <div>
+              <h6><a href="https://wizergos.com/low-codeplatform%20(1).html">Low-Code Platform</a></h6>
+              <small>Explore</small>
+              <a class="mi" href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions</a>
+              <a class="mi" href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance</a>
+              <a class="mi" href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="https://wizergos.com/aboutus%20(1).html">About</a></li>
+        <li><a href="https://blog.wizergos.com/">Resources</a></li>
+      </ul>
+      <div class="nav-r">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">
+          <svg class="i-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <a class="btn btn-ink" href="#contact">Request Demo</a>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg></button>
+      </div>
+    </nav>
+    <div class="drawer" id="drawer">
+      <a href="https://wizergos.com/index.html">Home</a>
+      <b>Winsuregos</b>
+      <a href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales</a>
+      <a href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents</a>
+      <a href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management</a>
+      <a href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance</a>
+      <a href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance</a>
+      <b>Low-Code Platform</b>
+      <a href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions</a>
+      <a href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance</a>
+      <a href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services</a>
+      <b>Company</b>
+      <a href="https://wizergos.com/aboutus%20(1).html">About</a>
+      <a href="https://blog.wizergos.com/">Resources</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <a class="pill" href="#resources"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>Best Low-Code Digital Transformation Partner · ELETS BFSI Summit</a>
+        <h1>Low Code Platform for <span class="bf">BFSI<svg viewBox="0 0 200 22" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16C46 6 120 2 196 10" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></span></h1>
+        <p class="lede">Quickly Build Custom Web and Mobile Applications: Unlock Business Value</p>
+        <div class="cta">
+          <a class="btn btn-v" href="#contact">Connect with us <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-soft" href="#contact">Request Demo</a>
+        </div>
+      </div>
+      <div class="asm" id="asm" aria-hidden="true">
+        <div class="asm-in">
+          <svg class="trail" viewBox="0 0 620 560"><path d="M200 128 C 260 128, 280 150, 362 150"/><path d="M200 248 C 260 248, 280 290, 362 290"/><path d="M200 368 C 260 368, 280 412, 362 412"/></svg>
+          <div class="phone"><div class="scr">
+            <div class="nt"></div>
+            <div class="top">Policy servicing <span class="chip">Insurance</span></div>
+            <div class="slot" style="height:118px"><div class="fill" style="--i:0"><div class="lbl"></div><div class="field"></div><div class="lbl" style="margin-top:10px;width:30%"></div><div class="field"></div></div></div>
+            <div class="slot" style="height:124px"><div class="fill" style="--i:1"><div class="bars"><i style="height:40%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:80%"></i><i style="height:66%"></i><i style="height:100%"></i></div></div></div>
+            <div class="slot" style="height:104px"><div class="fill" style="--i:2"><div class="msg">How can I help?</div><div class="msg me">Renew my policy</div></div></div>
+          </div></div>
+          <div class="comp" style="top:100px;--i:0;--dx:182px;--dy:22px"><span class="gloss"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h4"/></svg></span>Form</div>
+          <div class="comp" style="top:220px;--i:1;--dx:182px;--dy:44px"><span class="gloss"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Chart</div>
+          <div class="comp" style="top:340px;--i:2;--dx:182px;--dy:48px"><span class="gloss"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></span>Chatbot</div>
+          <div class="pub"><span class="on">Web</span><span>Android</span><span>iOS</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="trust">
+      <p>Trusted by leading insurers and enterprises</p>
+      <div class="logos">
+        <img src="../../assets/clients/icici.png" alt="ICICI Lombard" height="28">
+        <img src="../../assets/clients/bajaj.png" alt="Bajaj General Insurance" height="32">
+        <img src="../../assets/clients/gic.png" alt="General Insurance Council" height="28">
+        <img src="../../assets/clients/nirmal.png" alt="Nirmal Bang" height="36">
+        <img src="../../assets/clients/itc.png" alt="ITC Limited" height="38">
+        <img src="../../assets/clients/westside.png" alt="Westside" height="26">
+        <img src="../../assets/clients/fidelis.png" alt="Fidelis" height="30">
+        <img src="../../assets/clients/star.png" alt="Star" height="36">
+        <img src="../../assets/clients/sany.png" alt="SANY" height="28">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="wrap">
+    <div class="st-grid">
+      <div>
+        <span class="pill">Report</span>
+        <p class="say rv">Understand how Insurers can rapidly develop various applications for key functions like <span class="v">product development, underwriting, policy management, customer service, claims processing, and risk management.</span></p>
+      </div>
+      <div>
+        <a class="report rv" href="https://blog.wizergos.com/"><span class="gloss"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-6M15 17v-4"/></svg></span><span><b>Accelerating Innovation @ Speed and Scale in Insurance</b><span class="link">Read the Report <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></span></a>
+        <div class="stats">
+          <div class="stat rv"><div class="n">1 <small>code base</small></div><b>Native mobile</b><p>Develop native mobile applications (Android/iOS) from one code base.</p></div>
+          <div class="stat rv"><div class="n">3 <small>app types</small></div><b>Multi-modal</b><p>Build your applications as web or mobile or conversational (Chatbots) applications.</p></div>
+          <div class="stat rv"><div class="n">REST <small>+ SOAP</small></div><b>Integrations</b><p>REST and SOAP API based integrations · Direct integrations with DBs</p></div>
+          <div class="stat rv"><div class="n">2024 <small>award</small></div><b>ELETS BFSI Summit</b><p>Best "Low-Code Digital Transformation Solution Provider" by ELETS.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="wrap">
+    <span class="pill">Products</span>
+    <h2 class="h2" style="margin-top:16px">Low-Code Platform <span class="v">&amp; Winsuregos</span></h2>
+    <div class="suite">
+      <div class="picks" role="tablist">
+        <div class="pick" role="tab" aria-selected="true" data-s="s1" tabindex="0"><small>Platform</small><b>Low-Code Platform</b>
+          <ul><li><a href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li><li><a href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li><li><a href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li></ul></div>
+        <div class="pick" role="tab" aria-selected="false" data-s="s2" tabindex="0"><small>Winsuregos · Sales</small><b>Policypropel</b>
+          <ul><li><a href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li><li><a href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li><li><a href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li></ul></div>
+        <div class="pick" role="tab" aria-selected="false" data-s="s3" tabindex="0"><small>Winsuregos · Underwriting</small><b>Zeriskify</b>
+          <ul><li><a href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li><li><a href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></li></ul></div>
+      </div>
+      <div class="show" aria-hidden="true">
+        <div class="scene on" id="s1">
+          <div class="ui" style="left:48px;top:64px;width:240px"><div class="t">Components</div>
+            <div class="row" style="margin-top:8px"><span class="ri"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8"/></svg></span>Form</div>
+            <div class="row"><span class="ri"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></span>Data table</div>
+            <div class="row" style="font-weight:700;color:var(--v-ink)"><span class="ri" style="background:var(--v);color:#fff"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></span>Chart</div>
+            <div class="row"><span class="ri"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></span>Chatbot</div></div>
+          <div class="ui" style="right:48px;top:48px;width:340px;height:420px"><div class="t">Applications <span class="chip">Insurance</span></div>
+            <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="height:110px;border-radius:16px;background:linear-gradient(140deg,#7057D9,#A38FF0);padding:14px;color:#fff;font-weight:600;font-size:14px">Claims processing</div>
+              <div style="height:110px;border-radius:16px;background:var(--lav);padding:14px;font-weight:600;font-size:14px;color:var(--ink)">Underwriting</div>
+              <div style="height:110px;border-radius:16px;background:var(--lav);padding:14px;font-weight:600;font-size:14px;color:var(--ink)">Policy management</div>
+              <div style="height:110px;border-radius:16px;border:2px dashed var(--line-2);display:grid;place-items:center;font-weight:600;font-size:14px;color:var(--v-ink)">+ New app</div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:8px"><span class="chip">Web</span><span class="chip">Android</span><span class="chip">iOS</span></div></div>
+        </div>
+        <div class="scene" id="s2">
+          <div class="ui" style="left:48px;top:56px;width:380px"><div class="t">Sales pipeline <span class="chip">This quarter</span></div>
+            <div style="margin-top:18px;display:grid;gap:10px;justify-items:center">
+              <div style="width:100%;height:44px;border-radius:14px;background:var(--lav);display:grid;place-items:center;font-weight:600;color:var(--ink)">Leads</div>
+              <div style="width:80%;height:44px;border-radius:14px;background:#DCD2FF;display:grid;place-items:center;font-weight:600;color:#17132E">Quotes</div>
+              <div style="width:60%;height:44px;border-radius:14px;background:#A38FF0;display:grid;place-items:center;font-weight:600;color:#fff">Proposals</div>
+              <div style="width:40%;height:44px;border-radius:14px;background:#7057D9;display:grid;place-items:center;font-weight:600;color:#fff">Policies</div>
+            </div></div>
+          <div class="ui" style="right:48px;top:150px;width:260px"><div class="t">Top agents</div>
+            <div style="margin-top:14px;display:grid;gap:14px">
+              <div style="display:flex;gap:10px;align-items:center"><span class="gloss" style="width:34px;height:34px;font-size:12px;font-weight:700">AK</span><div style="flex:1"><div class="meter"><i style="width:88%"></i></div></div></div>
+              <div style="display:flex;gap:10px;align-items:center"><span class="gloss" style="width:34px;height:34px;font-size:12px;font-weight:700">RS</span><div style="flex:1"><div class="meter"><i style="width:66%"></i></div></div></div>
+              <div style="display:flex;gap:10px;align-items:center"><span class="gloss" style="width:34px;height:34px;font-size:12px;font-weight:700">MP</span><div style="flex:1"><div class="meter"><i style="width:48%"></i></div></div></div>
+            </div></div>
+          <div class="ui" style="left:180px;bottom:48px;display:flex;align-items:center;gap:12px"><span class="chip ok">Payout scheduled</span><span style="font-weight:600">Commission</span></div>
+        </div>
+        <div class="scene" id="s3">
+          <div class="ui" style="left:48px;top:48px;width:300px;text-align:center"><div class="t">Risk assessment <span class="chip">Life</span></div>
+            <svg width="180" height="180" viewBox="0 0 180 180" style="margin:20px auto 0"><defs><linearGradient id="zr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:#C7B8FF"/><stop offset="1" style="stop-color:#7057D9"/></linearGradient></defs><circle cx="90" cy="90" r="72" fill="none" stroke="var(--lav)" stroke-width="16"/><circle cx="90" cy="90" r="72" fill="none" stroke="url(#zr)" stroke-width="16" stroke-linecap="round" stroke-dasharray="320 453" transform="rotate(-90 90 90)"/><text x="90" y="94" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-size="30" font-weight="700" fill="var(--ink)">Low</text><text x="90" y="116" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-size="12" fill="var(--muted)">risk profile</text></svg>
+            <div style="margin-top:16px;display:flex;justify-content:center;gap:6px"><span class="chip">Medical</span><span class="chip">Lifestyle</span><span class="chip">Financial</span></div></div>
+          <div class="ui" style="right:48px;top:96px;width:270px"><div class="t">Documents <span class="chip">GenAI</span></div>
+            <div class="row" style="margin-top:8px">Medical report<span class="chip ok" style="margin-left:auto">Verified</span></div>
+            <div class="row">Income proof<span class="chip ok" style="margin-left:auto">Verified</span></div>
+            <div class="row">KYC<span class="chip ok" style="margin-left:auto">Verified</span></div></div>
+          <div class="ui" style="right:48px;bottom:56px;width:270px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:24px;font-weight:700;color:var(--good)">Accept</span><span class="chip">Standard rates</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="caps" id="platform">
+  <div class="wrap">
+    <span class="pill">Platform</span>
+    <h2 class="h2" style="margin-top:16px;max-width:820px">How does Wizergos Low-Code Platform <span class="v">Empower Enterprises?</span></h2>
+    <div class="acc" id="acc">
+      <div class="ai open"><button type="button" aria-expanded="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span><h3>Accelerate Digital Transformation</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Draft a Digital Business Strategy with a focus on business model and process led innovation.</li><li>Empower your business to be software-driven by developing multiple applications quickly.</li><li>Reimagine and delight your customers with superior UI/UX for a range of applications.</li></ul></div></div></div></div>
+      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.5"/><path d="M6 19h6"/></svg></span><h3>Build Multi-Device &amp; Multi-Modal Applications</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Build your applications as web or mobile or conversational (Chatbots) applications.</li><li>Develop native mobile applications (Android/iOS) from one code base.</li><li>Enjoy the benefits of choice of application designs that your users will simply love!</li></ul></div></div></div></div>
+      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg></span><h3>Build API-driven Integrations</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><p class="intro">Easier and faster integration of applications and processes.</p><ul class="ticks"><li>REST and SOAP API based integrations</li><li>Direct integrations with DBs</li></ul></div></div></div></div>
+      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg></span><h3>Automate Business Processes</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Adopt a Low-Code powered approach to automating flows for any business process for any industry vertical.</li><li>Quickly reuse application components to automate flows.</li><li>Leverage Intelligent Document Processing or GenAI for various critical processes.</li></ul></div></div></div></div>
+      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span><h3>Modernize Applications</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Streamline the modernization of legacy applications by enabling quick development and deployment of new features, reducing the time and cost associated with traditional coding.</li><li>Facilitate seamless integration with existing systems and databases, allowing legacy applications to scale and adapt to new business requirements without extensive rework.</li></ul></div></div></div></div>
+      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span><h3>Harnessing Data Analytics, AI, and Generative AI</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Embed data analytics &amp; dashboarding capabilities in your applications.</li><li>Empower applications with AI and Generative AI functionalities for a variety of use cases across industry domains.</li></ul></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap"><span class="pill">Benefits</span><h2 class="h2" style="margin-top:16px">Why <span class="v">Low-Code?</span></h2></div>
+  <div class="kin">
+    <div class="lane">
+      <span class="chipb"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><small>01</small><b>Rapid Time-to-Market</b></span>
+      <span class="chipb alt"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><small>02</small><b>Build any Application or Feature</b></span>
+      <span class="chipb"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><small>03</small><b>Better RoI and Reduced TCO</b></span>
+      <span class="chipb" aria-hidden="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><small>01</small><b>Rapid Time-to-Market</b></span>
+      <span class="chipb alt" aria-hidden="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><small>02</small><b>Build any Application or Feature</b></span>
+      <span class="chipb" aria-hidden="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><small>03</small><b>Better RoI and Reduced TCO</b></span>
+    </div>
+    <div class="lane rev">
+      <span class="chipb alt"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span><small>04</small><b>Easy to Learn &amp; Build</b></span>
+      <span class="chipb"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><small>05</small><b>Scalable &amp; Robust Quality</b></span>
+      <span class="chipb"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/><path d="M12 7l.8 2.2L15 10l-2.2.8L12 13l-.8-2.2L9 10l2.2-.8z"/></svg></span><small>06</small><b>Multi-modal &amp; Smart Apps</b></span>
+      <span class="chipb alt" aria-hidden="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span><small>04</small><b>Easy to Learn &amp; Build</b></span>
+      <span class="chipb" aria-hidden="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><small>05</small><b>Scalable &amp; Robust Quality</b></span>
+      <span class="chipb" aria-hidden="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/><path d="M12 7l.8 2.2L15 10l-2.2.8L12 13l-.8-2.2L9 10l2.2-.8z"/></svg></span><small>06</small><b>Multi-modal &amp; Smart Apps</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="tst" id="testimonials">
+  <div class="wrap"><span class="pill">Customers</span><h2 class="h2" style="margin-top:16px">Testimonials</h2></div>
+  <div class="stream">
+    <div class="s-track">
+      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent job by Wizergos!"</h3><p>We needed a lot of customization for our apps- this called for resources and time commitments. Wizergos pitched in and accelerated our development efforts, and saved us countless hours and resources. Kudos!</p><figcaption class="who"><span class="gloss">YB</span><span class="nm"><b>Yatish Bhatia</b><span>VP- Technology, ICICI Lombard</span></span></figcaption></figure>
+      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"A great tool and a brilliant team."</h3><p>The Wizergos team works with gusto on requirements and feedback. Their stellar work has really helped us manage meetings effectively and brought in accountability (wherever needed).</p><figcaption class="who"><span class="gloss">SK</span><span class="nm"><b>Sanketh Koka</b><span>Regional Head of Operations, Tata Trent</span></span></figcaption></figure>
+      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent service!"</h3><p>The Wizergos team were able to customize a lot of the features to suit our requirements which is great as we are constantly growing as a business and always finding new ways of working.</p><figcaption class="who"><span class="gloss">SA</span><span class="nm"><b>Stephanie A.</b><span>Project Manager - Fidelis Insurance UK</span></span></figcaption></figure>
+      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent job by Wizergos!"</h3><p>We needed a lot of customization for our apps- this called for resources and time commitments. Wizergos pitched in and accelerated our development efforts, and saved us countless hours and resources. Kudos!</p><figcaption class="who"><span class="gloss">YB</span><span class="nm"><b>Yatish Bhatia</b><span>VP- Technology, ICICI Lombard</span></span></figcaption></figure>
+      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"A great tool and a brilliant team."</h3><p>The Wizergos team works with gusto on requirements and feedback. Their stellar work has really helped us manage meetings effectively and brought in accountability (wherever needed).</p><figcaption class="who"><span class="gloss">SK</span><span class="nm"><b>Sanketh Koka</b><span>Regional Head of Operations, Tata Trent</span></span></figcaption></figure>
+      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent service!"</h3><p>The Wizergos team were able to customize a lot of the features to suit our requirements which is great as we are constantly growing as a business and always finding new ways of working.</p><figcaption class="who"><span class="gloss">SA</span><span class="nm"><b>Stephanie A.</b><span>Project Manager - Fidelis Insurance UK</span></span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="res" id="resources">
+  <div class="wrap">
+    <span class="pill">Resources</span>
+    <h2 class="h2" style="margin-top:16px">Blog <span class="v">&amp; Awards</span></h2>
+    <div class="list">
+      <a class="item rv" href="https://blog.wizergos.com/" data-peek="#art1">
+        <span class="k">Blog</span>
+        <h3>Generative AI + Low-Code</h3>
+        <p>This blog discusses the applications and benefits of Generative AI for enterprises, detailing LLMs, their differences from older AI systems, and their potential use cases such as content creation, verification, and enhancing document style and tone.<br><span class="link" style="margin-top:14px">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></p>
+        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <div class="thumb" aria-hidden="true"><svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice"><use href="#art1"/></svg></div>
+      </a>
+      <a class="item rv" href="https://blog.wizergos.com/" data-peek="#art2">
+        <span class="k">Award<span>May 31, 2024</span></span>
+        <h3>Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit</h3>
+        <p>Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.<br><span class="link" style="margin-top:14px">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></p>
+        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <div class="thumb" aria-hidden="true"><svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice"><use href="#art2"/></svg></div>
+      </a>
+    </div>
+  </div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <g id="art1"><rect width="320" height="220" fill="#7057D9"/><circle cx="240" cy="40" r="140" fill="#A38FF0" opacity=".6"/><circle cx="60" cy="200" r="120" fill="#FF9AD5" opacity=".35"/><circle cx="160" cy="110" r="44" fill="#fff"/><path d="M160 86l7 17 17 7-17 7-7 17-7-17-17-7 17-7z" fill="#7057D9"/><rect x="40" y="92" width="64" height="36" rx="10" fill="#fff" opacity=".9"/><rect x="216" y="92" width="64" height="36" rx="10" fill="#fff" opacity=".9"/><path d="M104 110h12M204 110h12" stroke="#fff" stroke-width="2" stroke-dasharray="3 4"/></g>
+    <g id="art2"><rect width="320" height="220" fill="#17132E"/><circle cx="160" cy="100" r="160" fill="#4B36B8" opacity=".55"/><circle cx="160" cy="100" r="70" fill="none" stroke="#C7B8FF" stroke-opacity=".4"/><circle cx="160" cy="100" r="98" fill="none" stroke="#C7B8FF" stroke-opacity=".2" stroke-dasharray="3 6"/><g transform="translate(160 96)"><path d="M-26 -34h52v28c0 18-12 30-26 30s-26-12-26-30z" fill="#fff"/><path d="M-26 -26h-14c0 14 6 22 16 24M26 -26h14c0 14-6 22-16 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M-6 24h12v14h-12zM-18 38h36v8h-36z" fill="#fff"/><path d="M0 -26l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z" fill="#7057D9"/></g><rect x="94" y="172" width="132" height="28" rx="14" fill="#fff" opacity=".12"/><text x="160" y="190" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-size="12" font-weight="600" fill="#fff">ELETS BFSI Summit</text></g>
+  </defs></svg>
+  <div class="peek" id="peek" aria-hidden="true"><svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice"><use id="peekUse" href="#art1"/></svg></div>
+</section>
+
+<section id="contact">
+  <div class="cta-band">
+    <div class="aur" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h2 class="h2">Low Code Platform for BFSI</h2>
+    <p>Quickly Build Custom Web and Mobile Applications: Unlock Business Value</p>
+    <div class="cta"><a class="btn btn-white" href="#contact">Connect with us <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost" href="#contact">Request Demo</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <img class="logo-l" src="../../assets/brand/wz-full-violet-ink.png" alt="Wizergos. Low Code High Impact" width="216" height="62">
+        <img class="logo-d" src="../../assets/brand/wz-full-white.png" alt="Wizergos. Low Code High Impact" width="216" height="62">
+        <address class="addr">Novel MSR PARK, 18, Varthur Rd, Subbaiah Reddy Colony, Extension, Marathahalli, Bengaluru, Karnataka- 560037</address>
+        <div class="social">
+          <a href="https://www.linkedin.com/company/wizergos/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
+          <a href="https://www.youtube.com/channel/UCeIxc_XJZlSjgjshgfqwo2Q" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.5v-7l6 3.5z"/></svg></a>
+          <a href="https://www.facebook.com/wizergos" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.2c-.3 0-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.2H7.5V12h2.8v10h3.7V12h2.8l.4-3.5z"/></svg></a>
+          <a href="https://x.com/wizergos" target="_blank" rel="noopener" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
+        </div>
+      </div>
+      <div><h6>Company</h6><ul><li><a href="https://wizergos.com/index.html">Home</a></li><li><a href="https://wizergos.com/aboutus%20(1).html">About</a></li><li><a href="https://blog.wizergos.com/">Resources</a></li></ul></div>
+      <div><h6>Winsuregos</h6><ul><li class="sl">Underwriting</li><li><a href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance</a></li><li><a href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance</a></li><li class="sl">Sales</li><li><a href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales</a></li><li><a href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents</a></li><li><a href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management</a></li></ul></div>
+      <div><h6>Low-Code Platform</h6><ul><li><a href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions</a></li><li><a href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance</a></li><li><a href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services</a></li></ul></div>
+    </div>
+    <div class="f-bar">
+      <span>© 2026 by Wizergos.</span>
+      <div class="certs">
+        <a class="cert" href="https://qsrcerti.com/certification-check/" target="_blank" rel="noopener"><img src="../../assets/certifications/iso-9001-2015.webp" alt="ISO 9001:2015 badge" width="40" height="40"><span><b>ISO 9001:2015</b><small>QSR/QW/2603374910</small></span></a>
+        <a class="cert" href="https://torismanagement.com/clients.php" target="_blank" rel="noopener"><img src="../../assets/certifications/iso-27001.webp" alt="ISO 27001 badge" width="40" height="40"><span><b>ISO 27001</b><small>0310I304426</small></span></a>
+        <a class="cert" href="https://ipqms.com/verify_public.php" target="_blank" rel="noopener"><img src="../../assets/certifications/hipaa-compliant.webp" alt="HIPAA Compliant badge" width="40" height="40"><span><b>HIPAA Compliant</b><small>HIPPA-26031004</small></span></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement, figma = root.classList.contains('figma');
+  if (!figma) root.classList.add('js');
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('wzp-theme', next); } catch (e) {}
+    window.wzMode();
+  });
+  var burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+  burger.addEventListener('click', function () { var o = drawer.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  var header = document.querySelector('header.site');
+  function onScroll() { header.classList.toggle('scrolled', scrollY > 8); }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  var asm = document.getElementById('asm'), inner = asm.firstElementChild;
+  function fit() { var k = Math.min(1, asm.clientWidth / 620); inner.style.transform = 'scale(' + k + ')'; asm.style.height = (Math.round(560 * k / 2) * 2) + 'px'; }
+  fit(); addEventListener('resize', fit);
+
+  var picks = document.querySelectorAll('.pick');
+  picks.forEach(function (p) {
+    function sel() { picks.forEach(function (o) { var on = o === p; o.setAttribute('aria-selected', on); document.getElementById(o.dataset.s).classList.toggle('on', on); }); }
+    p.addEventListener('click', function (e) { if (e.target.closest('a')) return; sel(); });
+    p.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sel(); } });
+  });
+
+  var items = document.querySelectorAll('.ai');
+  items.forEach(function (it) {
+    it.querySelector('button').addEventListener('click', function () {
+      var open = !it.classList.contains('open');
+      items.forEach(function (o) { o.classList.remove('open'); o.querySelector('button').setAttribute('aria-expanded', 'false'); });
+      if (open) { it.classList.add('open'); it.querySelector('button').setAttribute('aria-expanded', 'true'); }
+    });
+  });
+
+  var peek = document.getElementById('peek'), use = document.getElementById('peekUse');
+  if (matchMedia('(hover: hover)').matches && !figma) {
+    document.querySelectorAll('.item').forEach(function (it) {
+      it.addEventListener('pointerenter', function () { use.setAttribute('href', it.dataset.peek); peek.classList.add('on'); });
+      it.addEventListener('pointerleave', function () { peek.classList.remove('on'); });
+      it.addEventListener('pointermove', function (e) { peek.style.left = (e.clientX + 180) + 'px'; peek.style.top = e.clientY + 'px'; });
+    });
+  }
+
+  if (!figma && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.rv').forEach(function (e, i) { e.style.transitionDelay = ((i % 3) * 90) + 'ms'; io.observe(e); });
+  }
+})();
+</script>
+</body>
+</html>
