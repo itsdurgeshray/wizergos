@@ -57,7 +57,7 @@ h1, h2, h3, h6, p, figure, address { margin: 0; font-style: normal; }
 .btn-ghost { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
 .link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--v-ink); }
 .link svg { transition: transform .3s ease; } a:hover .link svg { transform: translate(2px, -2px); }
-.gloss { display: grid; place-items: center; color: #fff; border-radius: 50%; background: radial-gradient(circle at 34% 26%, #E9E2FF, #8C74EC 46%, #5338C2 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 14px 30px -12px rgba(112,87,217,.95); }
+.gloss { display: grid; place-items: center; color: #fff; border-radius: 50%; background: var(--v); }
 
 /* ───────── Header ───────── */
 header.site { position: sticky; top: 0; z-index: 60; transition: background-color .3s ease, box-shadow .3s ease; }
@@ -103,35 +103,9 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 82%, transparent
 .hero .lede { margin-top: 28px; max-width: 460px; font-size: 18px; line-height: 30px; color: var(--ink-2); }
 .hero .cta { margin-top: 36px; display: flex; gap: 12px; }
 
-/* app assembles: components glide into the phone */
 .asm { position: relative; width: 100%; }
 .asm-in { position: absolute; left: 0; top: 0; width: 620px; height: 560px; transform-origin: 0 0; }
 .asm-in > * { position: absolute; }
-.phone { left: 330px; top: 10px; width: 270px; height: 540px; border-radius: 46px; padding: 12px; background: #17132E; box-shadow: inset 0 0 0 2px #3A3360, var(--sh-lg); }
-[data-mode="dark"] .phone { background: #241E44; box-shadow: inset 0 0 0 2px rgba(199,184,255,.25), var(--sh-lg); }
-.scr { position: relative; height: 100%; border-radius: 36px; background: var(--paper); padding: 30px 16px 16px; overflow: hidden; }
-.scr .nt { width: 80px; height: 22px; border-radius: 12px; background: #17132E; margin: -18px auto 14px; }
-[data-mode="dark"] .scr .nt { background: #241E44; }
-.scr .top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; line-height: 20px; font-weight: 700; }
-.slot { position: relative; margin-top: 14px; border-radius: 16px; border: 2px dashed var(--line-2); }
-.slot .fill { position: absolute; inset: -2px; border-radius: 16px; padding: 12px; background: var(--paper); box-shadow: 0 0 0 2px var(--v), 0 0 0 6px var(--lav); opacity: 0; animation: fillin 9s infinite; animation-delay: calc(var(--i) * 2s); }
-@keyframes fillin { 0%, 13% { opacity: 0; transform: scale(.96); } 16%, 88% { opacity: 1; transform: none; } 94%, 100% { opacity: 0; } }
-.field { height: 30px; border-radius: 8px; background: var(--lav); margin-top: 8px; }
-.lbl { height: 6px; width: 40%; border-radius: 6px; background: var(--line-2); }
-.bars { display: flex; align-items: flex-end; gap: 6px; height: 76px; }
-.bars i { flex: 1; border-radius: 4px 4px 2px 2px; background: var(--lilac); }
-.bars i:nth-child(odd) { background: var(--v); }
-.msg { padding: 6px 10px; border-radius: 10px 10px 10px 2px; background: var(--lav); font-size: 12px; line-height: 16px; color: var(--ink-2); width: 76%; }
-.msg.me { margin: 6px 0 0 auto; border-radius: 10px 10px 2px 10px; background: var(--v); color: #fff; width: 64%; }
-.comp { left: 10px; width: 190px; height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 16px 0 8px; border-radius: 18px; background: var(--paper); box-shadow: var(--sh), inset 0 0 0 1px var(--line); font-size: 16px; line-height: 20px; font-weight: 600; animation: glide 9s infinite; animation-delay: calc(var(--i) * 2s); }
-.comp .gloss { width: 40px; height: 40px; border-radius: 12px; }
-@keyframes glide { 0%, 2% { transform: translate(0, 0); opacity: 1; } 13% { transform: translate(var(--dx), var(--dy)) scale(.86); opacity: 1; } 15%, 90% { transform: translate(var(--dx), var(--dy)) scale(.86); opacity: 0; } 96% { transform: translate(0, 0); opacity: 0; } 100% { transform: translate(0, 0); opacity: 1; } }
-.trail { left: 0; top: 0; width: 620px; height: 560px; overflow: visible; }
-.trail path { fill: none; stroke: var(--lilac); stroke-width: 2; stroke-dasharray: 3 7; }
-.pub { left: 230px; top: 470px; display: flex; gap: 4px; padding: 6px; border-radius: 100px; background: var(--paper); box-shadow: var(--sh), inset 0 0 0 1px var(--line); }
-.pub span { height: 30px; padding: 0 12px; border-radius: 100px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; color: var(--muted); }
-.pub span.on { background: var(--v); color: #fff; }
-
 .trust { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; padding: 32px 0 72px; }
 .trust p { font-size: 14px; line-height: 22px; font-weight: 500; color: var(--muted); }
 .logos { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
@@ -182,27 +156,6 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 82%, transparent
 .row:last-child { box-shadow: none; }
 .ri { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; background: var(--lav); color: var(--v-ink); }
 .meter { height: 8px; border-radius: 8px; background: var(--lav); overflow: hidden; } .meter i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #C7B8FF, #7057D9); }
-
-/* ───────── Capabilities: compact accordion ───────── */
-.caps { padding: 112px 0; }
-.acc { margin-top: 56px; box-shadow: inset 0 1px 0 var(--line); }
-.ai { box-shadow: inset 0 -1px 0 var(--line); }
-.ai > button { width: 100%; display: grid; grid-template-columns: 72px 1fr 48px; gap: 16px; align-items: center; padding: 26px 0; border: 0; background: none; cursor: pointer; text-align: left; }
-.ai .gloss { width: 52px; height: 52px; border-radius: 16px; transition: transform .4s ease; }
-.ai h3 { font-size: 26px; line-height: 34px; font-weight: 600; letter-spacing: -1px; color: var(--muted); transition: color .3s ease; }
-.ai .pm { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--lav); color: var(--v-ink); transition: transform .4s ease, background-color .3s ease; }
-.ai:hover h3, .ai.open h3 { color: var(--ink); }
-.ai.open .pm { transform: rotate(45deg); background: var(--v); color: #fff; }
-.ai.open .gloss { transform: rotate(-8deg) scale(1.06); }
-.ai .body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s cubic-bezier(.2,.7,.2,1); }
-.ai.open .body { grid-template-rows: 1fr; }
-.ai .body > div { overflow: hidden; }
-.ai .inner { padding: 0 64px 32px 88px; }
-.ai .intro { color: var(--ink-2); margin-bottom: 14px; }
-.ticks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
-.ticks li { position: relative; padding-left: 32px; color: var(--ink-2); }
-.ticks li::before { content: ""; position: absolute; left: 0; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--v); box-shadow: 0 0 0 4px var(--lav); }
-.ticks li::after { content: ""; position: absolute; left: 6px; top: 10px; width: 8px; height: 4px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg); }
 
 /* ───────── Why: kinetic rows ───────── */
 .why { padding: 112px 0; overflow: hidden; }
@@ -280,15 +233,132 @@ footer { padding: 104px 0 40px; }
 .cert b { display: block; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
 .cert small { display: block; font-size: 12px; line-height: 16px; }
 
+/* hero: one app, three channels */
+.webw { left: 0; top: 72px; width: 420px; height: 300px; border-radius: 20px; background: var(--paper); box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line); overflow: hidden; }
+.wb-top { height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 16px; box-shadow: inset 0 -1px 0 var(--line); font-size: 12px; font-weight: 600; color: var(--ink); }
+.wb-top i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+.wb-top span { margin-left: 10px; } .wb-top em { margin-left: auto; font-style: normal; height: 22px; padding: 0 10px; border-radius: 100px; background: var(--v); color: #fff; font-size: 12px; display: inline-flex; align-items: center; }
+.wb-body { display: grid; grid-template-columns: 56px 1fr; height: 256px; }
+.wb-side { box-shadow: inset -1px 0 0 var(--line); padding: 16px 14px; display: grid; gap: 12px; align-content: start; }
+.wb-side b { display: block; height: 28px; border-radius: 8px; background: var(--lav); } .wb-side b.on { background: var(--v); }
+.wb-main { padding: 16px; }
+.wb-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.wb-kpis div { padding: 10px 12px; border-radius: 12px; background: var(--lav); }
+.wb-kpis span { display: block; font-size: 12px; color: var(--muted); } .wb-kpis strong { display: block; font-size: 18px; line-height: 24px; color: var(--ink); }
+.wb-chart { margin-top: 14px; height: 120px; display: flex; align-items: flex-end; gap: 10px; padding: 12px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--line); }
+.wb-chart i { flex: 1; border-radius: 6px 6px 2px 2px; background: var(--lilac); opacity: .7; } .wb-chart i.hi { background: var(--v); opacity: 1; }
+.phone { left: 350px; top: 0; width: 240px; height: 480px; border-radius: 42px; padding: 10px; background: #17132E; box-shadow: inset 0 0 0 2px #3A3360, var(--sh-lg); }
+[data-mode="dark"] .phone { background: #241E44; box-shadow: inset 0 0 0 2px rgba(199,184,255,.25), var(--sh-lg); }
+.scr { height: 100%; border-radius: 34px; background: var(--paper); padding: 28px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+.scr .nt { width: 76px; height: 22px; border-radius: 12px; background: #17132E; margin: -16px auto 4px; }
+[data-mode="dark"] .scr .nt { background: #241E44; }
+.scr .top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.hcard { padding: 16px; border-radius: 18px; color: #fff; background: linear-gradient(140deg, #7057D9, #A38FF0); }
+.hcard span { display: block; font-size: 12px; opacity: .8; } .hcard b { display: block; font-size: 20px; line-height: 26px; }
+.hbar { margin-top: 10px; height: 6px; border-radius: 6px; background: rgba(255,255,255,.3); } .hbar i { display: block; width: 72%; height: 100%; border-radius: 6px; background: #fff; }
+.lrow { display: flex; align-items: center; gap: 10px; height: 40px; box-shadow: inset 0 -1px 0 var(--line); font-size: 12px; color: var(--ink-2); }
+.lrow em { margin-left: auto; font-style: normal; font-size: 12px; font-weight: 600; color: var(--good); } .lrow em.p { color: var(--v-ink); }
+.lrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); } .lrow .dot.off { background: var(--v); }
+.pbtn { margin-top: auto; height: 42px; border-radius: 14px; display: grid; place-items: center; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; }
+.chatw { left: 40px; top: 404px; width: 260px; padding: 14px; border-radius: 20px; background: var(--paper); box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line); }
+.ch-h { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.ch-h .gloss { width: 24px; height: 24px; border-radius: 8px; }
+.toastw { left: 380px; top: 500px; display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 10px; border-radius: 16px; background: var(--paper); box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line); }
+.toastw .ok { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--good); color: #fff; }
+.toastw b { display: block; font-size: 12px; line-height: 18px; color: var(--ink); } .toastw small { display: block; font-size: 12px; line-height: 16px; color: var(--muted); }
+.fl1 { animation: bob 7s ease-in-out infinite alternate; } .fl2 { animation: bob 8s ease-in-out infinite alternate-reverse; } .fl3 { animation: bob 6s ease-in-out infinite alternate; }
+@keyframes bob { from { translate: 0 0; } to { translate: 0 -10px; } }
+
+/* report: featured cover */
+.feature { position: relative; padding: 128px 0; isolation: isolate; overflow: hidden; background: var(--lav); }
+.feature::before { content: ""; position: absolute; z-index: -1; width: 900px; height: 900px; left: -300px; top: -280px; border-radius: 50%; background: radial-gradient(closest-side, var(--aur-2), transparent); }
+[data-mode="dark"] .feature { background: #110E22; box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line); }
+.ft-grid { display: grid; grid-template-columns: 440px 1fr; gap: 96px; align-items: center; }
+.book { display: block; perspective: 1400px; justify-self: center; }
+.cover { position: relative; width: 320px; height: 440px; padding: 32px; border-radius: 8px 20px 20px 8px; color: #fff; overflow: hidden; display: flex; flex-direction: column; transform: rotateY(-16deg) rotateX(4deg); transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2,.7,.2,1); background: linear-gradient(160deg, #4B36B8, #7057D9 50%, #A38FF0); box-shadow: -18px 30px 60px -20px rgba(43,31,115,.6), inset 6px 0 0 rgba(0,0,0,.18), inset 8px 0 0 rgba(255,255,255,.12); }
+.book:hover .cover { transform: rotateY(-4deg) rotateX(0deg) translateY(-6px); }
+.cv-tag { align-self: flex-start; height: 26px; padding: 0 12px; border-radius: 100px; background: rgba(255,255,255,.16); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; }
+.cv-art { width: 100%; height: 180px; margin: 28px 0 24px; }
+.cover b { font-size: 26px; line-height: 32px; font-weight: 600; letter-spacing: -1px; }
+.cover img { margin-top: auto; opacity: .9; }
+.ft-copy .say { margin-top: 20px; font-size: 40px; line-height: 52px; font-weight: 600; letter-spacing: -2px; }
+.ft-cta { margin-top: 40px; display: flex; align-items: center; gap: 20px; }
+.ft-t { font-size: 14px; line-height: 20px; color: var(--muted); max-width: 260px; }
+.numbers { padding: 112px 0 40px; }
+.numbers .stats { margin: 0; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.numbers .stat { padding: 0 32px; box-shadow: inset 1px 0 0 var(--line); }
+.numbers .stat:first-child { padding-left: 0; box-shadow: none; }
+.numbers .stat .n { font-size: 56px; line-height: 60px; }
+
+/* products: typographic switcher, screens float on light (no cards) */
+.picks { gap: 0; box-shadow: inset 0 1px 0 var(--line); }
+.pick { border-radius: 0; padding: 24px 0 24px 28px; box-shadow: inset 0 -1px 0 var(--line); position: relative; }
+.pick::before { content: ""; position: absolute; left: 0; top: 24px; bottom: 24px; width: 4px; border-radius: 4px; background: var(--line-2); transition: background-color .3s ease; }
+.pick[aria-selected="true"] { background: none; box-shadow: inset 0 -1px 0 var(--line); }
+.pick[aria-selected="true"]::before { background: var(--v); }
+.pick b { font-size: 30px; line-height: 38px; }
+.show { background: none !important; border-radius: 0; overflow: visible; box-shadow: none !important; }
+.show::before { content: ""; position: absolute; inset: 6% 4%; border-radius: 50%; background: radial-gradient(closest-side, var(--aur-2), transparent); filter: blur(10px); }
+[data-mode="dark"] .show::before { background: radial-gradient(closest-side, rgba(112,87,217,.45), transparent); }
+
+/* platform: compact switcher, one panel */
+.kit { margin-top: 48px; }
+.ktabs { display: flex; flex-wrap: wrap; gap: 10px; }
+.kt { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 18px 0 6px; border: 0; border-radius: 100px; cursor: pointer; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); font-size: 16px; font-weight: 600; color: var(--ink-2); transition: background-color .3s ease, color .3s ease, box-shadow .3s ease; }
+.kt .gloss { width: 36px; height: 36px; background: var(--lav); color: var(--v-ink); transition: background-color .3s ease, color .3s ease; }
+.kt[aria-selected="true"] .gloss { background: var(--v); color: #fff; }
+[data-mode="dark"] .kt .gloss { background: rgba(199,184,255,.12); color: var(--lilac); }
+[data-mode="dark"] .kt[aria-selected="true"] .gloss { background: var(--v); color: #fff; }
+.kt:hover { box-shadow: inset 0 0 0 1px var(--v); }
+.kt[aria-selected="true"] { background: var(--ink); color: var(--bg); box-shadow: none; }
+.kpanels { margin-top: 28px; }
+.kp { display: none; grid-template-columns: 420px 1fr; gap: 64px; align-items: center; padding: 48px; border-radius: 40px; background: radial-gradient(60% 80% at 0% 50%, var(--aur-2), transparent 70%), var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+[data-mode="dark"] .kp { background: radial-gradient(60% 80% at 0% 50%, rgba(112,87,217,.3), transparent 70%), #15122A; }
+.kp.on { display: grid; animation: kin .5s cubic-bezier(.2,.7,.2,1); }
+@keyframes kin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.kp-art { position: relative; height: 300px; display: grid; place-items: center; }
+.kp-art .ring { position: absolute; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line-2); }
+.kp-art .r1 { width: 200px; height: 200px; } .kp-art .r2 { width: 300px; height: 300px; opacity: .6; box-shadow: inset 0 0 0 1px var(--line-2); }
+.kp-art .big { position: relative; width: 120px; height: 120px; border-radius: 36px; box-shadow: 0 24px 48px -20px rgba(112,87,217,.7); }
+.kp-n { position: absolute; right: 40px; top: 20px; font-size: 14px; font-weight: 700; color: var(--v-ink); }
+.kp-copy h3 { font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -1px; }
+.kp-copy .intro { margin-top: 12px; color: var(--ink-2); }
+.kp-copy .ticks { margin-top: 24px; grid-template-columns: 1fr; gap: 16px; }
+
+/* resources: thumbnails always shown */
+.item { grid-template-columns: 320px 1fr 56px; gap: 48px; align-items: center; }
+.item .thumb { display: block; order: -1; width: 320px; height: 220px; border-radius: 24px; overflow: hidden; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.item:hover .thumb { transform: rotate(-2deg) scale(1.02); }
+.item .body2 h3 { margin-top: 8px; }
+.item .body2 p { margin-top: 12px; }
+.peek { display: none !important; }
+
+@media (max-width: 1080px) {
+  .ft-grid { grid-template-columns: 1fr; gap: 56px; }
+  .numbers .stats { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .numbers .stat:nth-child(3) { padding-left: 0; box-shadow: none; }
+  .kp { grid-template-columns: 1fr; gap: 24px; padding: 32px; }
+  .kp-art { height: 220px; }
+  .item { grid-template-columns: 240px 1fr; } .item .thumb { width: 240px; height: 168px; } .item .go { display: none; }
+}
+@media (max-width: 640px) {
+  .ft-copy .say { font-size: 28px; line-height: 38px; }
+  .ft-cta { flex-direction: column; align-items: flex-start; }
+  .cover { width: 260px; height: 360px; } .cover b { font-size: 20px; line-height: 26px; }
+  .numbers .stats { grid-template-columns: 1fr; }
+  .numbers .stat { padding: 0 !important; box-shadow: none !important; }
+  .kt { height: 44px; font-size: 14px; }
+  .kp { padding: 24px; border-radius: 28px; }
+  .kp-copy h3 { font-size: 24px; line-height: 32px; }
+  .item { grid-template-columns: 1fr; } .item .thumb { width: 100%; height: 200px; }
+}
+
 .js .rv { opacity: 0; transform: translateY(20px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
 .js .rv.in { opacity: 1; transform: none; }
 .figma *, .figma *::before, .figma *::after { animation: none !important; transition: none !important; }
 .figma .rv { opacity: 1 !important; transform: none !important; }
-.figma .slot .fill { opacity: 1; }
-.figma .comp { opacity: 0; }
-.figma .ai .body { grid-template-rows: 1fr; }
-.figma .item .thumb { display: block; grid-column: 2 / 4; width: 480px; height: 330px; border-radius: 24px; overflow: hidden; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } .slot .fill { opacity: 1; } .comp { opacity: 0; } }
+.figma .kp { display: grid !important; margin-bottom: 24px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
 
 /* ───────── Responsive ───────── */
 @media (max-width: 1080px) {
@@ -399,18 +469,27 @@ footer { padding: 104px 0 40px; }
       </div>
       <div class="asm" id="asm" aria-hidden="true">
         <div class="asm-in">
-          <svg class="trail" viewBox="0 0 620 560"><path d="M200 128 C 260 128, 280 150, 362 150"/><path d="M200 248 C 260 248, 280 290, 362 290"/><path d="M200 368 C 260 368, 280 412, 362 412"/></svg>
-          <div class="phone"><div class="scr">
+          <div class="webw fl1">
+            <div class="wb-top"><i></i><i></i><i></i><span>Claims Processing</span><em>Web</em></div>
+            <div class="wb-body">
+              <div class="wb-side"><b class="on"></b><b></b><b></b><b></b></div>
+              <div class="wb-main">
+                <div class="wb-kpis"><div><span>Claims</span><strong>Live</strong></div><div><span>Channels</span><strong>3</strong></div></div>
+                <div class="wb-chart"><i style="height:38%"></i><i style="height:56%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:62%"></i><i style="height:84%"></i><i class="hi" style="height:100%"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="phone fl2"><div class="scr">
             <div class="nt"></div>
             <div class="top">Policy servicing <span class="chip">Insurance</span></div>
-            <div class="slot" style="height:118px"><div class="fill" style="--i:0"><div class="lbl"></div><div class="field"></div><div class="lbl" style="margin-top:10px;width:30%"></div><div class="field"></div></div></div>
-            <div class="slot" style="height:124px"><div class="fill" style="--i:1"><div class="bars"><i style="height:40%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:80%"></i><i style="height:66%"></i><i style="height:100%"></i></div></div></div>
-            <div class="slot" style="height:104px"><div class="fill" style="--i:2"><div class="msg">How can I help?</div><div class="msg me">Renew my policy</div></div></div>
+            <div class="hcard"><span>Claim status</span><b>In review</b><div class="hbar"><i></i></div></div>
+            <div class="lrow"><span class="dot"></span>Documents<em>Verified</em></div>
+            <div class="lrow"><span class="dot"></span>Coverage<em>Validated</em></div>
+            <div class="lrow"><span class="dot off"></span>Surveyor<em class="p">Assigned</em></div>
+            <div class="pbtn">Track claim</div>
           </div></div>
-          <div class="comp" style="top:100px;--i:0;--dx:182px;--dy:22px"><span class="gloss"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h4"/></svg></span>Form</div>
-          <div class="comp" style="top:220px;--i:1;--dx:182px;--dy:44px"><span class="gloss"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Chart</div>
-          <div class="comp" style="top:340px;--i:2;--dx:182px;--dy:48px"><span class="gloss"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></span>Chatbot</div>
-          <div class="pub"><span class="on">Web</span><span>Android</span><span>iOS</span></div>
+          <div class="chatw fl3"><div class="ch-h"><span class="gloss"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/></svg></span>Claims Assistant</div><div class="msg">How can I help?</div><div class="msg me">Renew my policy</div></div>
+          <div class="toastw fl1"><span class="ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></span><span><b>Published</b><small>Web · Android · iOS</small></span></div>
         </div>
       </div>
     </div>
@@ -431,22 +510,33 @@ footer { padding: 104px 0 40px; }
   </div>
 </section>
 
-<section class="statement">
+<section class="feature">
   <div class="wrap">
-    <div class="st-grid">
-      <div>
+    <div class="ft-grid">
+      <a class="book rv" href="https://blog.wizergos.com/" aria-label="Accelerating Innovation @ Speed and Scale in Insurance">
+        <div class="cover">
+          <span class="cv-tag">Report</span>
+          <svg class="cv-art" viewBox="0 0 256 180" aria-hidden="true"><g stroke="#fff" stroke-opacity=".18" stroke-width="1"><path d="M0 44h256M0 90h256M0 136h256"/><path d="M64 0v180M128 0v180M192 0v180"/></g><path d="M0 160 C 48 156, 64 120, 104 118 S 160 74, 200 58 S 240 22, 256 16 L256 180 L0 180Z" fill="#fff" fill-opacity=".12"/><path d="M0 160 C 48 156, 64 120, 104 118 S 160 74, 200 58 S 240 22, 256 16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="104" cy="118" r="5" fill="#fff"/><circle cx="200" cy="58" r="5" fill="#fff"/><circle cx="250" cy="18" r="8" fill="#fff"/><circle cx="250" cy="18" r="16" fill="#fff" fill-opacity=".2"/></svg>
+          <b>Accelerating Innovation @ Speed and Scale in Insurance</b>
+          <img src="../../assets/brand/wz-word-white.png" alt="" width="96" height="22">
+        </div>
+      </a>
+      <div class="ft-copy">
         <span class="pill">Report</span>
         <p class="say rv">Understand how Insurers can rapidly develop various applications for key functions like <span class="v">product development, underwriting, policy management, customer service, claims processing, and risk management.</span></p>
+        <div class="ft-cta rv"><a class="btn btn-v" href="https://blog.wizergos.com/">Read the Report <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="ft-t">Accelerating Innovation @ Speed and Scale in Insurance</span></div>
       </div>
-      <div>
-        <a class="report rv" href="https://blog.wizergos.com/"><span class="gloss"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-6M15 17v-4"/></svg></span><span><b>Accelerating Innovation @ Speed and Scale in Insurance</b><span class="link">Read the Report <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></span></a>
-        <div class="stats">
-          <div class="stat rv"><div class="n">1 <small>code base</small></div><b>Native mobile</b><p>Develop native mobile applications (Android/iOS) from one code base.</p></div>
-          <div class="stat rv"><div class="n">3 <small>app types</small></div><b>Multi-modal</b><p>Build your applications as web or mobile or conversational (Chatbots) applications.</p></div>
-          <div class="stat rv"><div class="n">REST <small>+ SOAP</small></div><b>Integrations</b><p>REST and SOAP API based integrations · Direct integrations with DBs</p></div>
-          <div class="stat rv"><div class="n">2024 <small>award</small></div><b>ELETS BFSI Summit</b><p>Best "Low-Code Digital Transformation Solution Provider" by ELETS.</p></div>
-        </div>
-      </div>
+    </div>
+  </div>
+</section>
+
+<section class="numbers">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><div class="n">1 <small>code base</small></div><b>Native mobile</b><p>Develop native mobile applications (Android/iOS) from one code base.</p></div>
+      <div class="stat rv"><div class="n">3 <small>app types</small></div><b>Multi-modal</b><p>Build your applications as web or mobile or conversational (Chatbots) applications.</p></div>
+      <div class="stat rv"><div class="n">REST <small>+ SOAP</small></div><b>Integrations</b><p>REST and SOAP API based integrations · Direct integrations with DBs</p></div>
+      <div class="stat rv"><div class="n">2024 <small>award</small></div><b>ELETS BFSI Summit</b><p>Best "Low-Code Digital Transformation Solution Provider" by ELETS.</p></div>
     </div>
   </div>
 </section>
@@ -515,13 +605,9 @@ footer { padding: 104px 0 40px; }
   <div class="wrap">
     <span class="pill">Platform</span>
     <h2 class="h2" style="margin-top:16px;max-width:820px">How does Wizergos Low-Code Platform <span class="v">Empower Enterprises?</span></h2>
-    <div class="acc" id="acc">
-      <div class="ai open"><button type="button" aria-expanded="true"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span><h3>Accelerate Digital Transformation</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Draft a Digital Business Strategy with a focus on business model and process led innovation.</li><li>Empower your business to be software-driven by developing multiple applications quickly.</li><li>Reimagine and delight your customers with superior UI/UX for a range of applications.</li></ul></div></div></div></div>
-      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.5"/><path d="M6 19h6"/></svg></span><h3>Build Multi-Device &amp; Multi-Modal Applications</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Build your applications as web or mobile or conversational (Chatbots) applications.</li><li>Develop native mobile applications (Android/iOS) from one code base.</li><li>Enjoy the benefits of choice of application designs that your users will simply love!</li></ul></div></div></div></div>
-      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg></span><h3>Build API-driven Integrations</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><p class="intro">Easier and faster integration of applications and processes.</p><ul class="ticks"><li>REST and SOAP API based integrations</li><li>Direct integrations with DBs</li></ul></div></div></div></div>
-      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg></span><h3>Automate Business Processes</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Adopt a Low-Code powered approach to automating flows for any business process for any industry vertical.</li><li>Quickly reuse application components to automate flows.</li><li>Leverage Intelligent Document Processing or GenAI for various critical processes.</li></ul></div></div></div></div>
-      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span><h3>Modernize Applications</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Streamline the modernization of legacy applications by enabling quick development and deployment of new features, reducing the time and cost associated with traditional coding.</li><li>Facilitate seamless integration with existing systems and databases, allowing legacy applications to scale and adapt to new business requirements without extensive rework.</li></ul></div></div></div></div>
-      <div class="ai"><button type="button" aria-expanded="false"><span class="gloss"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span><h3>Harnessing Data Analytics, AI, and Generative AI</h3><span class="pm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="body"><div><div class="inner"><ul class="ticks"><li>Embed data analytics &amp; dashboarding capabilities in your applications.</li><li>Empower applications with AI and Generative AI functionalities for a variety of use cases across industry domains.</li></ul></div></div></div></div>
+    <div class="kit">
+      <div class="ktabs" role="tablist"><button class="kt" role="tab" aria-selected="true" data-k="0"><span class="gloss"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span>Accelerate Digital Transformation</button><button class="kt" role="tab" aria-selected="false" data-k="1"><span class="gloss"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.5"/><path d="M6 19h6"/></svg></span>Build Multi-Device &amp; Multi-Modal Applications</button><button class="kt" role="tab" aria-selected="false" data-k="2"><span class="gloss"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg></span>Build API-driven Integrations</button><button class="kt" role="tab" aria-selected="false" data-k="3"><span class="gloss"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg></span>Automate Business Processes</button><button class="kt" role="tab" aria-selected="false" data-k="4"><span class="gloss"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span>Modernize Applications</button><button class="kt" role="tab" aria-selected="false" data-k="5"><span class="gloss"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span>Harnessing Data Analytics, AI, and Generative AI</button></div>
+      <div class="kpanels"><div class="kp on" id="kp0"><div class="kp-art" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span><span class="gloss big"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span><span class="kp-n">01</span></div><div class="kp-copy"><h3>Accelerate Digital Transformation</h3><ul class="ticks"><li>Draft a Digital Business Strategy with a focus on business model and process led innovation.</li><li>Empower your business to be software-driven by developing multiple applications quickly.</li><li>Reimagine and delight your customers with superior UI/UX for a range of applications.</li></ul></div></div><div class="kp" id="kp1"><div class="kp-art" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span><span class="gloss big"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.5"/><path d="M6 19h6"/></svg></span><span class="kp-n">02</span></div><div class="kp-copy"><h3>Build Multi-Device &amp; Multi-Modal Applications</h3><ul class="ticks"><li>Build your applications as web or mobile or conversational (Chatbots) applications.</li><li>Develop native mobile applications (Android/iOS) from one code base.</li><li>Enjoy the benefits of choice of application designs that your users will simply love!</li></ul></div></div><div class="kp" id="kp2"><div class="kp-art" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span><span class="gloss big"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg></span><span class="kp-n">03</span></div><div class="kp-copy"><h3>Build API-driven Integrations</h3><p class="intro">Easier and faster integration of applications and processes.</p><ul class="ticks"><li>REST and SOAP API based integrations</li><li>Direct integrations with DBs</li></ul></div></div><div class="kp" id="kp3"><div class="kp-art" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span><span class="gloss big"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg></span><span class="kp-n">04</span></div><div class="kp-copy"><h3>Automate Business Processes</h3><ul class="ticks"><li>Adopt a Low-Code powered approach to automating flows for any business process for any industry vertical.</li><li>Quickly reuse application components to automate flows.</li><li>Leverage Intelligent Document Processing or GenAI for various critical processes.</li></ul></div></div><div class="kp" id="kp4"><div class="kp-art" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span><span class="gloss big"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span><span class="kp-n">05</span></div><div class="kp-copy"><h3>Modernize Applications</h3><ul class="ticks"><li>Streamline the modernization of legacy applications by enabling quick development and deployment of new features, reducing the time and cost associated with traditional coding.</li><li>Facilitate seamless integration with existing systems and databases, allowing legacy applications to scale and adapt to new business requirements without extensive rework.</li></ul></div></div><div class="kp" id="kp5"><div class="kp-art" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span><span class="gloss big"><svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span><span class="kp-n">06</span></div><div class="kp-copy"><h3>Harnessing Data Analytics, AI, and Generative AI</h3><ul class="ticks"><li>Embed data analytics &amp; dashboarding capabilities in your applications.</li><li>Empower applications with AI and Generative AI functionalities for a variety of use cases across industry domains.</li></ul></div></div></div>
     </div>
   </div>
 </section>
@@ -568,18 +654,14 @@ footer { padding: 104px 0 40px; }
     <h2 class="h2" style="margin-top:16px">Blog <span class="v">&amp; Awards</span></h2>
     <div class="list">
       <a class="item rv" href="https://blog.wizergos.com/" data-peek="#art1">
-        <span class="k">Blog</span>
-        <h3>Generative AI + Low-Code</h3>
-        <p>This blog discusses the applications and benefits of Generative AI for enterprises, detailing LLMs, their differences from older AI systems, and their potential use cases such as content creation, verification, and enhancing document style and tone.<br><span class="link" style="margin-top:14px">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></p>
-        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         <div class="thumb" aria-hidden="true"><svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice"><use href="#art1"/></svg></div>
+        <div class="body2"><span class="k">Blog</span><h3>Generative AI + Low-Code</h3><p>This blog discusses the applications and benefits of Generative AI for enterprises, detailing LLMs, their differences from older AI systems, and their potential use cases such as content creation, verification, and enhancing document style and tone.<br><span class="link" style="margin-top:14px">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></p></div>
+        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="item rv" href="https://blog.wizergos.com/" data-peek="#art2">
-        <span class="k">Award<span>May 31, 2024</span></span>
-        <h3>Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit</h3>
-        <p>Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.<br><span class="link" style="margin-top:14px">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></p>
-        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         <div class="thumb" aria-hidden="true"><svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice"><use href="#art2"/></svg></div>
+        <div class="body2"><span class="k">Award<span>May 31, 2024</span></span><h3>Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit</h3><p>Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.<br><span class="link" style="margin-top:14px">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></p></div>
+        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
     </div>
   </div>
@@ -656,23 +738,10 @@ footer { padding: 104px 0 40px; }
     p.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sel(); } });
   });
 
-  var items = document.querySelectorAll('.ai');
-  items.forEach(function (it) {
-    it.querySelector('button').addEventListener('click', function () {
-      var open = !it.classList.contains('open');
-      items.forEach(function (o) { o.classList.remove('open'); o.querySelector('button').setAttribute('aria-expanded', 'false'); });
-      if (open) { it.classList.add('open'); it.querySelector('button').setAttribute('aria-expanded', 'true'); }
-    });
-  });
-
-  var peek = document.getElementById('peek'), use = document.getElementById('peekUse');
-  if (matchMedia('(hover: hover)').matches && !figma) {
-    document.querySelectorAll('.item').forEach(function (it) {
-      it.addEventListener('pointerenter', function () { use.setAttribute('href', it.dataset.peek); peek.classList.add('on'); });
-      it.addEventListener('pointerleave', function () { peek.classList.remove('on'); });
-      it.addEventListener('pointermove', function (e) { peek.style.left = (e.clientX + 180) + 'px'; peek.style.top = e.clientY + 'px'; });
-    });
-  }
+  var kts = document.querySelectorAll('.kt');
+  kts.forEach(function (t) { t.addEventListener('click', function () {
+    kts.forEach(function (o) { var on = o === t; o.setAttribute('aria-selected', on); document.getElementById('kp' + o.dataset.k).classList.toggle('on', on); });
+  }); });
 
   if (!figma && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -6% 0px' });
