@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wizergos | Design Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0 auto; max-width: 1440px; background: #F6F6F4; color: #111318; font-family: "Inter", system-ui, sans-serif; font-size: 16px; line-height: 26px; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 72px 40px 96px; }
+header { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; padding-bottom: 40px; box-shadow: inset 0 -1px 0 #DEDDD8; }
+header img { height: 32px; width: 142px; }
+h1 { margin: 24px 0 0; font-size: 44px; line-height: 52px; font-weight: 600; letter-spacing: -2px; }
+header p { margin: 0; max-width: 420px; color: #5E626B; }
+.grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.d { display: flex; flex-direction: column; }
+.sw { height: 240px; border-radius: 20px; position: relative; overflow: hidden; padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; transition: transform .3s ease; }
+.d:hover .sw { transform: translateY(-4px); }
+.sw b { font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -1px; }
+.chips { display: flex; gap: 8px; margin-top: 16px; }
+.chips i { width: 32px; height: 32px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255,255,255,.6); }
+.d small { margin-top: 20px; font-size: 14px; line-height: 20px; font-weight: 600; color: #5E626B; }
+.d h2 { margin: 6px 0 0; font-size: 22px; line-height: 30px; font-weight: 600; letter-spacing: -1px; }
+.d p { margin: 10px 0 0; color: #5E626B; font-size: 15px; line-height: 24px; }
+.d ul { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 14px; line-height: 22px; color: #3B3F47; }
+.d li { padding-left: 18px; position: relative; } .d li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.open { margin-top: 20px; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 100px; background: #111318; color: #fff; font-size: 14px; font-weight: 500; align-self: flex-start; }
+.cur { margin-top: 56px; font-size: 14px; color: #5E626B; }
+.cur a { color: #111318; font-weight: 500; box-shadow: inset 0 -1px 0 #111318; }
+@media (max-width: 960px) { .grid { grid-template-columns: 1fr; } header { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 640px) { .wrap { padding: 48px 20px 72px; } h1 { font-size: 34px; line-height: 40px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><img src="../assets/brand/wz-word-navy-ink.png" alt="Wizergos" width="142" height="32"><h1>Three design directions</h1></div>
+    <p>Same content and section order in all three. Each opens in light or dark from the toggle in its header.</p>
+  </header>
+  <div class="grid">
+    <a class="d" href="violet/">
+      <div class="sw" style="background:radial-gradient(60% 70% at 88% 20%, #7057D9, transparent 70%), linear-gradient(160deg, #F7F7FB, #EFEBFF 40%, #C7B8FF 80%, #9C88EC);color:#16132B"><b>Violet Flow</b><div class="chips"><i style="background:#7057D9"></i><i style="background:#C7B8FF"></i><i style="background:#EFEBFF"></i><i style="background:#F7F7FB"></i></div></div>
+      <small>Direction 01 · AI violet</small>
+      <h2>Vibrant, gradient-led and fluid</h2>
+      <p>A full-width gradient hero where the workflow runs step by step, with client logos in the same first section.</p>
+      <ul><li>Workflow animation as the hero (n8n)</li><li>Product suite tabs, open editorial lists</li><li>Testimonials stream sideways</li></ul>
+      <span class="open">Open direction 01</span>
+    </a>
+    <a class="d" href="ledger/">
+      <div class="sw" style="background:linear-gradient(180deg, #F5F3EE 0 30%, #0A3F30 30%);color:#F5F3EE"><b>Emerald Ledger</b><div class="chips"><i style="background:#0E5C45"></i><i style="background:#7CE3B6"></i><i style="background:#F5F3EE"></i><i style="background:#10231C"></i></div></div>
+      <small>Direction 02 · Our suggestion</small>
+      <h2>Editorial, ruled and trustworthy</h2>
+      <p>Deep emerald and mint on warm paper, built like a financial ledger. No cards at all: everything sits on hairline rules and columns.</p>
+      <ul><li>Product video with chapters (Sixfold)</li><li>Static client ledger in the hero</li><li>Testimonials stream on an emerald band</li></ul>
+      <span class="open">Open direction 02</span>
+    </a>
+    <a class="d" href="blueprint/">
+      <div class="sw" style="background-color:#F2F8FC;background-image:linear-gradient(rgba(28,140,196,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(28,140,196,.16) 1px, transparent 1px), linear-gradient(rgba(28,140,196,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(28,140,196,.07) 1px, transparent 1px);background-size:120px 120px,120px 120px,24px 24px,24px 24px;color:#0B2238"><b>Blueprint</b><div class="chips"><i style="background:#4FB5E3"></i><i style="background:#1C8CC4"></i><i style="background:#0B2238"></i><i style="background:#E1F2FA"></i></div></div>
+      <small>Direction 03 · Wizergos logo blue</small>
+      <h2>Precise, technical and engineered</h2>
+      <p>Built on the blue of the Wizergos logo dot. A blueprint grid where the workflow draws itself like a technical schematic.</p>
+      <ul><li>Self-drawing schematic workflow</li><li>Exploded diagram, one layer per product</li><li>Sliding testimonial carousel</li></ul>
+      <span class="open">Open direction 03</span>
+    </a>
+  </div>
+  <p class="cur">Current design for comparison: <a href="../">wizergos homepage</a></p>
+</div>
+</body>
+</html>
