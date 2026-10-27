@@ -217,31 +217,21 @@ footer { padding: 104px 0 40px; }
 .cert b { display: block; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
 .cert small { display: block; font-size: 12px; line-height: 16px; }
 
-/* hero: drag a component into a claims app, it goes live on web and mobile */
-.lc-pal, .lc-app, .lc-live { position: absolute; background: var(--paper); box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line); animation: lcIn .6s cubic-bezier(.2,.7,.2,1) both; }
-[data-mode="dark"] .lc-pal, [data-mode="dark"] .lc-app, [data-mode="dark"] .lc-live { background: #1C1838; box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line-2); }
-.lc-pal { left: 24px; top: 168px; width: 196px; padding: 16px; border-radius: 22px; display: grid; gap: 8px; }
-.lc-pal small { margin-bottom: 4px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--muted); }
-.lc-ch { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 8px; border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
-.lc-ch i { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--lav); color: var(--v-ink); }
-.lc-ch.ghost { opacity: .45; box-shadow: inset 0 0 0 2px var(--line-2); background: none; }
-.lc-app { left: 296px; top: 40px; width: 280px; height: 440px; padding: 20px; border-radius: 36px; display: flex; flex-direction: column; gap: 12px; animation-delay: .1s; }
-.lc-top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+/* hero: one static app screen, live on web and mobile */
+.lc-app, .lc-live { position: absolute; background: var(--paper); box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line); }
+[data-mode="dark"] .lc-app, [data-mode="dark"] .lc-live { background: #1C1838; box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line-2); }
+.lc-app { left: 150px; top: 36px; width: 320px; height: 440px; padding: 24px; border-radius: 40px; display: flex; flex-direction: column; gap: 16px; }
+.lc-top { display: flex; justify-content: space-between; align-items: center; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
 .lc-top span { display: flex; gap: 4px; } .lc-top span i { width: 16px; height: 4px; border-radius: 4px; background: var(--v); } .lc-top span i + i + i { background: var(--line-2); }
-.lc-st { padding: 14px 16px; border-radius: 18px; color: #fff; background: linear-gradient(140deg, #6247D0, #A38FF0); }
-.lc-st span { display: block; font-size: 12px; line-height: 16px; opacity: .8; } .lc-st b { display: block; margin: 2px 0 10px; font-size: 20px; line-height: 26px; font-weight: 600; }
+.lc-st { padding: 16px 18px; border-radius: 20px; color: #fff; background: linear-gradient(140deg, #6247D0, #A38FF0); }
+.lc-st span { display: block; font-size: 12px; line-height: 16px; opacity: .8; } .lc-st b { display: block; margin: 2px 0 12px; font-size: 22px; line-height: 28px; font-weight: 600; }
 .lc-st em { display: block; height: 6px; border-radius: 6px; background: rgba(255,255,255,.3); } .lc-st em::before { content: ""; display: block; width: 64%; height: 100%; border-radius: 6px; background: #fff; }
-.lc-f { display: grid; gap: 6px; } .lc-f i { width: 72px; height: 8px; border-radius: 8px; background: var(--line-2); } .lc-f u { height: 36px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line-2); }
-.lc-drop { position: relative; height: 84px; display: flex; align-items: flex-end; gap: 8px; padding: 14px 16px; border-radius: 16px; background: var(--lav); box-shadow: inset 0 0 0 2px var(--v), 0 0 0 4px rgba(112,87,217,.16); animation: lcDrag 1s cubic-bezier(.6,0,.2,1) .6s both; }
-.lc-drop b { flex: 1; border-radius: 4px 4px 2px 2px; background: var(--lilac); } .lc-drop b.hi { background: var(--v); }
-.lc-cur { position: absolute; right: -14px; bottom: -18px; width: 24px; height: 24px; filter: drop-shadow(0 4px 6px rgba(23,19,46,.3)); }
-.lc-go { margin-top: auto; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 14px; font-weight: 600; color: var(--bg); background: var(--ink); }
-.lc-path { position: absolute; left: 0; top: 0; overflow: visible; animation: lcIn .4s ease 1.5s both; }
-.lc-path path { fill: none; stroke: var(--v); stroke-width: 2; stroke-dasharray: 4 6; stroke-linecap: round; opacity: .6; }
-.lc-live { left: 436px; top: 500px; translate: -50% 0; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px 0 6px; border-radius: 100px; font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; animation-delay: 1.5s; }
+.lc-f { display: grid; gap: 8px; } .lc-f i { width: 80px; height: 8px; border-radius: 8px; background: var(--line-2); } .lc-f u { height: 40px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line-2); }
+.lc-seg { display: flex; gap: 8px; } .lc-seg span { flex: 1; height: 36px; border-radius: 100px; display: grid; place-items: center; font-size: 12px; font-weight: 600; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line-2); }
+.lc-seg span.on { color: var(--v-ink); background: var(--lav); box-shadow: inset 0 0 0 1px var(--v); }
+.lc-go { margin-top: auto; height: 48px; border-radius: 16px; display: grid; place-items: center; font-size: 14px; font-weight: 600; color: var(--bg); background: var(--ink); }
+.lc-live { left: 310px; top: 496px; translate: -50% 0; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px 0 6px; border-radius: 100px; font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; }
 .lc-live i { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: var(--good); }
-@keyframes lcIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-@keyframes lcDrag { 0% { opacity: 0; transform: translate(-276px, -12px) scale(.7); } 20% { opacity: 1; } 100% { opacity: 1; transform: none; } }
 
 /* report: featured cover */
 .feature { position: relative; padding: 128px 0; isolation: isolate; overflow: hidden; background: var(--lav); }
@@ -457,20 +447,12 @@ footer { padding: 104px 0 40px; }
       </div>
       <div class="asm" id="asm" aria-hidden="true">
         <div class="asm-in">
-          <svg class="lc-path" width="620" height="560" viewBox="0 0 620 560"><path d="M204 338 C 252 338, 268 350, 312 350"/></svg>
-          <div class="lc-pal">
-            <small>Components</small>
-            <span class="lc-ch"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8"/></svg></i>Form</span>
-            <span class="lc-ch"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></i>Table</span>
-            <span class="lc-ch ghost"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></i>Chart</span>
-          </div>
           <div class="lc-app">
             <div class="lc-top">Claim intake<span><i></i><i></i><i></i></span></div>
             <div class="lc-st"><span>Claim status</span><b>In review</b><em></em></div>
             <div class="lc-f"><i></i><u></u></div>
             <div class="lc-f"><i style="width:56px"></i><u></u></div>
-            <div class="lc-drop"><b style="height:40%"></b><b style="height:62%"></b><b style="height:48%"></b><b style="height:80%"></b><b class="hi" style="height:100%"></b>
-              <svg class="lc-cur" viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6z" fill="#17132E" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+            <div class="lc-seg"><span class="on">Motor</span><span>Health</span><span>Property</span></div>
             <div class="lc-go">Submit claim</div>
           </div>
           <div class="lc-live"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i>Web · Android · iOS</div>
