@@ -217,23 +217,19 @@ header.scrolled .logo-white { display: none; } header.scrolled .logo-ink { displ
 [data-mode="dark"] .logos img { filter: invert(1); opacity: .55; }
 
 /* ───────── Statement ───────── */
-.statement { padding: 120px 0 112px; }
-.rp { display: grid; grid-template-columns: 5fr 6fr; gap: 96px; align-items: start; }
-.rp-l { position: sticky; top: 120px; }
-.say { margin-top: 24px; font-size: 40px; line-height: 52px; font-weight: 700; letter-spacing: -2px; color: var(--ink); }
-.rdoc { margin-top: 48px; display: flex; align-items: center; gap: 20px; padding: 20px 24px 20px 20px; border-radius: 24px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line), var(--sh); }
-.rdoc .doc { width: 64px; height: 80px; flex-shrink: 0; }
-.rdoc b { display: block; font-size: 18px; line-height: 26px; font-weight: 700; }
-.rdoc .link { margin-top: 6px; }
-.index { list-style: none; counter-reset: none; box-shadow: inset 0 1px 0 var(--line); }
-.ix { position: relative; display: grid; grid-template-columns: 48px 56px 1fr; align-items: center; gap: 8px; height: 96px; padding: 0 24px 0 8px; box-shadow: inset 0 -1px 0 var(--line); isolation: isolate; }
-.ix::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 20px; background: var(--mint-soft); opacity: 0; transform: scaleX(.96); transition: opacity .35s ease, transform .35s ease; }
-.ix:hover::before { opacity: 1; transform: none; }
-.ix .n { font-size: 14px; line-height: 20px; font-weight: 800; color: var(--gold); }
-.ix .ic { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--em-ink); box-shadow: inset 0 0 0 1px var(--line-2, rgba(14,92,69,.2)); }
-.ix b { font-size: 30px; line-height: 38px; font-weight: 700; letter-spacing: -1px; text-transform: capitalize; }
-.ix .and { text-transform: none; color: var(--muted); font-weight: 600; }
-.metrics { margin-top: 128px; padding-top: 56px; box-shadow: inset 0 1px 0 var(--line); display: grid; grid-template-columns: repeat(4, 1fr); text-align: left; }
+.statement { padding: 136px 0 120px; }
+.ed { max-width: 1080px; margin: 0 auto; text-align: center; }
+.ed .say { margin-top: 32px; font-size: 44px; line-height: 76px; font-weight: 700; letter-spacing: -2px; color: var(--ink); }
+.fn { display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 20px 0 10px; margin: 0 2px 0 0; border-radius: 100px; vertical-align: 6px; white-space: nowrap; font-size: 36px; line-height: 44px; letter-spacing: -1px; color: var(--em-ink); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line), 0 12px 28px -18px rgba(12,31,25,.35); }
+.fn i { width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; background: #0E5C45; color: #7CE3B6; }
+[data-mode="dark"] .fn { background: rgba(124,227,182,.08); box-shadow: inset 0 0 0 1px var(--line-2); }
+[data-mode="dark"] .fn i { background: #7CE3B6; color: #052219; }
+.ticket { margin-top: 64px; display: inline-flex; align-items: center; gap: 24px; padding: 14px 14px 14px 16px; border-radius: 32px; text-align: left; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line), var(--sh); transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
+.ticket:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px var(--line), var(--sh-lg); }
+.tk-cover { width: 72px; height: 92px; flex-shrink: 0; }
+.ticket b { display: block; max-width: 340px; font-size: 18px; line-height: 26px; font-weight: 800; letter-spacing: -.5px; }
+.ticket .btn { height: 52px; flex-shrink: 0; }
+.metrics { margin-top: 112px; padding-top: 56px; box-shadow: inset 0 1px 0 var(--line); display: grid; grid-template-columns: repeat(4, 1fr); text-align: left; }
 .metric { padding: 4px 36px; box-shadow: inset 1px 0 0 var(--line); }
 .metric:first-child { padding-left: 0; box-shadow: none; }
 .metric .v { font-size: 56px; line-height: 60px; font-weight: 800; letter-spacing: -3px; color: var(--em-ink); }
@@ -351,44 +347,35 @@ header.scrolled .logo-white { display: none; } header.scrolled .logo-ink { displ
 
 /* ───────── Resources: magazine spread ───────── */
 .res { padding: 0 0 120px; }
-.spread { margin-top: 56px; display: grid; grid-template-columns: 7fr 5fr; gap: 48px; }
+.spread { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 .feat .art, .side .art { position: relative; border-radius: 28px; overflow: hidden; }
-.feat .art { height: 420px; background: radial-gradient(70% 80% at 50% 30%, rgba(201,169,110,.35), transparent 70%), linear-gradient(160deg, #0A3D2F, #052219); }
-.side .art { height: 240px; background: radial-gradient(80% 80% at 70% 20%, #E3F6EC, #F6F4EE 70%); box-shadow: inset 0 0 0 1px var(--line); }
-[data-mode="dark"] .side .art { background: radial-gradient(80% 80% at 70% 20%, rgba(124,227,182,.14), #0B1A15 70%); }
+.feat .art, .side .art { height: 340px; }
+.feat .art { background: radial-gradient(70% 80% at 50% 30%, rgba(201,169,110,.35), transparent 70%), linear-gradient(160deg, #0A3D2F, #052219); }
+.side .art { background: radial-gradient(70% 90% at 80% 10%, #E9FBF2, transparent 60%), linear-gradient(150deg, #BFEBD5, #7CD3AA); }
+[data-mode="dark"] .side .art { background: radial-gradient(70% 90% at 80% 10%, rgba(124,227,182,.3), transparent 60%), linear-gradient(150deg, #0F3A2C, #0A2A20); }
+[data-mode="dark"] .feat .art, [data-mode="dark"] .side .art { box-shadow: inset 0 0 0 1px var(--line-2); }
 .art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .feat .meta, .side .meta { margin-top: 28px; display: flex; gap: 16px; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
 .meta b { color: var(--em-ink); }
-.feat h3 { margin-top: 12px; font-size: 36px; line-height: 44px; font-weight: 800; letter-spacing: -2px; }
-.side h3 { margin-top: 12px; font-size: 28px; line-height: 36px; font-weight: 800; letter-spacing: -1px; }
+.feat h3, .side h3 { margin-top: 12px; font-size: 28px; line-height: 36px; font-weight: 800; letter-spacing: -1px; }
 .feat p, .side p { margin-top: 14px; color: var(--muted); }
 .feat .link, .side .link { margin-top: 20px; }
 
 /* ───────── CTA: finale ───────── */
 .finale { position: relative; padding: 120px 0; color: #fff; overflow: hidden; isolation: isolate; background: linear-gradient(160deg, #0A3D2F, #052219); }
 [data-mode="dark"] .finale { background: radial-gradient(60% 90% at 80% 50%, rgba(124,227,182,.12), transparent 70%), #030C09; box-shadow: inset 0 1px 0 var(--line); }
-.finale::before { content: ""; position: absolute; z-index: -1; right: -200px; top: -200px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(closest-side, rgba(124,227,182,.45), transparent); }
-.f-grid2 { display: grid; grid-template-columns: 1fr 440px; gap: 64px; align-items: center; }
+.finale::before { content: ""; position: absolute; z-index: -1; left: 50%; bottom: -520px; width: 1200px; height: 900px; translate: -50% 0; border-radius: 50%; background: radial-gradient(closest-side, rgba(124,227,182,.42), transparent); }
 .finale .h2 { color: #fff; font-size: 48px; }
 .finale .h2 span { color: var(--mint); }
 .finale .lede { margin-top: 20px; color: rgba(255,255,255,.72); max-width: 520px; }
 .finale .cta { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
-.launch { position: relative; height: 400px; }
-.launch .phone { position: absolute; left: 110px; top: 0; width: 220px; height: 400px; border-radius: 40px; padding: 10px; background: #021310; box-shadow: inset 0 0 0 2px rgba(124,227,182,.3), 0 40px 80px -30px rgba(0,0,0,.8); }
-.launch .scr { height: 100%; border-radius: 32px; background: #F6F4EE; padding: 26px 16px 16px; display: flex; flex-direction: column; gap: 12px; color: #0C1F19; }
-.launch .scr .nt { width: 64px; height: 6px; border-radius: 6px; background: #D3CEBF; margin: -14px auto 6px; }
-.launch .scr b { font-size: 16px; line-height: 22px; font-weight: 800; }
-.launch .hb { height: 96px; border-radius: 18px; background: linear-gradient(140deg, #0E5C45, #3FAE83); }
-.launch .ln { height: 10px; border-radius: 10px; background: #E3DFD3; }
-.launch .bt { margin-top: auto; height: 40px; border-radius: 12px; background: #0E5C45; }
-.launch .toast { position: absolute; right: 0; top: 92px; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 12px; border-radius: 18px; background: #fff; color: #0C1F19; box-shadow: 0 24px 48px -20px rgba(0,0,0,.6); animation: float 4s ease-in-out infinite alternate; }
-.launch .toast i { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #7CE3B6; color: #052219; }
-.launch .toast b { display: block; font-size: 14px; line-height: 20px; font-weight: 800; }
-.launch .toast span { display: block; font-size: 12px; line-height: 16px; color: #6C7B74; }
-.launch .chipx { position: absolute; left: -24px; bottom: 40px; display: flex; gap: 6px; padding: 8px; border-radius: 100px; background: rgba(3,21,16,.88); box-shadow: inset 0 0 0 1px rgba(124,227,182,.3), 0 20px 40px -16px rgba(0,0,0,.6); backdrop-filter: blur(10px); animation: float 5s ease-in-out infinite alternate-reverse; }
-.launch .chipx span { height: 28px; padding: 0 12px; border-radius: 100px; display: inline-flex; align-items: center; font-size: 12px; font-weight: 700; color: #fff; }
-.launch .chipx span.on { background: var(--mint); color: #052219; }
-@keyframes float { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+.finale { padding: 152px 0 160px; border-radius: 56px 56px 0 0; text-align: center; }
+.finale .lede { margin-left: auto; margin-right: auto; }
+.finale .cta { justify-content: center; }
+.arcs { position: absolute; z-index: -1; left: 0; bottom: 0; width: 100%; height: 100%; }
+.arcs .ring { transform-box: view-box; transform-origin: 720px 980px; animation: turn 90s linear infinite; }
+.arcs .ring.r2 { animation-duration: 140s; animation-direction: reverse; }
+@keyframes turn { to { transform: rotate(360deg); } }
 
 /* ───────── Footer ───────── */
 footer { padding: 88px 0 40px; background: #031510; color: rgba(255,255,255,.72); }
@@ -425,14 +412,13 @@ footer { padding: 88px 0 40px; background: #031510; color: rgba(255,255,255,.72)
   .metrics { grid-template-columns: 1fr 1fr; row-gap: 40px; }
   .metric:nth-child(3) { padding-left: 0; box-shadow: none; }
   .p-row { grid-template-columns: 1fr; }
-  .cap-grid, .spread, .f-grid2 { grid-template-columns: 1fr; }
-  .rp { grid-template-columns: 1fr; gap: 48px; } .rp-l { position: static; }
+  .cap-grid, .spread { grid-template-columns: 1fr; }
+  .ed .say { font-size: 36px; line-height: 64px; } .fn { height: 52px; font-size: 28px; line-height: 36px; }
   .medal { grid-template-columns: 1fr 1fr; gap: 0 40px; }
   .seal { grid-column: 1 / -1; grid-row: 1; justify-self: center; width: 280px; height: 280px; margin-bottom: 24px; }
   .bside.l .bn { grid-template-columns: 56px 1fr; text-align: left; } .bside.l .bn .ic { order: 0; }
   .bn:last-child { box-shadow: inset 0 -1px 0 rgba(124,227,182,.16); }
   .qs { flex-basis: 100%; }
-  .launch { display: none; }
   .fg { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 860px) { .menu, .nav-r .btn { display: none; } .burger { display: grid; } .nav-r { margin-left: auto; } }
@@ -445,11 +431,13 @@ footer { padding: 88px 0 40px; background: #031510; color: rgba(255,255,255,.72)
   .h2, .finale .h2 { font-size: 34px; line-height: 40px; letter-spacing: -1px; }
   .controls { flex-wrap: wrap; }
   .chap { font-size: 12px; }
-  .say { font-size: 28px; line-height: 38px; }
   .metrics, .fg, .medal { grid-template-columns: 1fr; }
   .seal { width: 240px; height: 240px; }
-  .ix { grid-template-columns: 36px 48px 1fr; height: 72px; } .ix b { font-size: 20px; line-height: 28px; }
-  .rdoc { flex-direction: column; align-items: flex-start; }
+  .ed .say { font-size: 26px; line-height: 48px; letter-spacing: -1px; }
+  .fn { height: 40px; gap: 8px; padding: 0 14px 0 6px; font-size: 20px; line-height: 28px; vertical-align: 2px; letter-spacing: 0; } .fn i { width: 28px; height: 28px; } .fn i svg { width: 14px; height: 14px; }
+  .ticket { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px; border-radius: 24px; } .ticket .btn { align-self: stretch; justify-content: center; }
+  .finale { padding: 104px 0 112px; border-radius: 32px 32px 0 0; }
+  .feat .art, .side .art { height: 240px; }
   .t-head { flex-direction: column; align-items: flex-start; }
   .qs { padding: 28px; border-radius: 24px; }
   .hero { padding-bottom: 56px; border-radius: 0 0 32px 32px; }
@@ -458,8 +446,7 @@ footer { padding: 88px 0 40px; background: #031510; color: rgba(255,255,255,.72)
   .viz { height: 220px; }
   .qs h3 { font-size: 26px; line-height: 34px; }
   .qs p { font-size: 18px; line-height: 28px; }
-  .feat .art { height: 280px; }
-  .feat h3 { font-size: 28px; line-height: 36px; }
+  .feat h3, .side h3 { font-size: 24px; line-height: 32px; }
 }
 </style>
 </head>
@@ -736,23 +723,10 @@ footer { padding: 88px 0 40px; background: #031510; color: rgba(255,255,255,.72)
 
 <section class="statement">
   <div class="wrap">
-    <div class="rp">
-      <div class="rp-l">
-        <span class="eyebrow">Report</span>
-        <p class="say rv">Understand how Insurers can rapidly develop various applications for key functions like</p>
-        <a class="rdoc rv" href="https://blog.wizergos.com/">
-          <svg class="doc" viewBox="0 0 64 80" aria-hidden="true"><rect x="10" y="6" width="50" height="70" rx="6" fill="#C9A96E" opacity=".45"/><rect x="2" y="2" width="50" height="70" rx="6" fill="#0E5C45"/><path d="M10 50 C 20 48, 22 34, 30 32 S 40 18, 46 14" fill="none" stroke="#7CE3B6" stroke-width="2.6" stroke-linecap="round"/><circle cx="46" cy="14" r="3.4" fill="#7CE3B6"/><rect x="10" y="58" width="28" height="4" rx="2" fill="#fff" opacity=".8"/></svg>
-          <span><b>Accelerating Innovation @ Speed and Scale in Insurance</b><span class="link">Read the Report <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-        </a>
-      </div>
-      <ol class="index">
-        <li class="ix rv"><span class="n">01</span><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg></span><b>product development</b></li>
-        <li class="ix rv"><span class="n">02</span><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 16l4-10 4 6 4-8"/></svg></span><b>underwriting</b></li>
-        <li class="ix rv"><span class="n">03</span><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6"/></svg></span><b>policy management</b></li>
-        <li class="ix rv"><span class="n">04</span><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H9l-5 4zM8 10h8"/></svg></span><b>customer service</b></li>
-        <li class="ix rv"><span class="n">05</span><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span><b>claims processing</b></li>
-        <li class="ix rv"><span class="n">06</span><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg></span><b><span class="and">and </span>risk management</b></li>
-      </ol>
+    <div class="ed">
+      <span class="eyebrow">Report</span>
+      <p class="say rv">Understand how Insurers can rapidly develop various applications for key functions like <span class="fn"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg></i>product development</span>, <span class="fn"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 16l4-10 4 6 4-8"/></svg></i>underwriting</span>, <span class="fn"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6"/></svg></i>policy management</span>, <span class="fn"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H9l-5 4zM8 10h8"/></svg></i>customer service</span>, <span class="fn"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></i>claims processing</span>, and <span class="fn"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg></i>risk management</span>.</p>
+      <a class="ticket rv" href="https://blog.wizergos.com/"><svg class="tk-cover" viewBox="0 0 72 92" aria-hidden="true"><rect x="10" y="6" width="60" height="84" rx="8" fill="#C9A96E" opacity=".5"/><rect x="2" y="2" width="60" height="84" rx="8" fill="#0E5C45"/><path d="M12 60 C 22 58, 26 42, 34 40 S 46 24, 52 18" fill="none" stroke="#7CE3B6" stroke-width="3" stroke-linecap="round"/><circle cx="52" cy="18" r="4" fill="#7CE3B6"/><rect x="12" y="70" width="32" height="4" rx="2" fill="#FFFFFF" opacity=".8"/><rect x="12" y="76" width="20" height="4" rx="2" fill="#FFFFFF" opacity=".4"/></svg><b>Accelerating Innovation @ Speed and Scale in Insurance</b><span class="btn btn-em">Read the Report <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     </div>
     <div class="metrics">
       <div class="metric rv"><div class="v">1 <small>code base</small></div><b>Native mobile</b><p>Develop native mobile applications (Android/iOS) from one code base.</p></div>
@@ -1041,6 +1015,13 @@ footer { padding: 88px 0 40px; background: #031510; color: rgba(255,255,255,.72)
     <span class="eyebrow">Resources</span>
     <h2 class="h2" style="margin-top:16px">Blog <span class="m">&amp; Awards</span></h2>
     <div class="spread">
+      <a class="side rv" href="https://blog.wizergos.com/">
+        <div class="art" aria-hidden="true"><svg viewBox="0 0 480 240" preserveAspectRatio="xMidYMid slice"><rect x="56" y="80" width="112" height="80" rx="14" fill="var(--paper)" stroke="var(--line-2)"/><rect x="72" y="100" width="64" height="8" rx="4" fill="#0E5C45"/><rect x="72" y="116" width="44" height="8" rx="4" fill="var(--line-2)"/><rect x="72" y="136" width="80" height="12" rx="6" fill="#7CE3B6"/><path d="M184 120h24M196 108v24" stroke="#0E5C45" stroke-width="2.4" stroke-linecap="round"/><circle cx="272" cy="120" r="46" fill="#0E5C45"/><path d="M272 92l8 20 20 8-20 8-8 20-8-20-20-8 20-8z" fill="#7CE3B6"/><path d="M324 120h36" stroke="#0E5C45" stroke-width="2.4" stroke-dasharray="4 6"/><rect x="368" y="92" width="64" height="56" rx="12" fill="var(--paper)" stroke="var(--line-2)"/><rect x="380" y="108" width="40" height="6" rx="3" fill="var(--line-2)"/><rect x="380" y="122" width="28" height="6" rx="3" fill="var(--line-2)"/></svg></div>
+        <div class="meta"><b>Blog</b></div>
+        <h3>Generative AI + Low-Code</h3>
+        <p>This blog discusses the applications and benefits of Generative AI for enterprises, detailing LLMs, their differences from older AI systems, and their potential use cases such as content creation, verification, and enhancing document style and tone.</p>
+        <span class="link">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
       <a class="feat rv" href="https://blog.wizergos.com/">
         <div class="art" aria-hidden="true"><svg viewBox="0 0 680 420" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#7CE3B6" stroke-opacity=".18"><circle cx="340" cy="200" r="120"/><circle cx="340" cy="200" r="170" stroke-dasharray="3 8"/><circle cx="340" cy="200" r="230"/></g><g fill="#C9A96E"><ellipse cx="248" cy="160" rx="12" ry="26" transform="rotate(-30 248 160)"/><ellipse cx="232" cy="204" rx="12" ry="26" transform="rotate(-8 232 204)"/><ellipse cx="240" cy="248" rx="12" ry="26" transform="rotate(18 240 248)"/><ellipse cx="266" cy="286" rx="12" ry="26" transform="rotate(46 266 286)"/><ellipse cx="432" cy="160" rx="12" ry="26" transform="rotate(30 432 160)"/><ellipse cx="448" cy="204" rx="12" ry="26" transform="rotate(8 448 204)"/><ellipse cx="440" cy="248" rx="12" ry="26" transform="rotate(-18 440 248)"/><ellipse cx="414" cy="286" rx="12" ry="26" transform="rotate(-46 414 286)"/></g><g transform="translate(340 196)"><path d="M-46 -64h92v50c0 30-20 50-46 50s-46-20-46-50z" fill="#F6F4EE"/><path d="M-46 -50h-24c0 26 12 40 28 42M46 -50h24c0 26-12 40-28 42" fill="none" stroke="#F6F4EE" stroke-width="6" stroke-linecap="round"/><path d="M-12 36h24v26h-24zM-36 62h72v16h-72z" fill="#F6F4EE"/><path d="M0 -48l8 17 19 3-14 13 4 19-17-9-17 9 4-19-14-13 19-3z" fill="#0E5C45"/></g><rect x="244" y="350" width="192" height="40" rx="20" fill="rgba(255,255,255,.08)" stroke="rgba(124,227,182,.4)"/><circle cx="266" cy="370" r="5" fill="#7CE3B6"/><text x="280" y="375" font-family="Manrope, sans-serif" font-size="14" font-weight="700" fill="#F6F4EE">ELETS BFSI Summit</text></svg></div>
         <div class="meta"><b>Award</b><span>May 31, 2024</span></div>
@@ -1048,34 +1029,19 @@ footer { padding: 88px 0 40px; background: #031510; color: rgba(255,255,255,.72)
         <p>Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.</p>
         <span class="link">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-      <a class="side rv" href="https://blog.wizergos.com/">
-        <div class="art" aria-hidden="true"><svg viewBox="0 0 480 240" preserveAspectRatio="xMidYMid slice"><rect x="56" y="80" width="112" height="80" rx="14" fill="var(--paper)" stroke="var(--line-2)"/><rect x="72" y="100" width="64" height="8" rx="4" fill="#0E5C45"/><rect x="72" y="116" width="44" height="8" rx="4" fill="var(--line-2)"/><rect x="72" y="136" width="80" height="12" rx="6" fill="#7CE3B6"/><path d="M184 120h24M196 108v24" stroke="var(--muted)" stroke-width="2.4" stroke-linecap="round"/><circle cx="272" cy="120" r="46" fill="#0E5C45"/><path d="M272 92l8 20 20 8-20 8-8 20-8-20-20-8 20-8z" fill="#7CE3B6"/><path d="M324 120h36" stroke="#3FAE83" stroke-width="2.4" stroke-dasharray="4 6"/><rect x="368" y="92" width="64" height="56" rx="12" fill="var(--paper)" stroke="var(--line-2)"/><rect x="380" y="108" width="40" height="6" rx="3" fill="var(--line-2)"/><rect x="380" y="122" width="28" height="6" rx="3" fill="var(--line-2)"/></svg></div>
-        <div class="meta"><b>Blog</b></div>
-        <h3>Generative AI + Low-Code</h3>
-        <p>This blog discusses the applications and benefits of Generative AI for enterprises, detailing LLMs, their differences from older AI systems, and their potential use cases such as content creation, verification, and enhancing document style and tone.</p>
-        <span class="link">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
     </div>
   </div>
 </section>
 
 <section class="finale" id="contact">
+  <svg class="arcs" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="none" stroke="#7CE3B6"><circle cx="720" cy="980" r="380" stroke-opacity="0.22"/><circle cx="720" cy="980" r="500" stroke-opacity="0.17"/><circle cx="720" cy="980" r="620" stroke-opacity="0.13"/><circle cx="720" cy="980" r="740" stroke-opacity="0.1"/><circle cx="720" cy="980" r="860" stroke-opacity="0.07"/><circle cx="720" cy="980" r="980" stroke-opacity="0.05"/></g><g class="ring"><circle cx="720" cy="980" r="560" fill="none" stroke="#C9A96E" stroke-opacity=".45" stroke-width="2" stroke-dasharray="2 14" stroke-linecap="round"/></g><g class="ring r2"><circle cx="720" cy="980" r="800" fill="none" stroke="#C9A96E" stroke-opacity=".28" stroke-width="2" stroke-dasharray="2 18" stroke-linecap="round"/></g><g fill="#7CE3B6"><circle cx="154" cy="568" r="4"/><circle cx="1286" cy="568" r="4"/></g><g fill="#C9A96E"><circle cx="270" cy="660" r="4"/><circle cx="1170" cy="660" r="4"/></g></svg>
   <div class="wrap">
-    <div class="f-grid2">
-      <div>
-        <span class="eyebrow" style="color:var(--mint)">Get started</span>
-        <h2 class="h2" style="margin-top:16px">Low Code Platform for <span>BFSI</span></h2>
-        <p class="lede">Quickly Build Custom Web and Mobile Applications: Unlock Business Value</p>
-        <div class="cta">
-          <a class="btn btn-mint" href="#contact">Connect with us <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-          <a class="btn btn-ghost" href="#contact">Request Demo</a>
-        </div>
-      </div>
-      <div class="launch" aria-hidden="true">
-        <div class="phone"><div class="scr"><span class="nt"></span><b>Policy servicing</b><span class="hb"></span><span class="ln"></span><span class="ln" style="width:70%"></span><span class="ln" style="width:84%"></span><span class="bt"></span></div></div>
-        <div class="toast"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></i><span><b>Published</b><span>Web · Android · iOS</span></span></div>
-        <div class="chipx"><span class="on">Web</span><span>Mobile</span><span>Chatbot</span></div>
-      </div>
+    <span class="eyebrow" style="color:var(--mint)">Get started</span>
+    <h2 class="h2" style="margin-top:16px">Low Code Platform for <span>BFSI</span></h2>
+    <p class="lede">Quickly Build Custom Web and Mobile Applications: Unlock Business Value</p>
+    <div class="cta">
+      <a class="btn btn-mint" href="#contact">Connect with us <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="btn btn-ghost" href="#contact">Request Demo</a>
     </div>
   </div>
 </section>

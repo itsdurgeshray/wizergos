@@ -28,7 +28,7 @@
   --accent-text: linear-gradient(90deg, #1782BE, #4FB5E3);
   --sh: 0 1px 2px rgba(6,23,42,.04), 0 12px 32px -16px rgba(6,23,42,.22);
   --sh-lg: 0 2px 4px rgba(6,23,42,.04), 0 40px 80px -32px rgba(14,95,147,.35);
-  --dot: rgba(23,130,190,.16);
+  --dot: rgba(23,130,190,.16); --page: rgba(255,255,255,.78);
   color-scheme: light;
 }
 [data-mode="dark"] {
@@ -39,7 +39,7 @@
   --accent-text: linear-gradient(90deg, #8ED7F7, #4FB5E3 60%, #2D8FD0);
   --sh: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px -16px rgba(0,0,0,.8);
   --sh-lg: 0 1px 0 rgba(255,255,255,.06) inset, 0 40px 80px -32px rgba(0,0,0,.9);
-  --dot: rgba(127,205,242,.14);
+  --dot: rgba(127,205,242,.14); --page: rgba(9,21,34,.72);
   color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -95,7 +95,7 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .drawer a { display: block; padding: 10px 0; font-size: 16px; color: var(--ink-2); }
 .drawer b { display: block; padding-top: 14px; font-size: 12px; font-weight: 500; color: var(--blue-ink); }
 
-/* ───────── Hero: workflow console ───────── */
+/* ───────── Hero: browser window, four tabs (Build, Integrate, Automate, Analyse) ───────── */
 .hero { position: relative; margin-top: -80px; padding: 168px 0 112px; overflow: hidden; isolation: isolate; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; background-image: radial-gradient(var(--dot) 1px, transparent 1px); background-size: 24px 24px; -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 30%, #000 10%, transparent 70%); mask-image: radial-gradient(ellipse 60% 50% at 50% 30%, #000 10%, transparent 70%); }
 .glow { position: absolute; z-index: -1; left: 50%; top: -360px; width: 1200px; height: 720px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, var(--halo), transparent); }
@@ -106,9 +106,81 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .hero .sub { max-width: 520px; margin: 24px auto 0; }
 .hero .cta { margin-top: 36px; display: flex; justify-content: center; gap: 12px; }
 
-.console { position: relative; margin: 80px auto 0; max-width: 1120px; border-radius: 28px; text-align: left; background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2), var(--sh-lg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding-bottom: 48px; }
+.console { position: relative; margin: 80px auto 0; max-width: 1120px; border-radius: 28px; text-align: left; background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2), var(--sh-lg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 [data-mode="dark"] .console { background: linear-gradient(180deg, rgba(16,35,54,.72), rgba(7,17,29,.72)); }
-.c-top { height: 52px; display: flex; align-items: center; gap: 14px; padding: 0 20px; box-shadow: inset 0 -1px 0 var(--line); font-size: 12px; line-height: 20px; color: var(--muted); }
+.c-top { height: 60px; display: flex; align-items: flex-end; gap: 20px; padding: 0 16px 0 22px; box-shadow: inset 0 -1px 0 var(--line); font-size: 12px; line-height: 20px; color: var(--muted); }
+.c-top .c-dots, .c-top .live { align-self: center; }
+.c-tabs { display: flex; gap: 4px; }
+.c-tab { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 22px 0 16px; border: 0; border-radius: 14px 14px 0 0; background: transparent; cursor: pointer; font-size: 14px; line-height: 20px; font-weight: 400; color: var(--muted); transition: color .3s ease, background-color .3s ease; }
+.c-tab svg { color: var(--muted); transition: color .3s ease; }
+.c-tab:hover { color: var(--ink); background: rgba(127,205,242,.08); }
+.c-tab.on { color: var(--ink); background: var(--page); box-shadow: inset 1px 0 0 var(--line), inset -1px 0 0 var(--line), inset 0 1px 0 var(--line); }
+.c-tab.on::after { content: ""; position: absolute; left: 1px; right: 1px; bottom: -1px; height: 2px; background: var(--page); }
+.c-tab.on svg { color: var(--blue-ink); }
+.c-pg { position: absolute; left: 14px; right: 14px; top: 0; height: 2px; border-radius: 2px; overflow: hidden; }
+.c-pg i { display: block; width: 0; height: 100%; background: var(--blue); box-shadow: 0 0 8px var(--blue); }
+.c-tab.on .c-pg i { animation: tabfill 5s linear forwards; }
+.console:hover .c-pg i, .console.idle .c-pg i { animation-play-state: paused; }
+@keyframes tabfill { to { width: 100%; } }
+.c-page { position: relative; height: 344px; border-radius: 0 0 28px 28px; overflow: hidden; background: var(--page); }
+.scn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 48px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .5s ease, transform .5s cubic-bezier(.2,.7,.2,1), visibility .5s; }
+.scn.on { opacity: 1; visibility: visible; transform: none; }
+.scn small.cap-l { display: block; font-size: 12px; line-height: 16px; color: var(--muted); margin-bottom: 4px; }
+.lnk { position: relative; flex: 1; min-width: 24px; height: 2px; margin: 0 24px; border-radius: 2px; background: var(--line-2); overflow: hidden; }
+.lnk::after { content: ""; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, var(--blue), #fff); animation: run 2.4s cubic-bezier(.4,0,.2,1) infinite; }
+.lnk.b::after { animation-delay: 1.2s; }
+@keyframes run { from { left: -40%; } to { left: 100%; } }
+/* build */
+.pal, .pub { width: 200px; flex-shrink: 0; display: grid; gap: 8px; }
+.pi, .po { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; border-radius: 12px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; line-height: 20px; color: var(--ink-2); }
+.pi svg, .po svg { color: var(--blue-ink); flex-shrink: 0; }
+.pi.on { color: var(--ink); box-shadow: inset 0 0 0 1px var(--blue), 0 0 0 4px var(--halo); }
+.tg { position: relative; margin-left: auto; width: 32px; height: 18px; border-radius: 18px; background: var(--line-2); }
+.tg::after { content: ""; position: absolute; left: 2px; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(6,23,42,.2); }
+.tg.on { background: var(--blue); } .tg.on::after { left: 16px; }
+.frm { width: 420px; flex-shrink: 0; padding: 22px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2), var(--sh-lg); }
+.frm-h { display: flex; justify-content: space-between; align-items: center; font-size: 14px; line-height: 20px; }
+.frm-h b { font-weight: 500; } .frm-h span { font-size: 12px; color: var(--muted); }
+.frm .bar { margin: 12px 0 4px; height: 4px; border-radius: 4px; background: var(--line); }
+.frm .bar i { display: block; width: 34%; height: 100%; border-radius: 4px; background: var(--blue); }
+.frm label { display: block; margin: 12px 0 6px; font-size: 12px; line-height: 16px; color: var(--muted); }
+.inp { height: 40px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; font-size: 14px; color: var(--muted); background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); }
+.inp.f { background: var(--surface); box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 4px var(--halo); }
+.caret { width: 2px; height: 16px; margin-left: 4px; background: var(--blue); animation: blink 1s steps(1) infinite; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.seg { display: flex; height: 40px; padding: 4px; border-radius: 10px; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); }
+.seg span { flex: 1; display: grid; place-items: center; border-radius: 8px; font-size: 12px; color: var(--muted); }
+.seg span.on { background: var(--surface); color: var(--ink); box-shadow: var(--sh); }
+.frm .go { margin-top: 16px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: 14px; color: #fff; background: linear-gradient(180deg, #5CC1EC, #1F8DCB); }
+/* integrate */
+.wires { position: absolute; inset: 0; width: 100%; height: 100%; }
+.wires path { fill: none; stroke: var(--line-2); stroke-width: 2; }
+.wires .ip { stroke: var(--blue); stroke-linecap: round; stroke-dasharray: 28 400; stroke-dashoffset: 28; filter: drop-shadow(0 0 4px var(--blue)); animation: ip 2.8s cubic-bezier(.4,0,.2,1) infinite; }
+.wires .ip:nth-of-type(6) { animation-delay: .7s; } .wires .ip:nth-of-type(7) { animation-delay: 1.4s; } .wires .ip:nth-of-type(8) { animation-delay: 2.1s; }
+@keyframes ip { to { stroke-dashoffset: -260; } }
+.nd { position: absolute; width: 24%; height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 16px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2), var(--sh); }
+.nd.l { left: 6%; } .nd.r { right: 6%; } .nd.t { top: 78px; } .nd.b { top: 198px; }
+.nd i { width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px; display: grid; place-items: center; font-style: normal; font-size: 12px; font-weight: 500; color: var(--blue-ink); background: rgba(79,181,227,.12); }
+.nd b { display: block; font-size: 14px; line-height: 20px; font-weight: 500; } .nd small { display: block; font-size: 12px; line-height: 16px; color: var(--muted); }
+.hub { position: absolute; left: 50%; top: 106px; width: 132px; height: 132px; margin-left: -66px; border-radius: 36px; display: grid; place-items: center; align-content: center; gap: 10px; background: linear-gradient(170deg, #0B2A45, #06172A); box-shadow: inset 0 0 0 1px rgba(127,205,242,.35), 0 0 0 8px var(--halo), 0 24px 48px -16px rgba(14,95,147,.6); }
+.hub img { width: 96px; height: 22px; } .hub small { font-size: 12px; line-height: 16px; color: #7FCDF2; }
+.hub-tag { position: absolute; left: 50%; top: 262px; translate: -50% 0; display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 14px; border-radius: 100px; font-size: 12px; color: var(--blue-ink); background: rgba(79,181,227,.12); white-space: nowrap; }
+/* automate */
+.scn .beam { margin: 0; padding: 0; width: 100%; }
+/* analyse */
+.ana { width: 100%; display: grid; grid-template-columns: 240px 1fr; gap: 20px; }
+.kpis { display: grid; gap: 12px; }
+.kpi { height: 80px; padding: 14px 16px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.kpi small { display: block; font-size: 12px; line-height: 16px; color: var(--muted); }
+.kpi div { margin-top: 6px; display: flex; align-items: baseline; justify-content: space-between; }
+.kpi b { font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: -1px; } .kpi b.acc { font-weight: 500; }
+.kpi em { font-style: normal; font-size: 12px; line-height: 16px; color: #1E9E6A; } [data-mode="dark"] .kpi em { color: #4ECB95; }
+.chart { position: relative; padding: 18px 20px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.chart .frm-h .seg { height: 32px; width: 140px; }
+.chart > svg { width: 100%; height: 184px; margin-top: 12px; }
+.chart .ln { stroke-dasharray: 900; stroke-dashoffset: 900; }
+.scn.on .chart .ln { animation: draw 1.8s cubic-bezier(.2,.7,.2,1) .2s forwards; }
+.ai { position: absolute; left: 20px; top: 72px; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 10px; border-radius: 100px; font-size: 12px; color: #fff; background: linear-gradient(180deg, #2D8FD0, #0E5F93); box-shadow: 0 12px 24px -12px rgba(14,95,147,.9); }
 .c-dots { display: flex; gap: 6px; } .c-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
 .c-title { font-weight: 500; color: var(--ink); }
 .live { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; height: 26px; padding: 0 12px; border-radius: 100px; background: rgba(79,181,227,.12); color: var(--blue-ink); font-size: 12px; }
@@ -174,22 +246,36 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .prod li a:hover { color: var(--ink); padding-left: 6px; }
 .prod li a svg { color: var(--blue-ink); }
 
-/* ───────── Capabilities: datasheet rows ───────── */
+/* ───────── Capabilities: six panels, one opens ───────── */
 .caps { padding: 112px 0; }
 .c-head { max-width: 820px; }
-.c-list { margin-top: 64px; box-shadow: inset 0 1px 0 var(--line); }
-.cap { position: relative; display: grid; grid-template-columns: 120px 400px 1fr; gap: 48px; padding: 40px 24px; box-shadow: inset 0 -1px 0 var(--line); isolation: isolate; }
-.cap::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity .4s ease; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--halo), transparent 60%); }
-.cap:hover::before { opacity: .7; }
-.cap-k { display: flex; align-items: center; gap: 20px; align-self: start; }
-.cap-k .n { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--blue-ink); font-variant-numeric: tabular-nums; }
-.cap .ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; color: var(--blue-ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); transition: box-shadow .3s ease; }
-.cap:hover .ic { box-shadow: inset 0 0 0 1px var(--blue), 0 0 0 4px var(--halo); }
-.cap h3 { font-size: 24px; line-height: 32px; font-weight: 500; letter-spacing: -1px; }
-.cap .intro { margin-top: 10px; color: var(--ink-2); }
-.cap .dots { margin: 0; align-content: start; }
+.xp { margin-top: 64px; display: flex; gap: 12px; height: 480px; }
+.xc { position: relative; flex: 1 1 0; min-width: 0; border-radius: 28px; overflow: hidden; isolation: isolate; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); transition: flex-grow .7s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
+.xc::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity .6s ease; background: radial-gradient(520px 360px at 100% 0%, var(--halo), transparent 70%), radial-gradient(360px circle at var(--mx, 80%) var(--my, 20%), rgba(79,181,227,.12), transparent 70%); }
+.xc.on { flex-grow: 5.8; box-shadow: inset 0 0 0 1px var(--line-2), var(--sh-lg); }
+.xc.on::before { opacity: 1; }
+.xc:not(.on):hover { box-shadow: inset 0 0 0 1px var(--blue), 0 0 0 4px var(--halo); }
+.xc .n { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--blue-ink); font-variant-numeric: tabular-nums; }
+.xc .ic { width: 52px; height: 52px; flex-shrink: 0; border-radius: 16px; display: grid; place-items: center; color: var(--blue-ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); }
+.xc-tab { position: absolute; inset: 0; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px 0 24px; border: 0; background: none; cursor: pointer; text-align: left; transition: opacity .3s ease; }
+.xc.on .xc-tab { opacity: 0; pointer-events: none; }
+.xc-v { margin-top: auto; max-height: 264px; writing-mode: vertical-rl; transform: rotate(180deg); font-size: 18px; line-height: 24px; font-weight: 500; letter-spacing: -.5px; color: var(--ink); }
+.xc-plus { width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; color: var(--blue-ink); box-shadow: inset 0 0 0 1px var(--line-2); transition: background-color .3s ease, color .3s ease, transform .3s ease; }
+.xc:not(.on):hover .xc-plus { background: var(--blue); color: #fff; box-shadow: none; transform: rotate(90deg); }
+.xc-body { position: absolute; left: 0; top: 0; bottom: 0; width: 600px; display: flex; flex-direction: column; padding: 40px 44px; opacity: 0; transform: translateX(-12px); pointer-events: none; transition: opacity .25s ease, transform .25s ease; }
+.xc.on .xc-body { opacity: 1; transform: none; pointer-events: auto; transition: opacity .5s ease .35s, transform .5s cubic-bezier(.2,.7,.2,1) .35s; }
+.xc-top { display: flex; align-items: center; justify-content: space-between; }
+.xc-top .ic { box-shadow: inset 0 0 0 1px var(--blue), 0 0 0 6px var(--halo); }
+.xc-body h3 { margin-top: 36px; max-width: 480px; font-size: 32px; line-height: 40px; font-weight: 500; letter-spacing: -1px; }
+.xc-body .intro { margin-top: 12px; color: var(--ink-2); }
+.xc-body .dots { margin-top: 28px; gap: 14px; }
+.xc-body .dots li { color: var(--ink-2); }
+.xc-foot { margin-top: auto; padding-top: 24px; display: flex; align-items: center; justify-content: space-between; }
+.xc-nav { display: flex; gap: 8px; }
+.xb { width: 40px; height: 40px; border: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer; color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); transition: box-shadow .3s ease, color .3s ease; }
+.xb:hover { color: var(--blue-ink); box-shadow: inset 0 0 0 1px var(--blue), 0 0 0 4px var(--halo); }
 .dots { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
-.dots li { position: relative; padding-left: 24px; font-size: 16px; line-height: 24px; color: var(--muted); }
+.dots li { position: relative; padding-left: 24px; font-size: 16px; line-height: 26px; color: var(--muted); }
 .dots li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); transform: rotate(45deg); }
 
 /* ───────── Why: spec bar on a beam ───────── */
@@ -198,11 +284,11 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .spec::before { content: ""; position: absolute; left: 0; right: 0; top: 32px; height: 1px; background: linear-gradient(90deg, transparent, var(--line-2) 8%, var(--line-2) 92%, transparent); }
 .spec::after { content: ""; position: absolute; top: 32px; left: 0; width: 120px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, transparent, var(--blue), transparent); filter: drop-shadow(0 0 6px var(--blue)); animation: sweep 6s linear infinite; }
 @keyframes sweep { from { left: -120px; } to { left: 100%; } }
-.sp { position: relative; padding: 0 16px; text-align: center; }
+.sp { position: relative; padding: 0 8px; text-align: center; }
 .sp .orb { width: 64px; height: 64px; margin: 0 auto; background: var(--bg); box-shadow: inset 0 0 0 1px var(--blue), 0 0 0 10px var(--bg); transition: background-color .3s ease, color .3s ease; }
 .sp:hover .orb { background: var(--blue); color: #fff; }
 .sp small { display: block; margin-top: 24px; font-size: 12px; line-height: 16px; color: var(--blue-ink); }
-.sp h3 { margin-top: 6px; font-size: 18px; line-height: 26px; font-weight: 500; letter-spacing: -1px; }
+.sp h3 { margin-top: 6px; font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: -.5px; }
 
 /* ───────── Testimonials: slide sideways ───────── */
 .tst { padding: 112px 0; }
@@ -285,22 +371,38 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
 .figma .poster .art { transform: none; }
 .figma .lp::before { display: none; }
 .figma .lp-pulse { display: none; }
-.figma .rc-line { stroke-dashoffset: 0; }
+.figma .rc-line, .figma .chart .ln { stroke-dashoffset: 0; }
+.figma .xp { display: grid; grid-template-columns: repeat(3, 1fr); height: auto; }
+.figma .xc-tab { display: none; }
+.figma .xc-body { position: static; width: auto; opacity: 1; transform: none; }
+.figma .xc-foot { display: none; }
+.figma .xc::before { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } .rc-line { stroke-dashoffset: 0; } }
 
 /* ───────── Responsive ───────── */
 @media (max-width: 1080px) {
   .hero h1 { font-size: 64px; line-height: 68px; letter-spacing: -3px; }
-  .beam { flex-wrap: wrap; justify-content: center; row-gap: 32px; }
-  .wire { display: none; }
+  .pal { display: none; } .lnk:first-of-type { display: none; } .pub { width: 168px; } .frm { width: 380px; }
+  .stop { width: 112px; } .stop b { font-size: 12px; }
+  .xp { flex-direction: column; height: auto; }
+  .xc { flex: none !important; }
+  .xc-tab { position: relative; flex-direction: row; gap: 16px; padding: 16px 20px; }
+  .xc.on .xc-tab { opacity: 1; pointer-events: auto; }
+  .xc-tab .ic { width: 44px; height: 44px; }
+  .xc-v { order: 2; flex: 1; margin: 0; max-height: none; writing-mode: horizontal-tb; transform: none; font-size: 18px; }
+  .xc-tab .n { order: 1; } .xc-tab .ic { order: 0; } .xc-plus { order: 3; }
+  .xc.on .xc-plus { transform: rotate(45deg); }
+  .xc-body { position: static; width: auto; display: none; padding: 0 20px 24px 80px; opacity: 1; transform: none; }
+  .xc.on .xc-body { display: block; }
+  .xc-top, .xc-body h3, .xc-foot { display: none; }
+  .xc-body .intro { margin-top: 0; } .xc-body .dots { margin-top: 12px; }
   .logos { flex-wrap: wrap; justify-content: center; gap: 28px 44px; -webkit-mask-image: none; mask-image: none; }
   .metrics { grid-template-columns: 1fr 1fr; row-gap: 40px; }
   .metric:nth-child(3) { box-shadow: none; }
   .rp { grid-template-columns: 1fr; gap: 48px; }
   .p-row { grid-template-columns: 1fr 1fr; }
-  .cap { grid-template-columns: 96px 1fr; gap: 24px 32px; } .cap .dots { grid-column: 2; }
   .lp { grid-template-columns: 1fr; padding: 64px 48px; } .lp-viz { max-width: 440px; }
-  .console { padding-bottom: 32px; } .beam { padding: 0 24px; }
+  .scn { padding: 0 24px; }
   .c-head { grid-template-columns: 1fr; gap: 20px; }
   .spec { grid-template-columns: repeat(3, 1fr); row-gap: 48px; }
   .spec::before, .spec::after { display: none; }
@@ -318,7 +420,19 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
   .say { font-size: 26px; line-height: 36px; }
   .metrics, .p-row, .posters, .f-grid { grid-template-columns: 1fr; }
   .metrics { padding: 32px 24px; } .metric { padding: 0; box-shadow: none; }
-  .cap { grid-template-columns: 1fr; padding: 32px 0; gap: 16px; } .cap .dots { grid-column: auto; }
+  .c-top { gap: 10px; padding: 0 8px 0 14px; } .c-top .c-dots, .c-top .live { display: none; }
+  .c-tabs { width: 100%; justify-content: space-between; gap: 2px; } .c-tab { padding: 0 10px; gap: 6px; font-size: 12px; } .c-tab svg { display: none; }
+  .c-page { height: 420px; }
+  .scn { padding: 0 16px; }
+  .lnk, .pub { display: none; } .frm { width: 100%; padding: 18px; } .frm .two { grid-template-columns: 1fr; gap: 0; } .frm label { margin-top: 10px; }
+  .wires { display: none; }
+  .hub { top: 28px; width: 112px; height: 112px; margin-left: -56px; border-radius: 30px; } .hub img { width: 80px; height: 18px; }
+  .hub-tag { top: 152px; }
+  .nd { width: calc(50% - 22px); height: 72px; padding: 0 12px; gap: 10px; } .nd.l { left: 16px; } .nd.r { right: 16px; } .nd.t { top: 210px; } .nd.b { top: 294px; } .nd i { width: 32px; height: 32px; } .nd small { display: none; }
+  .scn .beam { flex-wrap: wrap; justify-content: center; row-gap: 20px; } .scn .wire { display: none; } .stop { width: 100px; } .stop .core { width: 56px; height: 56px; border-radius: 18px; } .stop b { margin-top: 10px; }
+  .ana { grid-template-columns: 1fr; gap: 12px; } .kpis { grid-template-columns: repeat(3, 1fr); gap: 8px; } .kpi { height: auto; padding: 10px 12px; } .kpi b { font-size: 18px; line-height: 24px; } .kpi em { display: none; } .chart > svg { height: 160px; } .ai { display: none; } .chart .frm-h .seg { width: 120px; }
+  .xc-body { padding: 0 20px 24px; }
+  .xc-tab .n { display: none; } .xc-tab { padding: 14px 16px; gap: 14px; } .xc-v { font-size: 16px; line-height: 22px; }
   .say { font-size: 26px; line-height: 36px; }
   .rcard { min-height: 380px; padding: 28px; }
   .lp { padding: 48px 24px; border-radius: 28px; } .lp::after { border-radius: 26px; }
@@ -395,7 +509,7 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
 </header>
 
 <main>
-<!-- Hero: one clear idea. Your process, connected and automated. -->
+<!-- Hero: one browser window that shows building, integrating, automating and analysing -->
 <section class="hero center">
   <span class="glow" aria-hidden="true"></span>
   <div class="wrap">
@@ -407,9 +521,12 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
       <a class="btn btn-glass" href="#contact">Request Demo</a>
     </div>
 
-    <div class="console" aria-hidden="true">
-      <div class="c-top"><span class="c-dots"><i></i><i></i><i></i></span><span class="c-title">Claims workflow</span><span class="live"><i></i>Live</span></div>
-      <div class="beam" aria-hidden="true">
+    <div class="console" id="console">
+      <div class="c-top"><span class="c-dots"><i></i><i></i><i></i></span><div class="c-tabs" role="tablist"><button class="c-tab on" type="button" role="tab" aria-selected="true" data-t="0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>Build<span class="c-pg"><i></i></span></button><button class="c-tab" type="button" role="tab" aria-selected="false" data-t="1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg>Integrate<span class="c-pg"><i></i></span></button><button class="c-tab" type="button" role="tab" aria-selected="false" data-t="2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg>Automate<span class="c-pg"><i></i></span></button><button class="c-tab" type="button" role="tab" aria-selected="false" data-t="3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Analyse<span class="c-pg"><i></i></span></button></div><span class="live"><i></i>Live</span></div>
+      <div class="c-page" aria-hidden="true">
+        <div class="scn on" data-t="0"><div class="pal"><small class="cap-l">Components</small><span class="pi on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>Form</span><span class="pi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg>Data table</span><span class="pi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg>Chart</span><span class="pi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg>Chatbot</span></div><span class="lnk"></span><div class="frm"><div class="frm-h"><b>Claim intake</b><span>Step 1 of 3</span></div><div class="bar"><i></i></div><label>Policy number</label><div class="inp f">Enter policy number<i class="caret"></i></div><div class="two"><div><label>Date of loss</label><div class="inp">dd / mm / yyyy</div></div><div><label>Claim type</label><div class="seg"><span class="on">Motor</span><span>Health</span><span>Property</span></div></div></div><div class="go">Continue</div></div><span class="lnk b"></span><div class="pub"><small class="cap-l">Publish to</small><span class="po"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 9h20"/></svg>Web<i class="tg on"></i></span><span class="po"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Android<i class="tg on"></i></span><span class="po"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>iOS<i class="tg on"></i></span><span class="po"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg>Chatbot<i class="tg"></i></span></div></div>
+        <div class="scn" data-t="1"><svg class="wires" viewBox="0 0 1000 344" preserveAspectRatio="none"><path d="M300 110 C 400 110, 420 172, 500 172"/><path d="M300 230 C 400 230, 420 172, 500 172"/><path d="M700 110 C 600 110, 580 172, 500 172"/><path d="M700 230 C 600 230, 580 172, 500 172"/><path class="ip" d="M300 110 C 400 110, 420 172, 500 172"/><path class="ip" d="M300 230 C 400 230, 420 172, 500 172"/><path class="ip" d="M700 110 C 600 110, 580 172, 500 172"/><path class="ip" d="M700 230 C 600 230, 580 172, 500 172"/></svg><div class="nd l t"><i>{ }</i><span><b>REST API</b><small>Policy admin</small></span></div><div class="nd l b"><i>&lt;/&gt;</i><span><b>SOAP API</b><small>Core insurance</small></span></div><div class="nd r t"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></i><span><b>Databases</b><small>Direct integration</small></span></div><div class="nd r b"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg></i><span><b>Enterprise apps</b><small>CRM · ERP</small></span></div><div class="hub"><img src="../../assets/brand/wz-word-white.png" alt="" width="96" height="22"><small>Low-Code</small></div><span class="hub-tag">Claims Processing app</span></div>
+        <div class="scn" data-t="2"><div class="beam" aria-hidden="true">
       <div class="stop" style="--i:0"><span class="core"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h4"/></svg></span><b>Claim intake</b><span>Web · Mobile</span></div>
       <span class="wire" style="--i:0"></span>
       <div class="stop" style="--i:1"><span class="core"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/></svg></span><b>Document AI</b><span>IDP · GenAI</span></div>
@@ -419,7 +536,9 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
       <div class="stop" style="--i:3"><span class="core"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/><path d="M8 12h8"/></svg></span><b>Policy API</b><span>REST · SOAP</span></div>
       <span class="wire" style="--i:3"></span>
       <div class="stop" style="--i:4"><span class="core"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><b>Dashboard</b><span>Analytics</span></div>
-    </div>
+    </div></div>
+        <div class="scn" data-t="3"><div class="ana"><div class="kpis"><div class="kpi"><small>Claims</small><div><b>1,284</b><em>+12%</em></div></div><div class="kpi"><small>Turnaround</small><div><b>2.4 d</b><em>-18%</em></div></div><div class="kpi"><small>Auto-processed</small><div><b class="acc">68%</b><em>+9%</em></div></div></div><div class="chart"><div class="frm-h"><b>Claims by week</b><span class="seg"><span class="on">Week</span><span>Month</span></span></div><svg viewBox="0 0 640 184" preserveAspectRatio="none"><defs><linearGradient id="anaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4FB5E3" stop-opacity=".32"/><stop offset="1" stop-color="#4FB5E3" stop-opacity="0"/></linearGradient></defs><g stroke="var(--line)" stroke-width="1"><path d="M0 46h640M0 92h640M0 138h640"/></g><path d="M0 150 C 60 146, 90 120, 140 122 S 220 92, 280 98 S 360 70, 420 74 S 520 36, 640 22 L640 184 L0 184Z" fill="url(#anaFill)"/><path class="ln" d="M0 150 C 60 146, 90 120, 140 122 S 220 92, 280 98 S 360 70, 420 74 S 520 36, 640 22" fill="none" stroke="#4FB5E3" stroke-width="3" stroke-linecap="round"/></svg><span class="ai"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/></svg>GenAI insight · Motor claims trending up</span></div></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -564,13 +683,13 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
     <div class="c-head">
       <div><span class="kicker"><i></i>Platform</span><h2 class="h2" style="margin-top:16px"><span class="grad">How does Wizergos Low-Code Platform</span> <span class="acc">Empower Enterprises?</span></h2></div>
     </div>
-    <div class="c-list" id="cgrid">
-      <article class="cap rv"><div class="cap-k"><span class="n">01</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span></div><div class="cap-t"><h3>Accelerate Digital Transformation</h3></div><ul class="dots"><li>Draft a Digital Business Strategy with a focus on business model and process led innovation.</li><li>Empower your business to be software-driven by developing multiple applications quickly.</li><li>Reimagine and delight your customers with superior UI/UX for a range of applications.</li></ul></article>
-      <article class="cap rv"><div class="cap-k"><span class="n">02</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.5"/><path d="M6 19h6"/></svg></span></div><div class="cap-t"><h3>Build Multi-Device &amp; Multi-Modal Applications</h3></div><ul class="dots"><li>Build your applications as web or mobile or conversational (Chatbots) applications.</li><li>Develop native mobile applications (Android/iOS) from one code base.</li><li>Enjoy the benefits of choice of application designs that your users will simply love!</li></ul></article>
-      <article class="cap rv"><div class="cap-k"><span class="n">03</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg></span></div><div class="cap-t"><h3>Build API-driven Integrations</h3><p class="intro">Easier and faster integration of applications and processes.</p></div><ul class="dots"><li>REST and SOAP API based integrations</li><li>Direct integrations with DBs</li></ul></article>
-      <article class="cap rv"><div class="cap-k"><span class="n">04</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg></span></div><div class="cap-t"><h3>Automate Business Processes</h3></div><ul class="dots"><li>Adopt a Low-Code powered approach to automating flows for any business process for any industry vertical.</li><li>Quickly reuse application components to automate flows.</li><li>Leverage Intelligent Document Processing or GenAI for various critical processes.</li></ul></article>
-      <article class="cap rv"><div class="cap-k"><span class="n">05</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span></div><div class="cap-t"><h3>Modernize Applications</h3></div><ul class="dots"><li>Streamline the modernization of legacy applications by enabling quick development and deployment of new features, reducing the time and cost associated with traditional coding.</li><li>Facilitate seamless integration with existing systems and databases, allowing legacy applications to scale and adapt to new business requirements without extensive rework.</li></ul></article>
-      <article class="cap rv"><div class="cap-k"><span class="n">06</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span></div><div class="cap-t"><h3>Harnessing Data Analytics, AI, and Generative AI</h3></div><ul class="dots"><li>Embed data analytics &amp; dashboarding capabilities in your applications.</li><li>Empower applications with AI and Generative AI functionalities for a variety of use cases across industry domains.</li></ul></article>
+    <div class="xp rv" id="xp">
+      <article class="xc on"><button class="xc-tab" type="button" aria-expanded="true" aria-label="Accelerate Digital Transformation"><span class="n">01</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span><span class="xc-v">Accelerate Digital Transformation</span><span class="xc-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="xc-body"><div class="xc-top"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span></div><h3>Accelerate Digital Transformation</h3><ul class="dots"><li>Draft a Digital Business Strategy with a focus on business model and process led innovation.</li><li>Empower your business to be software-driven by developing multiple applications quickly.</li><li>Reimagine and delight your customers with superior UI/UX for a range of applications.</li></ul><div class="xc-foot"><span class="n">01 / 06</span><span class="xc-nav"><button class="xb" type="button" data-d="-1" aria-label="Previous capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button class="xb" type="button" data-d="1" aria-label="Next capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></span></div></div></article>
+      <article class="xc"><button class="xc-tab" type="button" aria-expanded="false" aria-label="Build Multi-Device & Multi-Modal Applications"><span class="n">02</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.5"/><path d="M6 19h6"/></svg></span><span class="xc-v">Build Multi-Device &amp; Multi-Modal Applications</span><span class="xc-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="xc-body"><div class="xc-top"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.5"/><path d="M6 19h6"/></svg></span></div><h3>Build Multi-Device &amp; Multi-Modal Applications</h3><ul class="dots"><li>Build your applications as web or mobile or conversational (Chatbots) applications.</li><li>Develop native mobile applications (Android/iOS) from one code base.</li><li>Enjoy the benefits of choice of application designs that your users will simply love!</li></ul><div class="xc-foot"><span class="n">02 / 06</span><span class="xc-nav"><button class="xb" type="button" data-d="-1" aria-label="Previous capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button class="xb" type="button" data-d="1" aria-label="Next capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></span></div></div></article>
+      <article class="xc"><button class="xc-tab" type="button" aria-expanded="false" aria-label="Build API-driven Integrations"><span class="n">03</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg></span><span class="xc-v">Build API-driven Integrations</span><span class="xc-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="xc-body"><div class="xc-top"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6.5l3.8 3.8M18 6.5l-3.8 3.8M6 17.5l3.8-3.8M18 17.5l-3.8-3.8"/></svg></span></div><h3>Build API-driven Integrations</h3><p class="intro">Easier and faster integration of applications and processes.</p><ul class="dots"><li>REST and SOAP API based integrations</li><li>Direct integrations with DBs</li></ul><div class="xc-foot"><span class="n">03 / 06</span><span class="xc-nav"><button class="xb" type="button" data-d="-1" aria-label="Previous capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button class="xb" type="button" data-d="1" aria-label="Next capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></span></div></div></article>
+      <article class="xc"><button class="xc-tab" type="button" aria-expanded="false" aria-label="Automate Business Processes"><span class="n">04</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg></span><span class="xc-v">Automate Business Processes</span><span class="xc-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="xc-body"><div class="xc-top"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h5a3 3 0 0 1 3 3v6"/></svg></span></div><h3>Automate Business Processes</h3><ul class="dots"><li>Adopt a Low-Code powered approach to automating flows for any business process for any industry vertical.</li><li>Quickly reuse application components to automate flows.</li><li>Leverage Intelligent Document Processing or GenAI for various critical processes.</li></ul><div class="xc-foot"><span class="n">04 / 06</span><span class="xc-nav"><button class="xb" type="button" data-d="-1" aria-label="Previous capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button class="xb" type="button" data-d="1" aria-label="Next capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></span></div></div></article>
+      <article class="xc"><button class="xc-tab" type="button" aria-expanded="false" aria-label="Modernize Applications"><span class="n">05</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span><span class="xc-v">Modernize Applications</span><span class="xc-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="xc-body"><div class="xc-top"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span></div><h3>Modernize Applications</h3><ul class="dots"><li>Streamline the modernization of legacy applications by enabling quick development and deployment of new features, reducing the time and cost associated with traditional coding.</li><li>Facilitate seamless integration with existing systems and databases, allowing legacy applications to scale and adapt to new business requirements without extensive rework.</li></ul><div class="xc-foot"><span class="n">05 / 06</span><span class="xc-nav"><button class="xb" type="button" data-d="-1" aria-label="Previous capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button class="xb" type="button" data-d="1" aria-label="Next capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></span></div></div></article>
+      <article class="xc"><button class="xc-tab" type="button" aria-expanded="false" aria-label="Harnessing Data Analytics, AI, and Generative AI"><span class="n">06</span><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span><span class="xc-v">Harnessing Data Analytics, AI, and Generative AI</span><span class="xc-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="xc-body"><div class="xc-top"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span></div><h3>Harnessing Data Analytics, AI, and Generative AI</h3><ul class="dots"><li>Embed data analytics &amp; dashboarding capabilities in your applications.</li><li>Empower applications with AI and Generative AI functionalities for a variety of use cases across industry domains.</li></ul><div class="xc-foot"><span class="n">06 / 06</span><span class="xc-nav"><button class="xb" type="button" data-d="-1" aria-label="Previous capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button class="xb" type="button" data-d="1" aria-label="Next capability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></span></div></div></article>
     </div>
   </div>
 </section>
@@ -707,8 +826,23 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
   function onScroll() { header.classList.toggle('scrolled', scrollY > 8); }
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  // spotlight follows the cursor across capability cells
-  document.querySelectorAll('.cap').forEach(function (c) {
+  // hero tabs: each progress bar fill moves to the next tab; hover or scrolling away pauses it
+  var con = document.getElementById('console'), tabs = con.querySelectorAll('.c-tab'), scns = con.querySelectorAll('.scn');
+  function tab(i) { tabs.forEach(function (t, k) { var on = k === i; t.classList.toggle('on', on); t.setAttribute('aria-selected', on); scns[k].classList.toggle('on', on); }); }
+  tabs.forEach(function (t, k) {
+    t.addEventListener('click', function () { tab(k); });
+    t.querySelector('.c-pg i').addEventListener('animationend', function () { tab((k + 1) % tabs.length); });
+  });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { con.classList.toggle('idle', !en[0].isIntersecting); }).observe(con);
+
+  // capabilities: one panel open at a time; on small screens it behaves as an accordion
+  var xcs = document.querySelectorAll('.xc'), narrow = matchMedia('(max-width: 1080px)');
+  xcs.forEach(function (c) {
+    c.querySelector('.xc-tab').addEventListener('click', function () {
+      var close = narrow.matches && c.classList.contains('on');
+      xcs.forEach(function (o) { var on = o === c && !close; o.classList.toggle('on', on); o.querySelector('.xc-tab').setAttribute('aria-expanded', on); });
+    });
+    c.querySelectorAll('.xb').forEach(function (b) { b.addEventListener('click', function () { var i = [].indexOf.call(xcs, c), j = (i + +b.dataset.d + xcs.length) % xcs.length; xcs[j].querySelector('.xc-tab').click(); }); });
     c.addEventListener('pointermove', function (e) { var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
   });
 
