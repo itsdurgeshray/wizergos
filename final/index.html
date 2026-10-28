@@ -18,88 +18,13 @@
   mode(); if (mq && mq.addEventListener) mq.addEventListener('change', mode); window.wzMode = mode;
 })();
 </script>
+<link rel="stylesheet" href="site.css">
 <style>
-/* ───────── Tokens: light is a white lab, dark is deep space; both use the Wizergos logo blue ───────── */
-:root {
-  --bg: #FBFDFF; --bg-2: #F1F6FA; --surface: #FFFFFF; --glass: rgba(255,255,255,.72);
-  --ink: #06172A; --ink-2: #33475B; --muted: #6A7C8E; --line: #E1EAF1; --line-2: #CFDDE8;
-  --blue: #4FB5E3; --blue-ink: #1782BE; --blue-deep: #0E5F93; --halo: rgba(79,181,227,.28);
-  --grad-text: linear-gradient(180deg, #06172A 30%, #33475B 100%);
-  --accent-text: linear-gradient(90deg, #1782BE, #4FB5E3);
-  --sh: 0 1px 2px rgba(6,23,42,.04), 0 12px 32px -16px rgba(6,23,42,.22);
-  --sh-lg: 0 2px 4px rgba(6,23,42,.04), 0 40px 80px -32px rgba(14,95,147,.35);
-  --dot: rgba(23,130,190,.16); --soft: #EAF5FC; --good: #1E9E6A;
-  color-scheme: light;
-}
-[data-mode="dark"] {
-  --bg: #040A12; --bg-2: #07111D; --surface: #0B1724; --glass: rgba(14,28,44,.62);
-  --ink: #EEF6FC; --ink-2: #B4C6D6; --muted: #7D91A6; --line: rgba(148,197,230,.12); --line-2: rgba(148,197,230,.2);
-  --blue: #4FB5E3; --blue-ink: #7FCDF2; --blue-deep: #4FB5E3; --halo: rgba(79,181,227,.5);
-  --grad-text: linear-gradient(180deg, #FFFFFF 30%, #9FB6C9 100%);
-  --accent-text: linear-gradient(90deg, #8ED7F7, #4FB5E3 60%, #2D8FD0);
-  --sh: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px -16px rgba(0,0,0,.8);
-  --sh-lg: 0 1px 0 rgba(255,255,255,.06) inset, 0 40px 80px -32px rgba(0,0,0,.9);
-  --dot: rgba(127,205,242,.14); --soft: rgba(79,181,227,.1); --good: #4ECB95;
-  color-scheme: dark;
-}
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
-body { margin: 0 auto; max-width: 1440px; background: var(--bg); color: var(--ink); font-family: "Sora", ui-sans-serif, system-ui, sans-serif; font-size: 16px; line-height: 26px; font-weight: 300; -webkit-font-smoothing: antialiased; overflow-x: clip; }
-a { color: inherit; text-decoration: none; }
-img, svg { display: block; }
-button { font: inherit; color: inherit; }
-h1, h2, h3, h6, p, figure, address { margin: 0; font-style: normal; }
-.wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
-.center { text-align: center; }
-.grad { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.acc { background: var(--accent-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; line-height: 20px; font-weight: 400; color: var(--blue-ink); }
-.kicker i { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px var(--halo); }
-.h2 { font-size: 48px; line-height: 56px; font-weight: 500; letter-spacing: -2px; }
-.sub { font-size: 18px; line-height: 30px; color: var(--ink-2); }
-.btn { position: relative; display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 100px; font-size: 16px; font-weight: 400; border: 0; cursor: pointer; white-space: nowrap; transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease; }
-.btn:hover { transform: translateY(-2px); }
-.btn-glow { color: #fff; background: linear-gradient(180deg, #5CC1EC, #1F8DCB); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 0 0 1px rgba(23,130,190,.6), 0 14px 32px -12px rgba(79,181,227,.9); }
-.btn-glow:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 0 0 1px rgba(23,130,190,.6), 0 18px 44px -10px rgba(79,181,227,1); }
-.btn-glass { color: var(--ink); background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.btn-glass:hover { box-shadow: inset 0 0 0 1px var(--blue); }
-.arrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 400; color: var(--blue-ink); }
-.arrow svg { transition: transform .3s ease; } a:hover .arrow svg, .arrow:hover svg { transform: translate(2px, -2px); }
-.orb { display: grid; place-items: center; border-radius: 50%; color: var(--blue-ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); }
-
-/* ───────── Header ───────── */
-header.site { position: sticky; top: 0; z-index: 60; transition: background-color .3s ease, box-shadow .3s ease; }
-header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); box-shadow: inset 0 -1px 0 var(--line); }
-.nav { height: 80px; display: flex; align-items: center; }
-.logo { height: 30px; width: 132px; }
-.logo-d { display: none; } [data-mode="dark"] .logo-l { display: none; } [data-mode="dark"] .logo-d { display: block; }
-.menu { margin: 0 auto; display: flex; gap: 4px; list-style: none; padding: 4px; border-radius: 100px; background: var(--glass); box-shadow: inset 0 0 0 1px var(--line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.menu > li { position: relative; }
-.menu > li > a, .menu > li > button { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border: 0; border-radius: 100px; background: none; cursor: pointer; font-size: 14px; font-weight: 400; color: var(--ink-2); transition: color .2s ease, background-color .2s ease; }
-.menu > li > a:hover, .menu > li > button:hover { color: var(--ink); background: var(--bg-2); }
-.mega { position: absolute; top: 52px; left: 50%; width: 640px; padding: 8px; border-radius: 20px; background: var(--surface); box-shadow: var(--sh-lg), 0 0 0 1px var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; opacity: 0; visibility: hidden; transform: translate(-50%, 6px); transition: all .2s ease; }
-.mega::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
-.has-mega:hover .mega, .has-mega:focus-within .mega { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
-.mega > div { padding: 18px 20px; border-radius: 14px; }
-.mega > div:first-child { background: var(--bg-2); }
-.mega h6 { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ink); }
-.mega small { display: block; margin: 14px 0 2px; font-size: 12px; line-height: 16px; color: var(--blue-ink); }
-.mega a.mi { display: block; padding: 6px 0; font-size: 14px; line-height: 20px; color: var(--ink-2); }
-.mega a.mi:hover { color: var(--blue-ink); }
-.nav-r { display: flex; align-items: center; gap: 10px; }
-.icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 0; display: grid; place-items: center; cursor: pointer; color: var(--ink); background: var(--glass); box-shadow: inset 0 0 0 1px var(--line); }
-.i-sun { display: none; } [data-mode="dark"] .i-sun { display: block; } [data-mode="dark"] .i-moon { display: none; }
-.burger { display: none; }
-.drawer { display: none; padding: 8px 0 24px; }
-.drawer.open { display: block; }
-.drawer a { display: block; padding: 10px 0; font-size: 16px; color: var(--ink-2); }
-.drawer b { display: block; padding-top: 14px; font-size: 12px; font-weight: 500; color: var(--blue-ink); }
+/* Homepage sections. Tokens, header, footer and shared parts are in site.css */
 
 /* ───────── Hero: copy left, one app screen right, clients below ───────── */
 .hero { position: relative; margin-top: -80px; padding-top: 80px; overflow: hidden; isolation: isolate; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; background-image: radial-gradient(var(--dot) 1px, transparent 1px); background-size: 24px 24px; -webkit-mask-image: radial-gradient(ellipse 40% 60% at 76% 44%, #000 10%, transparent 70%); mask-image: radial-gradient(ellipse 40% 60% at 76% 44%, #000 10%, transparent 70%); }
-.glow { position: absolute; z-index: -1; right: -260px; top: -160px; width: 1040px; height: 920px; border-radius: 50%; background: radial-gradient(closest-side, var(--halo), transparent); }
-.glow.g2 { left: -420px; right: auto; top: 280px; width: 860px; height: 720px; opacity: .45; }
 .award { display: inline-flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px 0 4px; border-radius: 100px; background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; line-height: 20px; color: var(--ink-2); }
 .award .orb { width: 28px; height: 28px; }
 .award b { font-weight: 500; color: var(--ink); }
@@ -121,8 +46,6 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .app-seg span { flex: 1; height: 36px; border-radius: 100px; display: grid; place-items: center; font-size: 12px; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line-2); }
 .app-seg span.on { color: var(--blue-ink); background: rgba(79,181,227,.12); box-shadow: inset 0 0 0 1px var(--blue); }
 .app-go { margin-top: auto; height: 48px; border-radius: 16px; display: grid; place-items: center; font-size: 14px; color: #fff; background: linear-gradient(180deg, #5CC1EC, #1F8DCB); }
-.live-chip { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px 0 6px; border-radius: 100px; font-size: 14px; color: var(--ink); background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2), var(--sh); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.live-chip i { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: var(--good); }
 .trust { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; padding: 32px 0 80px; }
 .trust p { font-size: 14px; line-height: 22px; color: var(--muted); }
 .logos { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
@@ -163,16 +86,13 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 @keyframes glim { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
 .cpanel h3 { margin-top: 32px; font-size: 28px; line-height: 36px; font-weight: 500; letter-spacing: -1px; }
 .cpanel .intro { margin-top: 10px; color: var(--ink-2); }
-.dots { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 12px; }
-.dots li { position: relative; padding-left: 24px; font-size: 16px; line-height: 26px; color: var(--ink-2); }
-.dots li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); transform: rotate(45deg); }
 
 /* ───────── Metrics: four proof points on hairlines ───────── */
 .numbers { padding: 0 0 112px; }
 .metrics { display: grid; grid-template-columns: repeat(4, 1fr); padding: 56px 0; box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line); }
 .metric { padding: 4px 36px; box-shadow: inset 1px 0 0 var(--line); }
 .metric:first-child { padding-left: 0; box-shadow: none; }
-.metric .v { font-size: 56px; line-height: 64px; font-weight: 500; letter-spacing: -3px; }
+.metric .v { font-size: 56px; line-height: 64px; font-weight: 500; letter-spacing: -2px; }
 .metric .v small { font-size: 16px; letter-spacing: 0; font-weight: 400; color: var(--muted); }
 .metric b { display: block; margin-top: 10px; font-size: 16px; line-height: 24px; font-weight: 500; }
 .metric p { margin-top: 8px; font-size: 14px; line-height: 22px; color: var(--muted); }
@@ -196,16 +116,6 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .sc-links a { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 12px 0; box-shadow: inset 0 -1px 0 var(--line); font-size: 18px; line-height: 26px; color: var(--ink-2); transition: color .3s ease; }
 .sc-links a i { width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; color: var(--blue-ink); box-shadow: inset 0 0 0 1px var(--line-2); transition: background-color .3s ease, color .3s ease, transform .3s ease, box-shadow .3s ease; }
 .sc-links a:hover { color: var(--ink); } .sc-links a:hover i { background: var(--blue); color: #fff; box-shadow: 0 0 0 4px var(--halo); transform: rotate(-45deg); }
-.ui { position: absolute; background: var(--surface); border-radius: 20px; padding: 18px; box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line); font-size: 14px; line-height: 20px; color: var(--ink-2); }
-[data-mode="dark"] .ui { background: #0E2033; box-shadow: inset 0 0 0 1px var(--line-2), var(--sh-lg); }
-.ui .t { display: flex; justify-content: space-between; align-items: center; font-weight: 500; color: var(--ink); }
-.chip { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 100px; background: rgba(79,181,227,.14); color: var(--blue-ink); font-size: 12px; line-height: 16px; font-weight: 500; }
-.chip.ok { background: rgba(30,158,106,.12); color: var(--good); }
-.row { display: flex; align-items: center; gap: 10px; height: 42px; box-shadow: inset 0 -1px 0 var(--line); }
-.row:last-child { box-shadow: none; }
-.ri { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; background: rgba(79,181,227,.12); color: var(--blue-ink); }
-.meter { height: 8px; border-radius: 8px; background: rgba(79,181,227,.14); overflow: hidden; } .meter i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #A8E1F8, #1F8DCB); }
-.av { display: grid; place-items: center; border-radius: 50%; color: #fff; background: linear-gradient(140deg, #1F8DCB, #5CC1EC); }
 
 /* ───────── Why Low-Code: benefits around the Wizergos seal ───────── */
 .why { padding: 120px 0; color: #fff; background: radial-gradient(60% 80% at 0% 0%, rgba(79,181,227,.22), transparent 60%), radial-gradient(50% 70% at 100% 100%, rgba(23,130,190,.25), transparent 60%), linear-gradient(165deg, #0B2A45, #040A12); }
@@ -267,7 +177,6 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .ft-copy .say { margin-top: 24px; font-size: 40px; line-height: 52px; font-weight: 400; letter-spacing: -2px; }
 .ft-copy p { margin-top: 24px; max-width: 620px; font-size: 18px; line-height: 30px; color: var(--ink-2); }
 .ft-cta { margin-top: 36px; display: flex; align-items: center; gap: 20px; }
-.nw { white-space: nowrap; }
 .ft-t { font-size: 14px; line-height: 20px; color: var(--muted); }
 
 /* ───────── Testimonials: a slow sideways stream ───────── */
@@ -286,57 +195,15 @@ header.site.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent
 .q .nm b { display: block; font-size: 16px; line-height: 24px; font-weight: 500; }
 .q .nm span { display: block; font-size: 14px; line-height: 20px; color: var(--muted); }
 
-/* ───────── CTA: a glowing band ───────── */
-.cta-sec { padding: 0 0 120px; }
-.cta-band { position: relative; margin: 0 40px; padding: 120px 40px; border-radius: 48px; overflow: hidden; isolation: isolate; text-align: center; color: #fff; background: #0E5F93; }
-.cta-band .aur { position: absolute; inset: -30%; z-index: -1; filter: blur(70px); }
-.cta-band .aur i { position: absolute; border-radius: 50%; animation: drift 14s ease-in-out infinite alternate; }
-.cta-band .aur i:nth-child(1) { width: 50%; height: 60%; left: 10%; top: 10%; background: #1F8DCB; }
-.cta-band .aur i:nth-child(2) { width: 46%; height: 56%; right: 6%; top: 24%; background: #7FCDF2; opacity: .7; animation-delay: -5s; }
-.cta-band .aur i:nth-child(3) { width: 40%; height: 46%; left: 34%; bottom: 0; background: #0B3B66; opacity: .8; animation-delay: -9s; }
-@keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-6%, 4%) scale(1.08); } }
-[data-mode="dark"] .cta-band { background: #06213A; box-shadow: inset 0 0 0 1px var(--line-2); }
-[data-mode="dark"] .cta-band .aur i:nth-child(2) { opacity: .35; }
-.cta-band .h2 { color: #fff; }
-.cta-band p { max-width: 480px; margin: 18px auto 0; font-size: 18px; line-height: 30px; color: rgba(255,255,255,.86); }
-.cta-band .cta { margin-top: 40px; display: flex; justify-content: center; gap: 12px; }
-.btn-white { background: #fff; color: #06172A; box-shadow: 0 16px 40px -14px rgba(4,10,18,.5); }
-.btn-line { color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); }
-.btn-line:hover { box-shadow: inset 0 0 0 1px #fff; }
-
-/* ───────── Footer ───────── */
-footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 0 var(--line); }
-.f-grid { display: grid; grid-template-columns: 340px 1fr 1fr 1fr; gap: 48px; }
-.f-grid h6 { margin-bottom: 16px; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ink); }
-.f-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 14px; line-height: 22px; }
-.f-grid a { color: var(--muted); transition: color .2s ease; } .f-grid a:hover { color: var(--blue-ink); }
-.f-grid .sl { font-size: 12px; line-height: 16px; color: var(--blue-ink); margin-top: 6px; }
-.addr { margin-top: 20px; font-size: 14px; line-height: 22px; color: var(--muted); }
-.social { margin-top: 20px; display: flex; gap: 8px; }
-.social a { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-2); background: var(--glass); box-shadow: inset 0 0 0 1px var(--line); }
-.social a:hover { color: var(--blue-ink); box-shadow: inset 0 0 0 1px var(--blue); }
-.f-bar { margin-top: 56px; padding-top: 28px; box-shadow: inset 0 1px 0 var(--line); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; font-size: 14px; line-height: 20px; color: var(--muted); }
-.certs { display: flex; gap: 28px; flex-wrap: wrap; }
-.cert { display: flex; align-items: center; gap: 10px; }
-.cert img { width: 40px; height: 40px; border-radius: 50%; background: #fff; }
-.cert b { display: block; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ink); }
-.cert small { display: block; font-size: 12px; line-height: 16px; }
-
-
-/* motion helpers */
-.js .rv { opacity: 0; transform: translateY(20px); filter: blur(6px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
-.js .rv.in { opacity: 1; transform: none; filter: none; }
-.figma *, .figma *::before, .figma *::after { animation: none !important; transition: none !important; }
-.figma .rv { opacity: 1 !important; transform: none !important; filter: none !important; }
+/* figma mode for this page */
 .figma .cpanel { display: flex !important; margin-bottom: 40px; }
 .figma .cover { transform: none; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
 
 /* ───────── Responsive ───────── */
 @media (max-width: 1080px) {
   .hero-grid, .cap-grid, .sc, .sc.flip, .ft-grid { grid-template-columns: 1fr; }
   .hero-grid { gap: 56px; }
-  .hero h1 { font-size: 64px; line-height: 68px; letter-spacing: -3px; }
+  .hero h1 { font-size: 64px; line-height: 68px; letter-spacing: -4px; }
   .trust { grid-template-columns: 1fr; gap: 20px; }
   .logos { flex-wrap: wrap; justify-content: flex-start; gap: 24px 40px; }
   .cap-grid { gap: 0; margin-top: 40px; }
@@ -354,18 +221,14 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
   .bn:last-child { box-shadow: inset 0 -1px 0 rgba(127,205,242,.16); }
   .ft-grid { gap: 56px; }
   .item { grid-template-columns: 240px 1fr; } .thumb { width: 240px; height: 168px; } .item .go { display: none; }
-  .f-grid { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 860px) { .menu, .nav-r .btn { display: none; } .burger { display: grid; } .nav { justify-content: space-between; } }
 @media (max-width: 640px) {
-  .wrap { padding: 0 20px; }
-  .h2 { font-size: 34px; line-height: 40px; letter-spacing: -1px; }
   /* hero */
   .hero-grid { padding: 40px 0 32px; gap: 40px; }
   .hero h1 { font-size: 44px; line-height: 50px; letter-spacing: -2px; }
   .hero .sub { margin-top: 20px; font-size: 16px; line-height: 26px; }
-  .hero .cta, .cta-band .cta { flex-direction: column; align-items: stretch; }
-  .hero .cta .btn, .cta-band .cta .btn { justify-content: center; }
+  .hero .cta { flex-direction: column; align-items: stretch; }
+  .hero .cta .btn { justify-content: center; }
   .award { height: auto; min-height: 36px; padding: 6px 14px 6px 4px; border-radius: 20px; font-size: 12px; line-height: 16px; }
   .app { width: 100%; max-width: 300px; height: auto; padding: 20px; gap: 12px; border-radius: 32px; }
   .app .app-f + .app-f { display: none; }
@@ -381,7 +244,6 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
   .viz { height: 200px; border-radius: 20px; }
   .viz .t-lbl, .viz .t-mono { display: none; }
   .ctabs .cpanel { padding: 4px 0 28px; }
-  .dots li { font-size: 14px; line-height: 22px; } .dots li::before { top: 8px; }
   /* metrics */
   .numbers { padding: 0 0 72px; }
   .metrics { grid-template-columns: 1fr 1fr; gap: 32px 0; padding: 40px 0; }
@@ -433,77 +295,71 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
   .q[aria-hidden="true"] { display: none; }
   .q h3 { margin-top: 16px; font-size: 20px; line-height: 28px; }
   .q p { font-size: 14px; line-height: 24px; }
-  /* cta */
-  .cta-sec { padding-bottom: 72px; }
-  .cta-band { margin: 0 12px; padding: 72px 20px; border-radius: 32px; }
-  .cta-band p { font-size: 16px; line-height: 26px; }
-  .f-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
+<!-- site:header -->
 <header class="site" id="top">
   <div class="wrap">
     <nav class="nav" aria-label="Primary">
-      <a href="https://wizergos.com/index.html" aria-label="Wizergos home">
+      <a href="./" aria-label="Wizergos home">
         <img class="logo logo-l" src="../assets/brand/wz-word-navy-ink.png" alt="Wizergos" width="132" height="30">
         <img class="logo logo-d" src="../assets/brand/wz-word-white.png" alt="Wizergos" width="132" height="30">
       </a>
       <ul class="menu">
-        <li><a href="https://wizergos.com/index.html">Home</a></li>
-        <li class="has-mega">
-          <button type="button">Products <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="mega">
-            <div>
-              <h6><a href="https://wizergos.com/winsuregos%20(1).html">Winsuregos</a></h6>
-              <small>Sales</small>
-              <a class="mi" href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales</a>
-              <a class="mi" href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents</a>
-              <a class="mi" href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management</a>
-              <small>Underwriting</small>
-              <a class="mi" href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance</a>
-              <a class="mi" href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance</a>
+        <li><a href="low-code-platform/">Low Code Platform</a></li>
+        <li class="dd">
+          <button type="button" aria-expanded="false">Product <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="panel mega">
+            <div class="col">
+              <a class="mg-h" href="product/#by-category">By Category</a>
+              <small>Underwriting</small><a class="mi" href="product/zeriskify-for-life-insurance/">Zeriskify for Life Insurance<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="product/zeriskify-for-health-insurance/">Zeriskify for Health Insurance<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              <small>Sales</small><a class="mi" href="product/policypropel-for-sales/">Policypropel for Sales<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="product/policypropel-for-agents/">Policypropel for Agents<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="product/policypropel-for-commission-management/">Policypropel for Commission Management<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
-            <div>
-              <h6><a href="https://wizergos.com/low-codeplatform%20(1).html">Low-Code Platform</a></h6>
-              <small>Explore</small>
-              <a class="mi" href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions</a>
-              <a class="mi" href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance</a>
-              <a class="mi" href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services</a>
+            <div class="col">
+              <a class="mg-h" href="product/#industry">Industry</a>
+              <a class="mi" href="product/insurance/">Insurance<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="product/financial-services/">Financial Services<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
           </div>
         </li>
-        <li><a href="https://wizergos.com/aboutus%20(1).html">About</a></li>
-        <li><a href="https://blog.wizergos.com/">Resources</a></li>
+        <li class="dd">
+          <button type="button" aria-expanded="false">Service <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="panel"><a class="mi" href="service/bot/">BOT<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="service/cobuild/">Cobuild<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </li>
+        <li class="dd">
+          <button type="button" aria-expanded="false">Resources <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="panel"><a class="mi" href="resources/#blogs">Blogs<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="resources/#whitepapers">Whitepapers<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="resources/#press">Press<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </li>
+        <li class="dd">
+          <button type="button" aria-expanded="false">Company <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="panel"><a class="mi" href="company/#about">About<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="company/#career">Career<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </li>
+        <li><a href="contact/">Contact</a></li>
       </ul>
       <div class="nav-r">
         <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">
           <svg class="i-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
           <svg class="i-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         </button>
-        <a class="btn btn-glow" href="#contact" style="height:40px;padding:0 18px;font-size:14px">Request Demo</a>
-        <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg></button>
+        <a class="btn btn-glow sm" href="contact/">Request Demo</a>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg class="i-bars" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg><svg class="i-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
     </nav>
     <div class="drawer" id="drawer">
-      <a href="https://wizergos.com/index.html">Home</a>
-      <b>Winsuregos</b>
-      <a href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales</a>
-      <a href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents</a>
-      <a href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management</a>
-      <a href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance</a>
-      <a href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance</a>
-      <b>Low-Code Platform</b>
-      <a href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions</a>
-      <a href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance</a>
-      <a href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services</a>
-      <b>Company</b>
-      <a href="https://wizergos.com/aboutus%20(1).html">About</a>
-      <a href="https://blog.wizergos.com/">Resources</a>
+      <a href="./">Home</a>
+      <a href="low-code-platform/">Low Code Platform</a>
+      <details><summary>Product</summary><div class="grp"><small>Underwriting</small><a href="product/zeriskify-for-life-insurance/">Zeriskify for Life Insurance</a><a href="product/zeriskify-for-health-insurance/">Zeriskify for Health Insurance</a><small>Sales</small><a href="product/policypropel-for-sales/">Policypropel for Sales</a><a href="product/policypropel-for-agents/">Policypropel for Agents</a><a href="product/policypropel-for-commission-management/">Policypropel for Commission Management</a><small>Industry</small><a href="product/insurance/">Insurance</a><a href="product/financial-services/">Financial Services</a></div></details>
+      <details><summary>Service</summary><div class="grp"><a href="service/bot/">BOT</a><a href="service/cobuild/">Cobuild</a></div></details>
+      <details><summary>Resources</summary><div class="grp"><a href="resources/#blogs">Blogs</a><a href="resources/#whitepapers">Whitepapers</a><a href="resources/#press">Press</a></div></details>
+      <details><summary>Company</summary><div class="grp"><a href="company/#about">About</a><a href="company/#career">Career</a></div></details>
+      <a href="contact/">Contact</a>
+      <a class="btn btn-glow" href="contact/">Request Demo</a>
     </div>
   </div>
 </header>
+<!-- /site:header -->
 
 <main>
 <section class="hero">
@@ -515,8 +371,8 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
         <h1><span class="grad">Low Code Platform</span><br><span class="grad">for </span><span class="acc">BFSI</span></h1>
         <p class="sub">Quickly Build Custom Web and Mobile Applications: Unlock Business Value</p>
         <div class="cta">
-          <a class="btn btn-glow" href="#contact">Connect with us <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn btn-glass" href="#contact">Request Demo</a>
+          <a class="btn btn-glow" href="contact/">Connect with us <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-glass" href="contact/">Request Demo</a>
         </div>
       </div>
       <div class="hv" aria-hidden="true">
@@ -753,7 +609,7 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
             </div>
             <div style="margin-top:16px;display:flex;gap:8px"><span class="chip">Web</span><span class="chip">Android</span><span class="chip">iOS</span></div></div>
         </div></div>
-        <div class="sc-copy"><span class="sc-k"><b>01</b>Platform</span><h3><span class="nw">Low-Code</span> Platform</h3><ul class="sc-links"><li><a href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li></ul></div>
+        <div class="sc-copy"><span class="sc-k"><b>01</b>Platform</span><h3><span class="nw">Low-Code</span> Platform</h3><ul class="sc-links"><li><a href="product/#industry">Solutions <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="product/insurance/">Insurance <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="product/financial-services/">Financial Services <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li></ul></div>
       </article>
       <article class="sc flip rv">
         <div class="sc-stage" data-fit="680" aria-hidden="true"><div class="sc-in">
@@ -772,7 +628,7 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
             </div></div>
           <div class="ui" style="left:268px;top:356px;display:flex;align-items:center;gap:12px"><span class="chip ok">Payout scheduled</span><span style="font-weight:600">Commission</span></div>
         </div></div>
-        <div class="sc-copy"><span class="sc-k"><b>02</b>Winsuregos · Sales</span><h3>Policypropel</h3><ul class="sc-links"><li><a href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li></ul></div>
+        <div class="sc-copy"><span class="sc-k"><b>02</b>Winsuregos · Sales</span><h3>Policypropel</h3><ul class="sc-links"><li><a href="product/policypropel-for-sales/">Policypropel for Sales <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="product/policypropel-for-agents/">Policypropel for Agents <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="product/policypropel-for-commission-management/">Policypropel for Commission Management <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li></ul></div>
       </article>
       <article class="sc rv">
         <div class="sc-stage" data-fit="680" aria-hidden="true"><div class="sc-in">
@@ -785,7 +641,7 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
             <div class="row">KYC<span class="chip ok" style="margin-left:auto">Verified</span></div></div>
           <div class="ui" style="left:356px;top:296px;width:284px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:24px;font-weight:600;color:var(--good)">Accept</span><span class="chip">Standard rates</span></div>
         </div></div>
-        <div class="sc-copy"><span class="sc-k"><b>03</b>Winsuregos · Underwriting</span><h3>Zeriskify</h3><ul class="sc-links"><li><a href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li></ul></div>
+        <div class="sc-copy"><span class="sc-k"><b>03</b>Winsuregos · Underwriting</span><h3>Zeriskify</h3><ul class="sc-links"><li><a href="product/zeriskify-for-life-insurance/">Zeriskify for Life Insurance <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li><li><a href="product/zeriskify-for-health-insurance/">Zeriskify for Health Insurance <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></li></ul></div>
       </article>
     </div>
   </div>
@@ -818,17 +674,17 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
     <span class="kicker"><i></i>Resources</span>
     <h2 class="h2" style="margin-top:16px"><span class="grad">Blog</span> <span class="acc">&amp; Awards</span></h2>
     <div class="list">
-      <a class="item rv" href="https://blog.wizergos.com/">
+      <a class="item rv" href="resources/#blogs">
         <div class="thumb t1" aria-hidden="true"><svg viewBox="0 0 560 360" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="ra" cx="50%" cy="50%" r="50%"><stop offset="0" style="stop-color:#D3F0FD"/><stop offset=".45" style="stop-color:#4FB5E3"/><stop offset="1" style="stop-color:#126BA6"/></radialGradient></defs><g fill="none" stroke="#fff" stroke-opacity=".16"><circle cx="280" cy="180" r="110"/><circle cx="280" cy="180" r="160"/><circle cx="280" cy="180" r="220"/></g><circle cx="280" cy="180" r="64" fill="url(#ra)"/><path d="M280 146l10 26 26 10-26 10-10 26-10-26-26-10 26-10z" fill="#fff"/><g fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".4"><rect x="80" y="150" width="104" height="60" rx="14"/><rect x="376" y="150" width="104" height="60" rx="14"/></g><g fill="#fff" fill-opacity=".8"><rect x="96" y="166" width="60" height="6" rx="3"/><rect x="96" y="180" width="40" height="6" rx="3" fill-opacity=".4"/><rect x="392" y="166" width="60" height="6" rx="3"/><rect x="392" y="180" width="44" height="6" rx="3" fill-opacity=".4"/></g><path d="M184 180h32M344 180h32" stroke="#fff" stroke-opacity=".6" stroke-dasharray="4 6"/></svg></div>
         <div class="body2"><span class="k"><b>Blog</b></span><h3>Generative AI + <span class="nw">Low-Code</span></h3><p>This blog discusses the applications and benefits of Generative AI for enterprises, detailing LLMs, their differences from older AI systems, and their potential use cases such as content creation, verification, and enhancing document style and tone.</p><span class="arrow">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
         <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-      <a class="item rv" href="https://blog.wizergos.com/">
+      <a class="item rv" href="product/insurance/">
         <div class="thumb t2" aria-hidden="true"><svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="rtA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4FB5E3" stop-opacity=".45"/><stop offset="1" stop-color="#4FB5E3" stop-opacity="0"/></linearGradient></defs><g stroke="#7FCDF2" stroke-opacity=".14"><path d="M0 92h320M0 136h320M0 180h320"/><path d="M80 60v160M160 60v160M240 60v160"/></g><path d="M0 196 C 50 192, 70 160, 110 160 S 170 118, 210 112 S 270 76, 320 64 L320 220 L0 220Z" fill="url(#rtA)"/><path d="M0 196 C 50 192, 70 160, 110 160 S 170 118, 210 112 S 270 76, 320 64" fill="none" stroke="#7FCDF2" stroke-width="3" stroke-linecap="round"/><circle cx="110" cy="160" r="5" fill="#fff"/><circle cx="210" cy="112" r="5" fill="#fff"/><circle cx="292" cy="70" r="8" fill="#fff"/><circle cx="292" cy="70" r="16" fill="#4FB5E3" fill-opacity=".35"/></svg><img class="tl" src="../assets/brand/wz-word-white.png" alt="" width="88" height="20"></div>
         <div class="body2"><span class="k"><b>Report</b></span><h3>Accelerating Innovation @ Speed and Scale in Insurance</h3><p>Understand how Insurers can rapidly develop various applications for key functions like product development, underwriting, policy management, customer service, claims processing, and risk management.</p><span class="arrow">Read the Report <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
         <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-      <a class="item rv" href="https://blog.wizergos.com/">
+      <a class="item rv" href="resources/#press">
         <div class="thumb t3" aria-hidden="true"><svg viewBox="0 0 560 360" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#fff" stroke-opacity=".16"><circle cx="280" cy="170" r="100"/><circle cx="280" cy="170" r="150" stroke-dasharray="3 8"/><circle cx="280" cy="170" r="210"/></g><g transform="translate(280 160)"><path d="M-40 -56h80v44c0 26-18 44-40 44s-40-18-40-44z" fill="#fff" fill-opacity=".95"/><path d="M-40 -44h-22c0 22 10 34 24 36M40 -44h22c0 22-10 34-24 36" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M-10 32h20v22h-20zM-30 54h60v14h-60z" fill="#fff"/><path d="M0 -42l7 15 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2z" fill="#2D8FD0"/></g><rect x="186" y="284" width="188" height="36" rx="18" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".4"/><circle cx="206" cy="302" r="5" fill="#7FE0B8"/><text x="220" y="307" font-family="Sora, sans-serif" font-size="13" fill="#fff">ELETS BFSI Summit</text></svg></div>
         <div class="body2"><span class="k"><b>Award</b><span>May 31, 2024</span></span><h3>Wizergos Awarded the Best <span class="nw">Low-Code</span> Digital Transformation Partner at ELETS BFSI Summit</h3><p>Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.</p><span class="arrow">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
         <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -840,7 +696,7 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
 <section class="feature" id="awards">
   <div class="wrap">
     <div class="ft-grid">
-      <a class="book rv" href="https://blog.wizergos.com/" aria-label="Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit">
+      <a class="book rv" href="resources/#press" aria-label="Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit">
         <div class="cover">
           <span class="cv-tag">Award</span>
           <svg class="cv-art" viewBox="0 0 256 180" aria-hidden="true"><g fill="none" stroke="#7FCDF2" stroke-opacity=".3"><circle cx="128" cy="90" r="62"/><circle cx="128" cy="90" r="86" stroke-dasharray="2 6"/></g><circle cx="128" cy="90" r="46" fill="#4FB5E3" fill-opacity=".18"/><g transform="translate(128 84)"><path d="M-30 -40h60v32c0 20-14 34-30 34s-30-14-30-34z" fill="#fff"/><path d="M-30 -30h-16c0 16 7 25 18 27M30 -30h16c0 16-7 25-18 27" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M-7 26h14v16h-14zM-21 42h42v8h-42z" fill="#fff"/><path d="M0 -30l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#1F8DCB"/></g></svg>
@@ -853,7 +709,7 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
         <span class="kicker"><i></i>Award</span>
         <h2 class="say rv">Wizergos Awarded the <span class="acc">Best <span class="nw">Low-Code</span> Digital Transformation Partner</span> at ELETS BFSI Summit</h2>
         <p class="rv">Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.</p>
-        <div class="ft-cta rv"><a class="btn btn-glow" href="https://blog.wizergos.com/">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="ft-t">May 31, 2024 · ELETS BFSI Summit</span></div>
+        <div class="ft-cta rv"><a class="btn btn-glow" href="resources/#press">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="ft-t">May 31, 2024 · ELETS BFSI Summit</span></div>
       </div>
     </div>
   </div>
@@ -878,11 +734,12 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
     <div class="aur" aria-hidden="true"><i></i><i></i><i></i></div>
     <h2 class="h2">Low Code Platform for BFSI</h2>
     <p>Quickly Build Custom Web and Mobile Applications: Unlock Business Value</p>
-    <div class="cta"><a class="btn btn-white" href="#contact">Connect with us <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-line" href="#contact">Request Demo</a></div>
+    <div class="cta"><a class="btn btn-white" href="contact/">Connect with us <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-line" href="contact/">Request Demo</a></div>
   </div>
 </section>
 </main>
 
+<!-- site:footer -->
 <footer>
   <div class="wrap">
     <div class="f-grid">
@@ -897,9 +754,10 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
           <a href="https://x.com/wizergos" target="_blank" rel="noopener" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
         </div>
       </div>
-      <div><h6>Company</h6><ul><li><a href="https://wizergos.com/index.html">Home</a></li><li><a href="https://wizergos.com/aboutus%20(1).html">About</a></li><li><a href="https://blog.wizergos.com/">Resources</a></li></ul></div>
-      <div><h6>Winsuregos</h6><ul><li class="sl">Underwriting</li><li><a href="https://wizergos.com/winsuregos/zeriskify-for-life%20(1).html">Zeriskify for Life Insurance</a></li><li><a href="https://wizergos.com/winsuregos/zeriskify-for-health%20(1).html">Zeriskify for Health Insurance</a></li><li class="sl">Sales</li><li><a href="https://wizergos.com/winsuregos/policypropel-for-sales%20(1).html">Policypropel for Sales</a></li><li><a href="https://wizergos.com/winsuregos/policypropel-for-agents%20(1).html">Policypropel for Agents</a></li><li><a href="https://wizergos.com/eom%20(1).html">Policypropel for Commission Management</a></li></ul></div>
-      <div><h6>Low-Code Platform</h6><ul><li><a href="https://wizergos.com/low-codeplatform/solutions%20(1).html">Solutions</a></li><li><a href="https://wizergos.com/low-codeplatform/insurance%20(1).html">Insurance</a></li><li><a href="https://wizergos.com/low-codeplatform/financial-services%20(1).html">Financial Services</a></li></ul></div>
+      <div><h6>Product</h6><ul><li class="sl">By Category</li><li><a href="product/zeriskify-for-life-insurance/">Zeriskify for Life Insurance</a></li><li><a href="product/zeriskify-for-health-insurance/">Zeriskify for Health Insurance</a></li><li><a href="product/policypropel-for-sales/">Policypropel for Sales</a></li><li><a href="product/policypropel-for-agents/">Policypropel for Agents</a></li><li><a href="product/policypropel-for-commission-management/">Policypropel for Commission Management</a></li><li class="sl">Industry</li><li><a href="product/insurance/">Insurance</a></li><li><a href="product/financial-services/">Financial Services</a></li></ul></div>
+      <div><h6>Platform</h6><ul><li><a href="low-code-platform/">Low Code Platform</a></li><li class="sl">Service</li><li><a href="service/bot/">BOT</a></li><li><a href="service/cobuild/">Cobuild</a></li></ul></div>
+      <div><h6>Resources</h6><ul><li><a href="resources/#blogs">Blogs</a></li><li><a href="resources/#whitepapers">Whitepapers</a></li><li><a href="resources/#press">Press</a></li></ul></div>
+      <div><h6>Company</h6><ul><li><a href="./">Home</a></li><li><a href="company/#about">About</a></li><li><a href="company/#career">Career</a></li><li><a href="contact/">Contact</a></li></ul></div>
     </div>
     <div class="f-bar">
       <span>© 2026 by Wizergos.</span>
@@ -911,28 +769,12 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
     </div>
   </div>
 </footer>
+<!-- /site:footer -->
 
+<script src="site.js"></script>
 <script>
 (function () {
-  var root = document.documentElement, figma = root.classList.contains('figma'), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!figma) root.classList.add('js');
-  document.getElementById('themeToggle').addEventListener('click', function () {
-    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('wzf-theme', next); } catch (e) {}
-    window.wzMode();
-  });
-  var burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
-  burger.addEventListener('click', function () { var o = drawer.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
-  var header = document.querySelector('header.site');
-  function onScroll() { header.classList.toggle('scrolled', scrollY > 8); }
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-  // products: scale each illustration stage to its column
-  var stages = document.querySelectorAll('[data-fit]');
-  function fit() { stages.forEach(function (st) { st.firstElementChild.style.transform = 'scale(' + (st.clientWidth / +st.dataset.fit) + ')'; }); }
-  fit(); addEventListener('resize', fit);
-
+  var figma = document.documentElement.classList.contains('figma'), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // platform: tabs advance on their own until someone picks one
   var ctabs = document.getElementById('ctabs'), tabs = Array.prototype.slice.call(ctabs.querySelectorAll('.ctab')), ti = 0, ttimer;
   function pick(i) { ti = i; tabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i); document.getElementById(t.dataset.p).classList.toggle('on', k === i); var p = t.querySelector('.pg'); p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; }); }
@@ -949,11 +791,6 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
     if (acc.matches) { var r = t.getBoundingClientRect(); if (r.top < 88) scrollBy(0, r.top - 96); }
   }); });
   if (!figma && !reduce && !acc.matches) ttimer = setInterval(function () { if (!document.hidden) pick((ti + 1) % tabs.length); }, 8000); else ctabs.classList.remove('auto');
-
-  if (!figma && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -6% 0px' });
-    document.querySelectorAll('.rv').forEach(function (el, i) { el.style.transitionDelay = ((i % 3) * 80) + 'ms'; io.observe(el); });
-  }
 })();
 </script>
 </body>
