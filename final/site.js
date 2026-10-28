@@ -32,8 +32,32 @@
 
   // scale fixed-size illustrations to their column
   var stages = document.querySelectorAll('[data-fit]');
-  function fit() { stages.forEach(function (st) { st.firstElementChild.style.transform = 'scale(' + (st.clientWidth / +st.dataset.fit) + ')'; }); }
+  function fit() { stages.forEach(function (st) { if (st.clientWidth) st.firstElementChild.style.transform = 'scale(' + (st.clientWidth / +st.dataset.fit) + ')'; }); }
   if (stages.length) { fit(); addEventListener('resize', fit); }
+
+  // tab lists: panels beside the list on desktop, an accordion under each title below 1080px
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, acc = matchMedia('(max-width: 1080px)');
+  document.querySelectorAll('.ctabs').forEach(function (ctabs) {
+    var tabs = Array.prototype.slice.call(ctabs.querySelectorAll('.ctab')), ti = 0, ttimer, home = ctabs.nextElementSibling;
+    function pick(i) {
+      ti = i;
+      tabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i); document.getElementById(t.dataset.p).classList.toggle('on', k === i); var p = t.querySelector('.pg'); if (p) { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; } });
+      fit();
+    }
+    function layout() {
+      tabs.forEach(function (t) { var p = document.getElementById(t.dataset.p); if (acc.matches) t.after(p); else home.appendChild(p); });
+      if (acc.matches) { clearInterval(ttimer); ctabs.classList.remove('auto'); }
+      fit();
+    }
+    layout(); if (acc.addEventListener) acc.addEventListener('change', layout);
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () {
+      clearInterval(ttimer); ctabs.classList.remove('auto');
+      if (acc.matches && ti === i && t.getAttribute('aria-selected') === 'true') { t.setAttribute('aria-selected', 'false'); document.getElementById(t.dataset.p).classList.remove('on'); return; }
+      pick(i);
+      if (acc.matches) { var r = t.getBoundingClientRect(); if (r.top < 88) scrollBy(0, r.top - 96); }
+    }); });
+    if (!figma && !reduce && !acc.matches && ctabs.classList.contains('auto')) ttimer = setInterval(function () { if (!document.hidden) pick((ti + 1) % tabs.length); }, 8000); else ctabs.classList.remove('auto');
+  });
 
   // in-page switcher follows the section in view
   var sub = document.querySelector('.subnav');

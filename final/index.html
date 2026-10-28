@@ -46,46 +46,9 @@
 .app-seg span { flex: 1; height: 36px; border-radius: 100px; display: grid; place-items: center; font-size: 12px; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line-2); }
 .app-seg span.on { color: var(--blue-ink); background: rgba(79,181,227,.12); box-shadow: inset 0 0 0 1px var(--blue); }
 .app-go { margin-top: auto; height: 48px; border-radius: 16px; display: grid; place-items: center; font-size: 14px; color: #fff; background: linear-gradient(180deg, #5CC1EC, #1F8DCB); }
-.trust { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; padding: 32px 0 80px; }
-.trust p { font-size: 14px; line-height: 22px; color: var(--muted); }
-.logos { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-.logos img { width: auto; opacity: .55; transition: opacity .3s ease; }
-.logos img:hover { opacity: 1; }
-[data-mode="dark"] .logos img { filter: invert(1); opacity: .5; }
 
 /* ───────── Platform: tab list left, illustrated panel right ───────── */
 .caps { padding: 112px 0; }
-.cap-grid { margin-top: 56px; display: grid; grid-template-columns: 400px 1fr; gap: 64px; align-items: start; }
-.ctabs { display: flex; flex-direction: column; box-shadow: inset 0 1px 0 var(--line); }
-.ctab { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 8px; align-items: center; min-height: 72px; padding: 16px 0; border: 0; background: none; cursor: pointer; text-align: left; box-shadow: inset 0 -1px 0 var(--line); color: var(--muted); transition: color .3s ease; }
-.ctab .n { font-size: 14px; line-height: 20px; font-weight: 500; font-variant-numeric: tabular-nums; }
-.ctab b { font-size: 18px; line-height: 26px; font-weight: 500; letter-spacing: -.5px; }
-.ctab .pg { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--blue); box-shadow: 0 0 8px var(--blue); }
-.ctab:hover, .ctab[aria-selected="true"] { color: var(--ink); }
-.ctab[aria-selected="true"] .n { color: var(--blue-ink); }
-.auto .ctab[aria-selected="true"] .pg { animation: fill 8s linear forwards; }
-.ctabs:not(.auto) .ctab[aria-selected="true"] .pg { width: 100%; }
-@keyframes fill { to { width: 100%; } }
-.ctabs .cpanel { padding: 8px 0 32px; box-shadow: inset 0 -1px 0 var(--line); }
-.ctabs .cpanel h3 { display: none; }
-.cpanel { display: none; flex-direction: column; }
-.cpanel.on { display: flex; animation: rise .6s cubic-bezier(.2,.7,.2,1); }
-@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.viz { position: relative; height: 340px; border-radius: 28px; overflow: hidden; isolation: isolate; background: radial-gradient(80% 90% at 80% 0%, rgba(79,181,227,.5), transparent 65%), linear-gradient(165deg, #0B2A45, #040A12); box-shadow: var(--sh-lg), inset 0 0 0 1px rgba(127,205,242,.2); }
-.viz::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: radial-gradient(rgba(127,205,242,.16) 1px, transparent 1px); background-size: 24px 24px; -webkit-mask-image: radial-gradient(ellipse 70% 80% at 60% 40%, #000, transparent 80%); mask-image: radial-gradient(ellipse 70% 80% at 60% 40%, #000, transparent 80%); }
-.viz svg { position: absolute; inset: 16px; width: calc(100% - 32px); height: calc(100% - 32px); }
-.viz { --bg: #0E3A5E; --accent: #4FB5E3; --accent-2: #7FCDF2; --accent-line: rgba(127,205,242,.5); --accent-ink: #06172A; --s-line: rgba(255,255,255,.2); --s-ink: #fff; --s-acc: #4FB5E3; --s-acc2: #A8E1F8; --f-surf: #0F2D47; --f-bg2: rgba(255,255,255,.06); --f-bg3: rgba(255,255,255,.1); --f-line: rgba(255,255,255,.16); --f-line2: rgba(255,255,255,.26); --f-acc: #4FB5E3; --f-acc2: #1F8DCB; --f-acc3: #A8E1F8; --f-accs: rgba(79,181,227,.2); --f-mut: rgba(255,255,255,.5); --f-good: #7FCDF2; --f-warn: #F2C46D; --t-lbl: #E6F3FB; --t-mono: rgba(230,243,251,.6); }
-.viz .s-line { stroke: var(--s-line); } .viz .s-ink { stroke: var(--s-ink); } .viz .s-acc { stroke: var(--s-acc); } .viz .s-acc2 { stroke: var(--s-acc2); } .viz .s-mut { stroke: var(--f-mut); }
-.viz .f-surf { fill: var(--f-surf); } .viz .f-bg2 { fill: var(--f-bg2); } .viz .f-bg3 { fill: var(--f-bg3); } .viz .f-line { fill: var(--f-line); } .viz .f-line2 { fill: var(--f-line2); }
-.viz .f-acc { fill: var(--f-acc); } .viz .f-acc2 { fill: var(--f-acc2); } .viz .f-acc3 { fill: var(--f-acc3); } .viz .f-accs { fill: var(--f-accs); } .viz .f-ink { fill: #fff; } .viz .f-mut { fill: var(--f-mut); } .viz .f-good { fill: var(--f-good); } .viz .f-warn { fill: var(--f-warn); }
-.viz .t-lbl { font-family: "Sora", sans-serif; font-size: 12px; font-weight: 500; fill: var(--t-lbl); }
-.viz .t-mono { font-family: "Sora", sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 1px; fill: var(--t-mono); }
-.viz .flow { stroke-dasharray: 4 6; animation: dash 1.4s linear infinite; }
-.viz .pulse { animation: glim 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
-@keyframes dash { to { stroke-dashoffset: -20; } }
-@keyframes glim { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
-.cpanel h3 { margin-top: 32px; font-size: 28px; line-height: 36px; font-weight: 500; letter-spacing: -1px; }
-.cpanel .intro { margin-top: 10px; color: var(--ink-2); }
 
 /* ───────── Metrics: four proof points on hairlines ───────── */
 .numbers { padding: 0 0 112px; }
@@ -99,23 +62,6 @@
 
 /* ───────── Products: alternating showcase rows ───────── */
 .products { padding: 112px 0; }
-.showcase { margin-top: 64px; display: grid; gap: 48px; }
-.sc { display: grid; grid-template-columns: 7fr 5fr; gap: 80px; align-items: center; }
-.sc.flip { grid-template-columns: 5fr 7fr; } .sc.flip .sc-stage { order: 2; }
-.sc-stage { position: relative; aspect-ratio: 680 / 440; border-radius: 36px; overflow: hidden; isolation: isolate; background: radial-gradient(70% 90% at 90% 0%, rgba(79,181,227,.45), transparent 60%), radial-gradient(60% 80% at 0% 100%, rgba(168,225,248,.6), transparent 60%), #EAF5FC; box-shadow: inset 0 0 0 1px var(--line); }
-.sc:nth-child(2) .sc-stage { background: radial-gradient(70% 90% at 10% 0%, rgba(79,181,227,.4), transparent 60%), radial-gradient(60% 80% at 100% 100%, rgba(168,225,248,.7), transparent 60%), #EAF5FC; }
-.sc:nth-child(3) .sc-stage { background: radial-gradient(70% 90% at 90% 100%, rgba(79,181,227,.4), transparent 60%), radial-gradient(60% 80% at 0% 0%, rgba(168,225,248,.8), transparent 60%), #EAF5FC; }
-[data-mode="dark"] .sc .sc-stage { background: radial-gradient(70% 90% at 90% 0%, rgba(79,181,227,.32), transparent 60%), radial-gradient(60% 80% at 0% 100%, rgba(23,130,190,.22), transparent 60%), #07111D; box-shadow: inset 0 0 0 1px var(--line-2); }
-.sc-in { position: absolute; left: 0; top: 0; width: 680px; height: 440px; transform-origin: 0 0; }
-.sc-in .ui { transition: translate .6s cubic-bezier(.2,.7,.2,1); }
-.sc:hover .sc-in .ui:nth-child(odd) { translate: 0 -6px; }
-.sc-k { display: flex; align-items: center; gap: 12px; font-size: 14px; line-height: 20px; color: var(--blue-ink); }
-.sc-k b { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 500; box-shadow: inset 0 0 0 1px var(--line-2); }
-.sc-copy h3 { margin-top: 20px; font-size: 40px; line-height: 48px; font-weight: 500; letter-spacing: -2px; }
-.sc-links { list-style: none; margin: 28px 0 0; padding: 0; box-shadow: inset 0 1px 0 var(--line); }
-.sc-links a { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 12px 0; box-shadow: inset 0 -1px 0 var(--line); font-size: 18px; line-height: 26px; color: var(--ink-2); transition: color .3s ease; }
-.sc-links a i { width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; color: var(--blue-ink); box-shadow: inset 0 0 0 1px var(--line-2); transition: background-color .3s ease, color .3s ease, transform .3s ease, box-shadow .3s ease; }
-.sc-links a:hover { color: var(--ink); } .sc-links a:hover i { background: var(--blue); color: #fff; box-shadow: 0 0 0 4px var(--halo); transform: rotate(-45deg); }
 
 /* ───────── Why Low-Code: benefits around the Wizergos seal ───────── */
 .why { padding: 120px 0; color: #fff; background: radial-gradient(60% 80% at 0% 0%, rgba(79,181,227,.22), transparent 60%), radial-gradient(50% 70% at 100% 100%, rgba(23,130,190,.25), transparent 60%), linear-gradient(165deg, #0B2A45, #040A12); }
@@ -124,56 +70,14 @@
 .why .kicker { color: #7FCDF2; }
 .why .h2 { color: #fff; }
 .why .acc { background: linear-gradient(90deg, #A8E1F8, #4FB5E3); -webkit-background-clip: text; background-clip: text; }
-.medal { margin-top: 64px; display: grid; grid-template-columns: 1fr 360px 1fr; gap: 56px; align-items: center; }
-.bside { display: grid; }
-.bn { display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: center; min-height: 120px; padding: 16px 0; box-shadow: inset 0 -1px 0 rgba(127,205,242,.16); }
-.bn:last-child { box-shadow: none; }
-.bside.l .bn { grid-template-columns: 1fr 56px; text-align: right; }
-.bside.l .bn .ic { order: 2; }
-.bn .ic { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: #7FCDF2; box-shadow: inset 0 0 0 1px rgba(127,205,242,.4); transition: background-color .3s ease, color .3s ease, box-shadow .3s ease; }
-.bn:hover .ic { background: #4FB5E3; color: #fff; box-shadow: 0 0 0 6px rgba(79,181,227,.25); }
-.bn small { display: block; font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 2px; color: #4FB5E3; }
-.bn h3 { margin-top: 4px; font-size: 22px; line-height: 30px; font-weight: 500; letter-spacing: -1px; }
-.seal { position: relative; width: 360px; height: 360px; }
-.seal::before { content: ""; position: absolute; inset: 56px; border-radius: 50%; background: radial-gradient(closest-side, rgba(79,181,227,.45), transparent); }
-.seal svg { position: relative; width: 100%; height: 100%; }
-.seal .spin { transform-origin: 180px 180px; animation: rot 60s linear infinite; }
-@keyframes rot { to { transform: rotate(360deg); } }
-.seal-c { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; }
-.seal-c span { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: #7FCDF2; }
 
 /* ───────── Resources: blog, report and award with thumbnails ───────── */
 .res { padding: 112px 0; }
-.list { margin-top: 48px; box-shadow: inset 0 1px 0 var(--line); }
-.item { position: relative; display: grid; grid-template-columns: 320px 1fr 56px; gap: 48px; align-items: center; padding: 40px 0; box-shadow: inset 0 -1px 0 var(--line); transition: padding .4s ease; }
-.item:hover { padding-left: 16px; }
-.thumb { position: relative; width: 320px; height: 220px; border-radius: 24px; overflow: hidden; box-shadow: var(--sh), inset 0 0 0 1px rgba(127,205,242,.2); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
-.item:hover .thumb { transform: rotate(-2deg) scale(1.02); }
-.thumb svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.thumb .tl { position: absolute; left: 20px; top: 20px; }
-.thumb.t1 { background: radial-gradient(120% 90% at 30% 0%, #2D8FD0 0%, #0B3B66 45%, #040A12 100%); }
-.thumb.t2 { background: radial-gradient(90% 70% at 100% 0%, rgba(79,181,227,.55), transparent 60%), linear-gradient(170deg, #0B2A45, #040A12); }
-.thumb.t3 { background: radial-gradient(120% 90% at 70% 0%, #4FB5E3 0%, #0E5F93 40%, #06172A 100%); }
-.item .k { display: flex; gap: 12px; font-size: 14px; line-height: 20px; color: var(--muted); }
-.item .k b { font-weight: 500; color: var(--blue-ink); }
-.item h3 { margin-top: 8px; font-size: 28px; line-height: 36px; font-weight: 500; letter-spacing: -1px; }
-.item p { margin-top: 12px; color: var(--ink-2); }
-.item .arrow { margin-top: 16px; }
-.item .go { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: var(--blue-ink); box-shadow: inset 0 0 0 1px var(--line-2); transition: background-color .3s ease, color .3s ease, transform .3s ease, box-shadow .3s ease; }
-.item:hover .go { background: var(--blue); color: #fff; box-shadow: 0 0 0 6px var(--halo); transform: rotate(-45deg); }
 
 /* ───────── Awards: tilted cover beside the statement ───────── */
 .feature { position: relative; padding: 128px 0; overflow: hidden; isolation: isolate; background: var(--bg-2); box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line); }
 .feature::before { content: ""; position: absolute; z-index: -1; width: 900px; height: 900px; left: -300px; top: -280px; border-radius: 50%; background: radial-gradient(closest-side, var(--halo), transparent); }
 .ft-grid { display: grid; grid-template-columns: 440px 1fr; gap: 96px; align-items: center; }
-.book { display: block; perspective: 1400px; justify-self: center; }
-.cover { position: relative; width: 320px; height: 440px; padding: 32px; border-radius: 8px 24px 24px 8px; color: #fff; overflow: hidden; display: flex; flex-direction: column; transform: rotateY(-16deg) rotateX(4deg); transition: transform .8s cubic-bezier(.2,.7,.2,1); background: radial-gradient(90% 60% at 80% 0%, rgba(79,181,227,.6), transparent 60%), linear-gradient(165deg, #0B3B66, #040A12); box-shadow: -18px 30px 60px -20px rgba(4,10,18,.6), inset 6px 0 0 rgba(0,0,0,.25), inset 8px 0 0 rgba(255,255,255,.1), inset 0 0 0 1px rgba(127,205,242,.2); }
-.book:hover .cover { transform: rotateY(-4deg) translateY(-6px); }
-.cv-tag { align-self: flex-start; height: 26px; padding: 0 12px; border-radius: 100px; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); font-size: 12px; display: inline-flex; align-items: center; }
-.cv-art { width: 100%; height: 180px; margin: 20px 0 16px; }
-.cover b { font-size: 22px; line-height: 30px; font-weight: 500; letter-spacing: -.5px; }
-.cover small { margin-top: 8px; font-size: 14px; line-height: 20px; color: #7FCDF2; }
-.cover img { margin-top: auto; opacity: .9; }
 .ft-copy .say { margin-top: 24px; font-size: 40px; line-height: 52px; font-weight: 400; letter-spacing: -2px; }
 .ft-copy p { margin-top: 24px; max-width: 620px; font-size: 18px; line-height: 30px; color: var(--ink-2); }
 .ft-cta { margin-top: 36px; display: flex; align-items: center; gap: 20px; }
@@ -196,31 +100,15 @@
 .q .nm span { display: block; font-size: 14px; line-height: 20px; color: var(--muted); }
 
 /* figma mode for this page */
-.figma .cpanel { display: flex !important; margin-bottom: 40px; }
-.figma .cover { transform: none; }
 
 /* ───────── Responsive ───────── */
 @media (max-width: 1080px) {
-  .hero-grid, .cap-grid, .sc, .sc.flip, .ft-grid { grid-template-columns: 1fr; }
+  .hero-grid, .ft-grid { grid-template-columns: 1fr; }
   .hero-grid { gap: 56px; }
   .hero h1 { font-size: 64px; line-height: 68px; letter-spacing: -4px; }
-  .trust { grid-template-columns: 1fr; gap: 20px; }
-  .logos { flex-wrap: wrap; justify-content: flex-start; gap: 24px 40px; }
-  .cap-grid { gap: 0; margin-top: 40px; }
-  .ctab { grid-template-columns: 48px 1fr 16px; }
-  .ctab::after { content: ""; width: 8px; height: 8px; margin-top: -4px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .3s ease; }
-  .ctab[aria-selected="true"]::after { margin-top: 4px; transform: rotate(-135deg); }
-  .ctab .pg { display: none; }
-  .ctab[aria-selected="true"] { box-shadow: none; }
   .metrics { grid-template-columns: 1fr 1fr; row-gap: 40px; }
   .metric:nth-child(3) { padding-left: 0; box-shadow: none; }
-  .sc { gap: 32px; } .sc.flip .sc-stage { order: 0; }
-  .medal { grid-template-columns: 1fr 1fr; gap: 0 40px; }
-  .seal { grid-column: 1 / -1; grid-row: 1; justify-self: center; width: 280px; height: 280px; margin-bottom: 24px; }
-  .bside.l .bn { grid-template-columns: 56px 1fr; text-align: left; } .bside.l .bn .ic { order: 0; }
-  .bn:last-child { box-shadow: inset 0 -1px 0 rgba(127,205,242,.16); }
   .ft-grid { gap: 56px; }
-  .item { grid-template-columns: 240px 1fr; } .thumb { width: 240px; height: 168px; } .item .go { display: none; }
 }
 @media (max-width: 640px) {
   /* hero */
@@ -234,16 +122,8 @@
   .app .app-f + .app-f { display: none; }
   .app-st b { font-size: 20px; line-height: 26px; }
   .app-go { margin-top: 4px; height: 44px; }
-  .trust { padding: 24px 0 56px; gap: 24px; }
-  .logos { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; align-items: center; gap: 28px 12px; }
-  .logos img { zoom: .72; }
   /* platform */
   .caps { padding: 72px 0; }
-  .ctab { min-height: 64px; padding: 14px 0; grid-template-columns: 40px 1fr 16px; }
-  .ctab b { font-size: 16px; line-height: 24px; }
-  .viz { height: 200px; border-radius: 20px; }
-  .viz .t-lbl, .viz .t-mono { display: none; }
-  .ctabs .cpanel { padding: 4px 0 28px; }
   /* metrics */
   .numbers { padding: 0 0 72px; }
   .metrics { grid-template-columns: 1fr 1fr; gap: 32px 0; padding: 40px 0; }
@@ -255,29 +135,10 @@
   .metric p { margin-top: 4px; font-size: 12px; line-height: 18px; }
   /* products */
   .products { padding: 72px 0; }
-  .showcase { margin-top: 40px; gap: 56px; }
-  .sc { gap: 24px; }
-  .sc-stage { border-radius: 24px; }
-  .sc-copy h3 { margin-top: 16px; font-size: 30px; line-height: 38px; letter-spacing: -1px; }
-  .sc-links { margin-top: 20px; } .sc-links a { font-size: 16px; line-height: 24px; min-height: 56px; }
   /* benefits */
   .why { padding: 80px 0; }
-  .medal { margin-top: 40px; grid-template-columns: 1fr 1fr; gap: 0 20px; align-items: stretch; }
-  .seal { width: 200px; height: 200px; margin-bottom: 16px; }
-  .seal-c img { width: 96px; height: 22px; } .seal-c span { font-size: 10px; letter-spacing: 2px; }
-  .bside { display: contents; }
-  .bn, .bside.l .bn { grid-template-columns: 1fr; gap: 12px; align-items: start; align-content: start; min-height: 0; padding: 20px 0; text-align: left; box-shadow: inset 0 -1px 0 rgba(127,205,242,.16); }
-  .bn .ic { width: 44px; height: 44px; } .bn .ic svg { width: 20px; height: 20px; }
-  .bn h3 { font-size: 16px; line-height: 22px; letter-spacing: -.5px; }
-  .bside.r .bn:nth-child(n+2) { box-shadow: none; }
   /* resources */
   .res { padding: 72px 0; }
-  .list { margin-top: 32px; }
-  .item { grid-template-columns: 1fr; gap: 20px; padding: 32px 0; }
-  .item:hover { padding-left: 0; } .item:hover .thumb { transform: none; }
-  .thumb { width: 100%; height: 188px; border-radius: 20px; }
-  .item h3 { font-size: 22px; line-height: 30px; }
-  .item p { font-size: 14px; line-height: 24px; }
   /* awards */
   .feature { padding: 72px 0; }
   .ft-grid { gap: 40px; }
@@ -330,7 +191,7 @@
         </li>
         <li class="dd">
           <button type="button" aria-expanded="false">Resources <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="panel"><a class="mi" href="resources/#blogs">Blogs<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="resources/#whitepapers">Whitepapers<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="resources/#press">Press<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="panel"><a class="mi" href="resources/">All resources<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="resources/blogs/">Blogs<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="resources/whitepapers/">Whitepapers<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mi" href="resources/press/">Press<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         </li>
         <li class="dd">
           <button type="button" aria-expanded="false">Company <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
@@ -352,7 +213,7 @@
       <a href="low-code-platform/">Low Code Platform</a>
       <details><summary>Product</summary><div class="grp"><small>Underwriting</small><a href="product/zeriskify-for-life-insurance/">Zeriskify for Life Insurance</a><a href="product/zeriskify-for-health-insurance/">Zeriskify for Health Insurance</a><small>Sales</small><a href="product/policypropel-for-sales/">Policypropel for Sales</a><a href="product/policypropel-for-agents/">Policypropel for Agents</a><a href="product/policypropel-for-commission-management/">Policypropel for Commission Management</a><small>Industry</small><a href="product/insurance/">Insurance</a><a href="product/financial-services/">Financial Services</a></div></details>
       <details><summary>Service</summary><div class="grp"><a href="service/bot/">BOT</a><a href="service/cobuild/">Cobuild</a></div></details>
-      <details><summary>Resources</summary><div class="grp"><a href="resources/#blogs">Blogs</a><a href="resources/#whitepapers">Whitepapers</a><a href="resources/#press">Press</a></div></details>
+      <details><summary>Resources</summary><div class="grp"><a href="resources/">All resources</a><a href="resources/blogs/">Blogs</a><a href="resources/whitepapers/">Whitepapers</a><a href="resources/press/">Press</a></div></details>
       <details><summary>Company</summary><div class="grp"><a href="company/#about">About</a><a href="company/#career">Career</a></div></details>
       <a href="contact/">Contact</a>
       <a class="btn btn-glow" href="contact/">Request Demo</a>
@@ -674,7 +535,7 @@
     <span class="kicker"><i></i>Resources</span>
     <h2 class="h2" style="margin-top:16px"><span class="grad">Blog</span> <span class="acc">&amp; Awards</span></h2>
     <div class="list">
-      <a class="item rv" href="resources/#blogs">
+      <a class="item rv" href="resources/blogs/">
         <div class="thumb t1" aria-hidden="true"><svg viewBox="0 0 560 360" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="ra" cx="50%" cy="50%" r="50%"><stop offset="0" style="stop-color:#D3F0FD"/><stop offset=".45" style="stop-color:#4FB5E3"/><stop offset="1" style="stop-color:#126BA6"/></radialGradient></defs><g fill="none" stroke="#fff" stroke-opacity=".16"><circle cx="280" cy="180" r="110"/><circle cx="280" cy="180" r="160"/><circle cx="280" cy="180" r="220"/></g><circle cx="280" cy="180" r="64" fill="url(#ra)"/><path d="M280 146l10 26 26 10-26 10-10 26-10-26-26-10 26-10z" fill="#fff"/><g fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".4"><rect x="80" y="150" width="104" height="60" rx="14"/><rect x="376" y="150" width="104" height="60" rx="14"/></g><g fill="#fff" fill-opacity=".8"><rect x="96" y="166" width="60" height="6" rx="3"/><rect x="96" y="180" width="40" height="6" rx="3" fill-opacity=".4"/><rect x="392" y="166" width="60" height="6" rx="3"/><rect x="392" y="180" width="44" height="6" rx="3" fill-opacity=".4"/></g><path d="M184 180h32M344 180h32" stroke="#fff" stroke-opacity=".6" stroke-dasharray="4 6"/></svg></div>
         <div class="body2"><span class="k"><b>Blog</b></span><h3>Generative AI + <span class="nw">Low-Code</span></h3><p>This blog discusses the applications and benefits of Generative AI for enterprises, detailing LLMs, their differences from older AI systems, and their potential use cases such as content creation, verification, and enhancing document style and tone.</p><span class="arrow">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
         <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -684,7 +545,7 @@
         <div class="body2"><span class="k"><b>Report</b></span><h3>Accelerating Innovation @ Speed and Scale in Insurance</h3><p>Understand how Insurers can rapidly develop various applications for key functions like product development, underwriting, policy management, customer service, claims processing, and risk management.</p><span class="arrow">Read the Report <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
         <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-      <a class="item rv" href="resources/#press">
+      <a class="item rv" href="resources/press/">
         <div class="thumb t3" aria-hidden="true"><svg viewBox="0 0 560 360" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#fff" stroke-opacity=".16"><circle cx="280" cy="170" r="100"/><circle cx="280" cy="170" r="150" stroke-dasharray="3 8"/><circle cx="280" cy="170" r="210"/></g><g transform="translate(280 160)"><path d="M-40 -56h80v44c0 26-18 44-40 44s-40-18-40-44z" fill="#fff" fill-opacity=".95"/><path d="M-40 -44h-22c0 22 10 34 24 36M40 -44h22c0 22-10 34-24 36" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M-10 32h20v22h-20zM-30 54h60v14h-60z" fill="#fff"/><path d="M0 -42l7 15 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2z" fill="#2D8FD0"/></g><rect x="186" y="284" width="188" height="36" rx="18" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".4"/><circle cx="206" cy="302" r="5" fill="#7FE0B8"/><text x="220" y="307" font-family="Sora, sans-serif" font-size="13" fill="#fff">ELETS BFSI Summit</text></svg></div>
         <div class="body2"><span class="k"><b>Award</b><span>May 31, 2024</span></span><h3>Wizergos Awarded the Best <span class="nw">Low-Code</span> Digital Transformation Partner at ELETS BFSI Summit</h3><p>Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.</p><span class="arrow">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
         <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -696,7 +557,7 @@
 <section class="feature" id="awards">
   <div class="wrap">
     <div class="ft-grid">
-      <a class="book rv" href="resources/#press" aria-label="Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit">
+      <a class="book rv" href="resources/press/" aria-label="Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit">
         <div class="cover">
           <span class="cv-tag">Award</span>
           <svg class="cv-art" viewBox="0 0 256 180" aria-hidden="true"><g fill="none" stroke="#7FCDF2" stroke-opacity=".3"><circle cx="128" cy="90" r="62"/><circle cx="128" cy="90" r="86" stroke-dasharray="2 6"/></g><circle cx="128" cy="90" r="46" fill="#4FB5E3" fill-opacity=".18"/><g transform="translate(128 84)"><path d="M-30 -40h60v32c0 20-14 34-30 34s-30-14-30-34z" fill="#fff"/><path d="M-30 -30h-16c0 16 7 25 18 27M30 -30h16c0 16-7 25-18 27" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M-7 26h14v16h-14zM-21 42h42v8h-42z" fill="#fff"/><path d="M0 -30l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#1F8DCB"/></g></svg>
@@ -709,7 +570,7 @@
         <span class="kicker"><i></i>Award</span>
         <h2 class="say rv">Wizergos Awarded the <span class="acc">Best <span class="nw">Low-Code</span> Digital Transformation Partner</span> at ELETS BFSI Summit</h2>
         <p class="rv">Wizergos has been awarded the best "Low-Code Digital Transformation Solution Provider" by ELETS. This is the outcome of our commitment to excellence, innovation, and customer centricity. We would like to extend a note of gratitude to all our customers, partners, and team members for this stupendous achievement.</p>
-        <div class="ft-cta rv"><a class="btn btn-glow" href="resources/#press">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="ft-t">May 31, 2024 · ELETS BFSI Summit</span></div>
+        <div class="ft-cta rv"><a class="btn btn-glow" href="resources/press/">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="ft-t">May 31, 2024 · ELETS BFSI Summit</span></div>
       </div>
     </div>
   </div>
@@ -756,7 +617,7 @@
       </div>
       <div><h6>Product</h6><ul><li class="sl">By Category</li><li><a href="product/zeriskify-for-life-insurance/">Zeriskify for Life Insurance</a></li><li><a href="product/zeriskify-for-health-insurance/">Zeriskify for Health Insurance</a></li><li><a href="product/policypropel-for-sales/">Policypropel for Sales</a></li><li><a href="product/policypropel-for-agents/">Policypropel for Agents</a></li><li><a href="product/policypropel-for-commission-management/">Policypropel for Commission Management</a></li><li class="sl">Industry</li><li><a href="product/insurance/">Insurance</a></li><li><a href="product/financial-services/">Financial Services</a></li></ul></div>
       <div><h6>Platform</h6><ul><li><a href="low-code-platform/">Low Code Platform</a></li><li class="sl">Service</li><li><a href="service/bot/">BOT</a></li><li><a href="service/cobuild/">Cobuild</a></li></ul></div>
-      <div><h6>Resources</h6><ul><li><a href="resources/#blogs">Blogs</a></li><li><a href="resources/#whitepapers">Whitepapers</a></li><li><a href="resources/#press">Press</a></li></ul></div>
+      <div><h6>Resources</h6><ul><li><a href="resources/">All resources</a></li><li><a href="resources/blogs/">Blogs</a></li><li><a href="resources/whitepapers/">Whitepapers</a></li><li><a href="resources/press/">Press</a></li></ul></div>
       <div><h6>Company</h6><ul><li><a href="./">Home</a></li><li><a href="company/#about">About</a></li><li><a href="company/#career">Career</a></li><li><a href="contact/">Contact</a></li></ul></div>
     </div>
     <div class="f-bar">
@@ -772,26 +633,5 @@
 <!-- /site:footer -->
 
 <script src="site.js"></script>
-<script>
-(function () {
-  var figma = document.documentElement.classList.contains('figma'), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // platform: tabs advance on their own until someone picks one
-  var ctabs = document.getElementById('ctabs'), tabs = Array.prototype.slice.call(ctabs.querySelectorAll('.ctab')), ti = 0, ttimer;
-  function pick(i) { ti = i; tabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i); document.getElementById(t.dataset.p).classList.toggle('on', k === i); var p = t.querySelector('.pg'); p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; }); }
-  var acc = matchMedia('(max-width: 1080px)'), home = ctabs.nextElementSibling;
-  function layout() {
-    tabs.forEach(function (t) { var p = document.getElementById(t.dataset.p); if (acc.matches) t.after(p); else home.appendChild(p); });
-    if (acc.matches) { clearInterval(ttimer); ctabs.classList.remove('auto'); }
-  }
-  layout(); if (acc.addEventListener) acc.addEventListener('change', layout);
-  tabs.forEach(function (t, i) { t.addEventListener('click', function () {
-    clearInterval(ttimer); ctabs.classList.remove('auto');
-    if (acc.matches && ti === i && t.getAttribute('aria-selected') === 'true') { t.setAttribute('aria-selected', 'false'); document.getElementById(t.dataset.p).classList.remove('on'); return; }
-    pick(i);
-    if (acc.matches) { var r = t.getBoundingClientRect(); if (r.top < 88) scrollBy(0, r.top - 96); }
-  }); });
-  if (!figma && !reduce && !acc.matches) ttimer = setInterval(function () { if (!document.hidden) pick((ti + 1) % tabs.length); }, 8000); else ctabs.classList.remove('auto');
-})();
-</script>
 </body>
 </html>
