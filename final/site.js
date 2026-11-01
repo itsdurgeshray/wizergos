@@ -86,6 +86,47 @@
     }).then(done, done);
   });
 
+  // horizontal tabs: pill buttons switch the panel below
+  document.querySelectorAll('.tabx').forEach(function (box) {
+    var btns = Array.prototype.slice.call(box.querySelectorAll('.tabx-nav button')), panes = Array.prototype.slice.call(box.querySelectorAll('.tabx-pane'));
+    btns.forEach(function (b, i) { b.addEventListener('click', function () {
+      btns.forEach(function (x, k) { x.setAttribute('aria-selected', k === i); });
+      panes.forEach(function (p, k) { p.hidden = k !== i; });
+      b.scrollIntoView({ block: 'nearest', inline: 'center' }); fit();
+    }); });
+  });
+
+  // before and after slider
+  document.querySelectorAll('.ba').forEach(function (ba) {
+    var r = ba.querySelector('input[type=range]');
+    function set() { ba.style.setProperty('--pos', r.value + '%'); }
+    r.addEventListener('input', set); set();
+  });
+
+  // ROI estimate: interviews x minutes saved, in hours
+  document.querySelectorAll('.roi').forEach(function (f) {
+    var ins = f.querySelectorAll('input'), out = f.querySelector('[data-out]');
+    function calc() { var v = +ins[0].value || 0, a = +ins[1].value || 0, b = +ins[2].value || 0; out.textContent = Math.round(Math.max(0, v * (a - b) / 60)).toLocaleString('en-IN'); }
+    Array.prototype.forEach.call(ins, function (i) { i.addEventListener('input', calc); }); calc();
+  });
+
+  // floating contact widget
+  var cw = document.querySelector('.chatw');
+  if (cw) cw.querySelector('.chatw-btn').addEventListener('click', function () { var o = cw.classList.toggle('open'); this.setAttribute('aria-expanded', o); });
+
+  // forms with states: validation, loading, success, error. Preview forms do not send data.
+  document.querySelectorAll('form[data-states]').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var em = f.querySelector('input[type=email]'), ok = !em || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+      f.classList.remove('is-error', 'is-success');
+      if (em) em.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (!ok) { em.focus(); return; }
+      f.classList.add('is-loading');
+      setTimeout(function () { f.classList.remove('is-loading'); f.classList.add(f.dataset.states === 'error' ? 'is-error' : 'is-success'); }, 900);
+    });
+  });
+
   if (!figma && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -6% 0px' });
     document.querySelectorAll('.rv').forEach(function (el, i) { el.style.transitionDelay = ((i % 3) * 80) + 'ms'; io.observe(el); });
