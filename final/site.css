@@ -911,6 +911,9 @@ header.site.scrolled, header.site.menu-open { background: color-mix(in srgb, var
 .hx-labels li::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--blue); transform: rotate(45deg); }
 .cap { margin-top: 16px; font-size: 14px; line-height: 20px; color: var(--muted); text-align: center; }
 
+.hx-grid.solo { grid-template-columns: minmax(0, 880px); }
+.release.r2 { grid-template-columns: 4fr 8fr; gap: 72px; }
+@media (max-width: 1080px) { .release.r2 { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
 /* backdrop: the soft stage every product picture sits on */
 .backdrop { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; gap: 16px; padding: 48px 40px; border-radius: 36px; background: radial-gradient(70% 90% at 90% 0%, rgba(79,181,227,.42), transparent 60%), radial-gradient(60% 80% at 0% 100%, rgba(168,225,248,.6), transparent 60%), #EAF5FC; box-shadow: inset 0 0 0 1px var(--line); }
 .backdrop.alt { background: radial-gradient(70% 90% at 10% 0%, rgba(79,181,227,.38), transparent 60%), radial-gradient(60% 80% at 100% 100%, rgba(168,225,248,.7), transparent 60%), #EAF5FC; }
@@ -960,6 +963,7 @@ header.site.scrolled, header.site.menu-open { background: color-mix(in srgb, var
 .tabx { margin-top: 56px; }
 .tabx-nav { display: flex; gap: 4px; padding: 6px; border-radius: 100px; overflow-x: auto; scrollbar-width: none; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); }
 .tabx-nav::-webkit-scrollbar { display: none; }
+@media (min-width: 1081px) { .tabx-nav { flex-wrap: wrap; border-radius: 28px; } }
 .tabx-nav button { flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 20px; border: 0; border-radius: 100px; background: none; cursor: pointer; font-size: 14px; font-weight: 400; color: var(--ink-2); white-space: nowrap; transition: color .2s ease, background-color .2s ease, box-shadow .2s ease; }
 .tabx-nav button:hover { color: var(--ink); }
 .tabx-nav button[aria-selected="true"] { color: var(--ink); background: var(--surface); box-shadow: var(--sh), inset 0 0 0 1px var(--line); }
