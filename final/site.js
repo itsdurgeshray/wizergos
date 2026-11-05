@@ -127,6 +127,87 @@
     });
   });
 
+  // hero leans toward the cursor; cards catch a soft light
+  var calm = figma || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!calm && matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.hero, .phero').forEach(function (h) {
+      var raf;
+      h.addEventListener('pointermove', function (e) {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function () { var r = h.getBoundingClientRect(); h.style.setProperty('--mx', ((e.clientX - r.left) / r.width - .5).toFixed(3)); h.style.setProperty('--my', ((e.clientY - r.top) / r.height - .5).toFixed(3)); });
+      });
+      h.addEventListener('pointerleave', function () { h.style.setProperty('--mx', 0); h.style.setProperty('--my', 0); });
+    });
+    document.addEventListener('pointermove', function (e) {
+      var c = e.target.closest && e.target.closest('.ft, .pc, .door, .plan, .fx-node, .job, .val');
+      if (!c) return;
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--px', (e.clientX - r.left) + 'px'); c.style.setProperty('--py', (e.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
+
+  // numbers count up when they come into view
+  if (!calm && 'IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (en) { en.forEach(function (x) {
+      if (!x.isIntersecting) return; cio.unobserve(x.target);
+      var el = x.target, m = el.textContent.match(/^(\d[\d,.]*)(.*)$/); if (!m) return;
+      var end = parseFloat(m[1].replace(/,/g, '')), dec = (m[1].split('.')[1] || '').length, suf = m[2], t0 = performance.now();
+      if (end >= 1900 && end <= 2100) return;
+      (function step(t) { var k = Math.min(1, (t - t0) / 1400), v = end * (1 - Math.pow(1 - k, 3)); el.textContent = (dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-IN')) + suf; if (k < 1) requestAnimationFrame(step); else el.textContent = m[1] + suf; })(t0);
+    }); }, { threshold: .6 });
+    document.querySelectorAll('.metric .v .acc, .metric .v.acc, .roi-out b, .fmap-count b').forEach(function (el) { if (!el.hasAttribute('data-out')) cio.observe(el); });
+  }
+
+  // friction map: tap opens a point, hover previews it
+  document.querySelectorAll('.fnode > button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var li = b.parentElement, o = !li.classList.contains('open');
+      li.parentElement.querySelectorAll('.fnode.open').forEach(function (x) { x.classList.remove('open'); x.firstElementChild.setAttribute('aria-expanded', 'false'); });
+      li.classList.toggle('open', o); b.setAttribute('aria-expanded', o);
+    });
+  });
+
+  // gallery filters
+  document.querySelectorAll('[data-gallery]').forEach(function (g) {
+    var bar = document.querySelector('[data-filters="' + g.dataset.gallery + '"]'); if (!bar) return;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      g.querySelectorAll('[data-cat]').forEach(function (c) { c.hidden = b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f; });
+    });
+  });
+
+  // careers: job details and application in a dialog
+  var dlg = document.getElementById('jobDialog');
+  if (dlg) {
+    document.querySelectorAll('[data-apply]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var j = b.closest('.job'), info = dlg.querySelector('.jd-info');
+        info.querySelector('h2').textContent = j ? j.dataset.title : 'Share your profile';
+        info.querySelector('.jm').innerHTML = j ? j.querySelector('.jm').innerHTML : '<span>careers@wizergos.com</span>';
+        info.querySelector('.jd-desc').innerHTML = j ? j.querySelector('.jd-src').innerHTML : '<p>Tell us a little about yourself. We’d love to hear what you could bring to the team.</p>';
+        var f = dlg.querySelector('form'); f.classList.remove('is-success', 'is-error'); f.querySelector('[name=role]').value = j ? j.dataset.title : 'General application';
+        if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+      });
+    });
+    dlg.querySelector('.jd-x').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  }
+
+  // CV upload: drag and drop, type and size check
+  document.querySelectorAll('.upload').forEach(function (u) {
+    var inp = u.querySelector('input'), name = u.querySelector('.fname span');
+    function take(file) {
+      var ok = file && /\.(pdf|docx?)$/i.test(file.name) && file.size <= 5 * 1024 * 1024;
+      u.classList.toggle('has', !!ok); u.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (ok) name.textContent = file.name;
+    }
+    inp.addEventListener('change', function () { take(inp.files[0]); });
+    ['dragenter', 'dragover'].forEach(function (t) { u.addEventListener(t, function () { u.classList.add('drag'); }); });
+    ['dragleave', 'drop'].forEach(function (t) { u.addEventListener(t, function () { u.classList.remove('drag'); }); });
+    u.closest('form').addEventListener('submit', function (e) { if (!u.classList.contains('has')) { u.setAttribute('aria-invalid', 'true'); e.stopImmediatePropagation(); e.preventDefault(); } }, true);
+  });
+
   if (!figma && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -6% 0px' });
     document.querySelectorAll('.rv').forEach(function (el, i) { el.style.transitionDelay = ((i % 3) * 80) + 'ms'; io.observe(el); });
