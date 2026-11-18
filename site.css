@@ -1474,7 +1474,7 @@ header.site.scrolled, header.site.menu-open { background: color-mix(in srgb, var
 
 /* hero field: a dot grid that wakes under the cursor with a glowing trail */
 .hfx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-.phero::after, .hero::after { opacity: .6; }
+.has-field::after { opacity: 0; }
 
 /* ───────── CTA: a glowing band ───────── */
 .cta-sec { padding: 0 0 120px; }
