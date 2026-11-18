@@ -159,12 +159,12 @@
       'vec2 q=p-d*exp(-dl*dl*6.)*(.55+mv*1.2);\n' +
       'vec2 rc=(rp.xy-.5*r)/r.y;float rd=length(p-rc),rr=rp.z*.75,ring=exp(-pow((rd-rr)*10.,2.))*max(0.,1.-rp.z*.7);q+=(p-rc)*ring*.08;\n' +
       'float T=t*.05;vec2 w=vec2(fb(q*.9+vec2(T,-T*.7)),fb(q*.9+vec2(-T*.8,T)+5.2));float f=fb(q*.7+w*1.3+T*.6);\n' +
-      'float k=f*30.;float ln=1.-clamp(abs(fract(k)-.5)/max(fwidth(k),1e-4)*.7,0.,1.);\n' +
-      'float pulse=smoothstep(.9,1.,fract(f*3.-t*.12))*1.4;float spot=exp(-dl*dl*3.);\n' +
+      'float k=f*18.;float ln=1.-clamp(abs(fract(k)-.5)/max(fwidth(k),1e-4)*1.1,0.,1.);\n' +
+      'float pulse=smoothstep(.9,1.,fract(f*3.-t*.12))*1.4;float spot=exp(-dl*dl*7.);\n' +
       'vec3 c1=mix(vec3(.12,.55,.8),vec3(.5,.8,.95),f);vec3 c2=vec3(.55,.49,.96);vec3 c=mix(c1,c2,spot*.55+ring*.6);\n' +
       'if(dk<.5)c=mix(vec3(.06,.37,.58),vec3(.12,.55,.8),f),c=mix(c,vec3(.43,.36,.88),spot*.5+ring*.6);\n' +
       'float mask=mix(.3,1.,smoothstep(.15,.75,uv.x))*smoothstep(0.,.18,uv.y)*smoothstep(1.,.85,uv.y);\n' +
-      'float a=ln*(.26+spot*.9+pulse*.5+ring*.9)*mask;a+=pow(f,3.)*.14*mask*(.6+spot);a*=mix(.8,1.,dk);\n' +
+      'float a=ln*(.05+spot*.6+pulse*.12+ring*.5)*mask;a+=spot*.04*mask;a*=mix(.8,1.,dk);\n' +
       'o=vec4(c*a,a);}';
     var VS = '#version 300 es\nin vec2 v;void main(){gl_Position=vec4(v,0,1);}';
     document.querySelectorAll('.hero, .phero').forEach(function (h) {
