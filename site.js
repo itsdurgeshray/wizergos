@@ -146,6 +146,50 @@
     }, { passive: true });
   }
 
+
+  // hero field: dot grid that brightens and parts around the cursor, with a glowing comet trail and click ripples
+  if (!calm) document.querySelectorAll('.hero, .phero').forEach(function (h) {
+    var cv = document.createElement('canvas'); cv.className = 'hfx'; cv.setAttribute('aria-hidden', 'true'); h.insertBefore(cv, h.firstChild);
+    var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), G = 32;
+    var p = { x: -999, y: -999, on: false }, s = { x: -999, y: -999 }, trail = [], rip = [], vis = true, raf = 0, t0 = performance.now();
+    function size() { var r = h.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    size(); addEventListener('resize', size);
+    function col(a) { return document.documentElement.getAttribute('data-mode') === 'dark' ? 'rgba(127,205,242,' + a + ')' : 'rgba(31,141,203,' + a + ')'; }
+    h.addEventListener('pointermove', function (e) { var r = h.getBoundingClientRect(); p.x = e.clientX - r.left; p.y = e.clientY - r.top; if (!p.on) { s.x = p.x; s.y = p.y; } p.on = true; });
+    h.addEventListener('pointerleave', function () { p.on = false; });
+    h.addEventListener('pointerdown', function (e) { var r = h.getBoundingClientRect(); rip.push({ x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() }); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { vis = en[0].isIntersecting; if (vis && !raf) raf = requestAnimationFrame(draw); }).observe(h);
+    function draw(now) {
+      raf = 0; if (!vis) return;
+      var t = (now - t0) / 1000; ctx.clearRect(0, 0, W, H);
+      s.x += (p.x - s.x) * .18; s.y += (p.y - s.y) * .18;
+      if (p.on) trail.unshift({ x: s.x, y: s.y }); else if (trail.length) trail.pop();
+      if (trail.length > 28) trail.length = 28;
+      var R = 180, dark = document.documentElement.getAttribute('data-mode') === 'dark';
+      for (var y = G / 2; y < H; y += G) for (var x = G / 2; x < W; x += G) {
+        var wave = .5 + .5 * Math.sin(x * .012 + y * .008 - t * 1.2), dx = x - s.x, dy = y - s.y, d = Math.sqrt(dx * dx + dy * dy), k = p.on ? Math.max(0, 1 - d / R) : 0;
+        var ox = k ? dx / (d || 1) * k * 14 : 0, oy = k ? dy / (d || 1) * k * 14 : 0;
+        for (var i = 0; i < rip.length; i++) { var q = rip[i], rr = (now - q.t) / 1000 * 520, dd = Math.hypot(x - q.x, y - q.y), band = Math.max(0, 1 - Math.abs(dd - rr) / 48) * Math.max(0, 1 - rr / 700); k = Math.max(k, band); }
+        ctx.fillStyle = col((dark ? .16 : .2) + wave * .1 + k * .75);
+        ctx.beginPath(); ctx.arc(x + ox, y + oy, 1 + k * 2.2, 0, 6.283); ctx.fill();
+      }
+      rip = rip.filter(function (q) { return now - q.t < 1400; });
+      if (trail.length > 2) {
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        for (var j = 1; j < trail.length; j++) {
+          var a = 1 - j / trail.length; ctx.strokeStyle = col(a * .55); ctx.lineWidth = 10 * a + 1;
+          ctx.shadowColor = col(.8); ctx.shadowBlur = 16 * a;
+          ctx.beginPath(); ctx.moveTo(trail[j - 1].x, trail[j - 1].y); ctx.lineTo(trail[j].x, trail[j].y); ctx.stroke();
+        }
+        ctx.shadowBlur = 0;
+        var g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 28); g.addColorStop(0, col(.55)); g.addColorStop(1, col(0));
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(s.x, s.y, 28, 0, 6.283); ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    raf = requestAnimationFrame(draw);
+  });
+
   // numbers count up when they come into view
   if (!calm && 'IntersectionObserver' in window) {
     var cio = new IntersectionObserver(function (en) { en.forEach(function (x) {
