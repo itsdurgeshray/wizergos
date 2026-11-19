@@ -86,14 +86,57 @@
     }).then(done, done);
   });
 
-  // horizontal tabs: pill buttons switch the panel below
+  // horizontal tabs: pill buttons switch the panel below; data-auto="ms" advances on its own while in view
   document.querySelectorAll('.tabx').forEach(function (box) {
-    var btns = Array.prototype.slice.call(box.querySelectorAll('.tabx-nav button')), panes = Array.prototype.slice.call(box.querySelectorAll('.tabx-pane'));
-    btns.forEach(function (b, i) { b.addEventListener('click', function () {
+    var nav = box.querySelector('.tabx-nav'), btns = Array.prototype.slice.call(box.querySelectorAll('.tabx-nav button')), panes = Array.prototype.slice.call(box.querySelectorAll('.tabx-pane'));
+    var cur = Math.max(0, btns.findIndex(function (b) { return b.getAttribute('aria-selected') === 'true'; }));
+    function show(i, user) {
+      cur = i;
       btns.forEach(function (x, k) { x.setAttribute('aria-selected', k === i); });
-      panes.forEach(function (p, k) { p.hidden = k !== i; });
-      b.scrollIntoView({ block: 'nearest', inline: 'center' }); fit();
-    }); });
+      panes.forEach(function (p, k) { p.hidden = k !== i; if (k === i && !user) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); } });
+      var b = btns[i]; nav.scrollTo({ left: b.offsetLeft - (nav.clientWidth - b.offsetWidth) / 2, behavior: 'smooth' });
+      if (typeof fit === 'function') fit();
+      if (auto) restart();
+    }
+    btns.forEach(function (b, i) { b.addEventListener('click', function () { show(i, true); }); });
+    var auto = !figma && !matchMedia('(prefers-reduced-motion: reduce)').matches && parseInt(box.getAttribute('data-auto'), 10), timer = 0, seen = false, held = false;
+    function restart() {
+      clearTimeout(timer); box.classList.remove('ticking'); void box.offsetWidth;
+      if (!seen || held) return;
+      box.classList.add('ticking'); timer = setTimeout(function () { show((cur + 1) % btns.length); }, auto);
+    }
+    if (auto) {
+      box.style.setProperty('--tick', auto + 'ms');
+      box.addEventListener('pointerenter', function () { held = true; restart(); });
+      box.addEventListener('pointerleave', function () { held = false; restart(); });
+      box.addEventListener('focusin', function () { held = true; restart(); });
+      box.addEventListener('focusout', function () { held = false; restart(); });
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { seen = en[0].isIntersecting; restart(); }, { threshold: .35 }).observe(box);
+    }
+  });
+
+  // video language picker: updates the label and data-lang; a real video swaps to data-src-<lang> when present
+  document.querySelectorAll('.vlang').forEach(function (v) {
+    var btn = v.querySelector('.vl-btn'), menu = v.querySelector('.vl-menu'), opts = Array.prototype.slice.call(menu.querySelectorAll('li')), player = v.closest('.vplayer');
+    opts.forEach(function (o) { o.tabIndex = -1; });
+    function close() { v.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); var o = !v.classList.contains('open'); v.classList.toggle('open', o); btn.setAttribute('aria-expanded', o); if (o) (menu.querySelector('[aria-selected="true"]') || opts[0]).focus(); });
+    function pick(o) {
+      opts.forEach(function (x) { x.setAttribute('aria-selected', x === o); });
+      v.querySelector('.vl-cur').textContent = o.querySelector('span').textContent;
+      if (player) { player.setAttribute('data-lang', o.dataset.lang); var vid = player.querySelector('video'), src = vid && vid.getAttribute('data-src-' + o.dataset.lang); if (src) { var t = vid.currentTime; vid.src = src; vid.currentTime = t; } }
+      close(); btn.focus();
+    }
+    opts.forEach(function (o, i) {
+      o.addEventListener('click', function (e) { e.stopPropagation(); pick(o); });
+      o.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(o); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); opts[(i + 1) % opts.length].focus(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); opts[(i - 1 + opts.length) % opts.length].focus(); }
+        else if (e.key === 'Escape') { close(); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) { if (!v.contains(e.target)) close(); });
   });
 
   // before and after slider

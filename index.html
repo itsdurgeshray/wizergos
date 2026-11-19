@@ -89,15 +89,22 @@
 .s-track { display: flex; gap: 24px; width: max-content; padding: 24px 0 72px; animation: lane 70s linear infinite; }
 .stream:hover .s-track { animation-play-state: paused; }
 @keyframes lane { to { transform: translateX(-50%); } }
-.q { width: 520px; padding: 36px; border-radius: 28px; background: var(--surface); box-shadow: var(--sh), inset 0 0 0 1px var(--line); display: flex; flex-direction: column; }
+.s-track { padding-right: 24px; }
+.q { position: relative; width: 440px; padding: 32px; border-radius: 24px; background: var(--surface); box-shadow: var(--sh), inset 0 0 0 1px var(--line); display: flex; flex-direction: column; transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease; }
+.q:hover { transform: translateY(-6px); box-shadow: var(--sh-lg), inset 0 0 0 1px var(--line-2); }
 [data-mode="dark"] .q { background: linear-gradient(180deg, #0D1D2E, #0A1724); }
-.q .mk { width: 40px; height: 32px; color: var(--blue); }
-.q h3 { margin-top: 20px; font-size: 24px; line-height: 32px; font-weight: 500; letter-spacing: -1px; }
-.q p { margin-top: 14px; font-size: 16px; line-height: 28px; color: var(--ink-2); }
-.q .who { margin-top: auto; padding-top: 28px; display: flex; align-items: center; gap: 14px; }
-.q .who .av { width: 48px; height: 48px; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+.q .mk { width: 20px; height: 16px; color: var(--blue); }
+.q h3 { margin-top: 16px; font-size: 20px; line-height: 28px; font-weight: 500; letter-spacing: -.5px; }
+.q p { margin-top: 12px; font-size: 16px; line-height: 26px; color: var(--ink-2); }
+.q .who { margin-top: auto; padding-top: 24px; display: flex; align-items: center; gap: 12px; }
+.q .pav { position: relative; width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; color: var(--blue-ink); background: var(--soft); box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px rgba(79,181,227,.4); overflow: hidden; }
+.q .pav img { width: 100%; height: 100%; object-fit: cover; }
 .q .nm b { display: block; font-size: 16px; line-height: 24px; font-weight: 500; }
 .q .nm span { display: block; font-size: 14px; line-height: 20px; color: var(--muted); }
+.q .q-logo { margin-top: 24px; padding-top: 20px; box-shadow: inset 0 1px 0 var(--line); display: flex; align-items: center; height: 48px; box-sizing: content-box; }
+.q .q-logo img { width: auto; max-width: 140px; opacity: .7; transition: opacity .3s ease; }
+.q:hover .q-logo img { opacity: 1; }
+[data-mode="dark"] .q .q-logo img { filter: invert(1); opacity: .6; }
 
 /* figma mode for this page */
 
@@ -153,6 +160,7 @@
   .stream::-webkit-scrollbar { display: none; }
   .s-track { animation: none; gap: 16px; padding: 16px 20px 48px; }
   .q { width: calc(100vw - 72px); max-width: 320px; padding: 24px; border-radius: 24px; scroll-snap-align: center; }
+  .q .q-logo { margin-top: 20px; padding-top: 16px; height: 40px; }
   .q[aria-hidden="true"] { display: none; }
   .q h3 { margin-top: 16px; font-size: 20px; line-height: 28px; }
   .q p { font-size: 14px; line-height: 24px; }
@@ -240,7 +248,7 @@
     </div>
     <div class="trust">
       <p>Trusted by leading insurers and enterprises</p>
-      <div class="logos">
+      <div class="logos"><div class="logos-track"><div class="logos-set">
         <img src="assets/clients/icici.png" alt="ICICI Lombard" height="28">
         <img src="assets/clients/bajaj.png" alt="Bajaj General Insurance" height="32">
         <img src="assets/clients/gic.png" alt="General Insurance Council" height="28">
@@ -250,7 +258,17 @@
         <img src="assets/clients/fidelis.png" alt="Fidelis" height="30">
         <img src="assets/clients/star.png" alt="Star" height="36">
         <img src="assets/clients/sany.png" alt="SANY" height="28">
-      </div>
+      </div><div class="logos-set" aria-hidden="true">
+        <img src="assets/clients/icici.png" alt="" height="28">
+        <img src="assets/clients/bajaj.png" alt="" height="32">
+        <img src="assets/clients/gic.png" alt="" height="28">
+        <img src="assets/clients/nirmal.png" alt="" height="36">
+        <img src="assets/clients/itc.png" alt="" height="38">
+        <img src="assets/clients/westside.png" alt="" height="26">
+        <img src="assets/clients/fidelis.png" alt="" height="30">
+        <img src="assets/clients/star.png" alt="" height="36">
+        <img src="assets/clients/sany.png" alt="" height="28">
+      </div></div></div>
     </div>
   </div>
 </section>
@@ -549,6 +567,7 @@
     <div class="ft-grid">
       <a class="book rv" href="resources/press/" aria-label="Wizergos Awarded the Best Low-Code Digital Transformation Partner at ELETS BFSI Summit">
         <div class="cover">
+          <span class="cv-shine" aria-hidden="true"></span><span class="cv-spark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
           <span class="cv-tag">Award</span>
           <svg class="cv-art" viewBox="0 0 256 180" aria-hidden="true"><g fill="none" stroke="#7FCDF2" stroke-opacity=".3"><circle cx="128" cy="90" r="62"/><circle cx="128" cy="90" r="86" stroke-dasharray="2 6"/></g><circle cx="128" cy="90" r="46" fill="#4FB5E3" fill-opacity=".18"/><g transform="translate(128 84)"><path d="M-30 -40h60v32c0 20-14 34-30 34s-30-14-30-34z" fill="#fff"/><path d="M-30 -30h-16c0 16 7 25 18 27M30 -30h16c0 16-7 25-18 27" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M-7 26h14v16h-14zM-21 42h42v8h-42z" fill="#fff"/><path d="M0 -30l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#1F8DCB"/></g></svg>
           <b>Best Low-Code Digital Transformation Partner</b>
@@ -570,12 +589,12 @@
   <div class="wrap"><span class="kicker"><i></i>Customers</span><h2 class="h2" style="margin-top:16px"><span class="grad">Testimonials</span></h2></div>
   <div class="stream">
     <div class="s-track">
-      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent job by Wizergos!"</h3><p>We needed a lot of customization for our apps- this called for resources and time commitments. Wizergos pitched in and accelerated our development efforts, and saved us countless hours and resources. Kudos!</p><figcaption class="who"><span class="av">YB</span><span class="nm"><b>Yatish Bhatia</b><span>VP- Technology, ICICI Lombard</span></span></figcaption></figure>
-      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"A great tool and a brilliant team."</h3><p>The Wizergos team works with gusto on requirements and feedback. Their stellar work has really helped us manage meetings effectively and brought in accountability (wherever needed).</p><figcaption class="who"><span class="av">SK</span><span class="nm"><b>Sanketh Koka</b><span>Regional Head of Operations, Tata Trent</span></span></figcaption></figure>
-      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent service!"</h3><p>The Wizergos team were able to customize a lot of the features to suit our requirements which is great as we are constantly growing as a business and always finding new ways of working.</p><figcaption class="who"><span class="av">SA</span><span class="nm"><b>Stephanie A.</b><span>Project Manager - Fidelis Insurance UK</span></span></figcaption></figure>
-      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent job by Wizergos!"</h3><p>We needed a lot of customization for our apps- this called for resources and time commitments. Wizergos pitched in and accelerated our development efforts, and saved us countless hours and resources. Kudos!</p><figcaption class="who"><span class="av">YB</span><span class="nm"><b>Yatish Bhatia</b><span>VP- Technology, ICICI Lombard</span></span></figcaption></figure>
-      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"A great tool and a brilliant team."</h3><p>The Wizergos team works with gusto on requirements and feedback. Their stellar work has really helped us manage meetings effectively and brought in accountability (wherever needed).</p><figcaption class="who"><span class="av">SK</span><span class="nm"><b>Sanketh Koka</b><span>Regional Head of Operations, Tata Trent</span></span></figcaption></figure>
-      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent service!"</h3><p>The Wizergos team were able to customize a lot of the features to suit our requirements which is great as we are constantly growing as a business and always finding new ways of working.</p><figcaption class="who"><span class="av">SA</span><span class="nm"><b>Stephanie A.</b><span>Project Manager - Fidelis Insurance UK</span></span></figcaption></figure>
+      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent job by Wizergos!"</h3><p>We needed a lot of customization for our apps- this called for resources and time commitments. Wizergos pitched in and accelerated our development efforts, and saved us countless hours and resources. Kudos!</p><figcaption class="who"><span class="pav" data-photo=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4.5 20.5c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span class="nm"><b>Yatish Bhatia</b><span>VP- Technology, ICICI Lombard</span></span></figcaption><div class="q-logo"><img src="assets/clients/icici.png" alt="ICICI Lombard" height="24"></div></figure>
+      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"A great tool and a brilliant team."</h3><p>The Wizergos team works with gusto on requirements and feedback. Their stellar work has really helped us manage meetings effectively and brought in accountability (wherever needed).</p><figcaption class="who"><span class="pav" data-photo=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4.5 20.5c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span class="nm"><b>Sanketh Koka</b><span>Regional Head of Operations, Tata Trent</span></span></figcaption><div class="q-logo"><img src="assets/clients/westside.png" alt="Westside" height="22"></div></figure>
+      <figure class="q"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent service!"</h3><p>The Wizergos team were able to customize a lot of the features to suit our requirements which is great as we are constantly growing as a business and always finding new ways of working.</p><figcaption class="who"><span class="pav" data-photo=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4.5 20.5c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span class="nm"><b>Stephanie A.</b><span>Project Manager - Fidelis Insurance UK</span></span></figcaption><div class="q-logo"><img src="assets/clients/fidelis.png" alt="Fidelis Insurance" height="24"></div></figure>
+      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent job by Wizergos!"</h3><p>We needed a lot of customization for our apps- this called for resources and time commitments. Wizergos pitched in and accelerated our development efforts, and saved us countless hours and resources. Kudos!</p><figcaption class="who"><span class="pav" data-photo=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4.5 20.5c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span class="nm"><b>Yatish Bhatia</b><span>VP- Technology, ICICI Lombard</span></span></figcaption><div class="q-logo"><img src="assets/clients/icici.png" alt="" height="24"></div></figure>
+      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"A great tool and a brilliant team."</h3><p>The Wizergos team works with gusto on requirements and feedback. Their stellar work has really helped us manage meetings effectively and brought in accountability (wherever needed).</p><figcaption class="who"><span class="pav" data-photo=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4.5 20.5c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span class="nm"><b>Sanketh Koka</b><span>Regional Head of Operations, Tata Trent</span></span></figcaption><div class="q-logo"><img src="assets/clients/westside.png" alt="" height="22"></div></figure>
+      <figure class="q" aria-hidden="true"><svg class="mk" viewBox="0 0 40 32"><path fill="currentColor" d="M0 32V19C0 8 6 1.5 16.5 0v6C11 7.2 8.6 11 8.6 16H16v16zm24 0V19C24 8 30 1.5 40.5 0v6C35 7.2 32.6 11 32.6 16H40v16z"/></svg><h3>"Excellent service!"</h3><p>The Wizergos team were able to customize a lot of the features to suit our requirements which is great as we are constantly growing as a business and always finding new ways of working.</p><figcaption class="who"><span class="pav" data-photo=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4.5 20.5c1.4-3.6 4.2-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg></span><span class="nm"><b>Stephanie A.</b><span>Project Manager - Fidelis Insurance UK</span></span></figcaption><div class="q-logo"><img src="assets/clients/fidelis.png" alt="" height="24"></div></figure>
     </div>
   </div>
 </section>
