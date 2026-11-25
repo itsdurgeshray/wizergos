@@ -1159,7 +1159,9 @@ header.site.scrolled, header.site.menu-open { background: color-mix(in srgb, var
   .vid .vt { left: 20px; right: 20px; bottom: 18px; }
   .vid .vt b { font-size: 18px; line-height: 24px; } .vid .vt span { display: none; }
   .chapters li { height: 36px; font-size: 12px; }
-  .vid-foot .btn { width: 100%; justify-content: center; white-space: normal; text-align: center; height: auto; min-height: 52px; }
+  .vid-foot { flex-direction: column; align-items: stretch; gap: 12px; }
+  .vid-foot .btn { width: 100%; justify-content: center; gap: 8px; padding: 0 16px; font-size: clamp(13px, 4.1vw, 15px); }
+  .vid-foot .btn svg { flex-shrink: 0; }
   /* long CTAs keep to one line inside the pill: tighter type and padding instead of wrapping */
   .splitx .btn, .cbox .btn { width: 100%; justify-content: center; gap: 8px; padding: 0 20px; font-size: 15px; }
   .splitx .btn svg, .cbox .btn svg { flex-shrink: 0; }
