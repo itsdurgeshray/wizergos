@@ -1152,13 +1152,20 @@ header.site.scrolled, header.site.menu-open { background: color-mix(in srgb, var
   .hx-grid .cta { flex-direction: column; align-items: stretch; } .hx-grid .cta .btn { justify-content: center; }
   .backdrop { padding: 28px 16px; border-radius: 28px; }
   .duo { grid-template-columns: minmax(0, 1fr); max-width: 320px; }
+  .duo .mini.phone { max-width: none; } /* the second mockup fills the width like the first, no dead space on the right */
   .mini.scr { padding: 16px; }
   .vid { aspect-ratio: 4 / 3; border-radius: 24px; }
   .vid .play { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
   .vid .vt { left: 20px; right: 20px; bottom: 18px; }
   .vid .vt b { font-size: 18px; line-height: 24px; } .vid .vt span { display: none; }
   .chapters li { height: 36px; font-size: 12px; }
-  .vid-foot .btn, .splitx .btn, .cbox .btn { width: 100%; justify-content: center; white-space: normal; text-align: center; height: auto; min-height: 52px; }
+  .vid-foot .btn { width: 100%; justify-content: center; white-space: normal; text-align: center; height: auto; min-height: 52px; }
+  /* long CTAs keep to one line inside the pill: tighter type and padding instead of wrapping */
+  .splitx .btn, .cbox .btn { width: 100%; justify-content: center; gap: 8px; padding: 0 20px; font-size: 15px; }
+  .splitx .btn svg, .cbox .btn svg { flex-shrink: 0; }
+  /* chip lists with long labels read as an even stack of rows on phones */
+  .cloud.stack { flex-direction: column; align-items: stretch; }
+  .cloud.stack > span { justify-content: flex-start; }
   .tabx { margin-top: 40px; }
   .tabx-nav button { height: 40px; padding: 0 14px; }
   .tabx-pane { margin-top: 28px; }
@@ -1405,8 +1412,8 @@ header.site.scrolled, header.site.menu-open { background: color-mix(in srgb, var
 .owner p { margin-top: 12px; color: var(--ink-2); }
 .owner .hot p { color: rgba(255,255,255,.86); }
 .cloud { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
-.cloud span { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 100px; font-size: 14px; color: var(--ink); background: var(--surface); box-shadow: var(--sh), inset 0 0 0 1px var(--line); }
-.cloud span i { width: 8px; height: 8px; border-radius: 2px; background: var(--blue); transform: rotate(45deg); }
+.cloud > span { text-wrap: balance; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 10px 16px; border-radius: 20px; font-size: 14px; line-height: 20px; color: var(--ink); background: var(--surface); box-shadow: var(--sh), inset 0 0 0 1px var(--line); }
+.cloud > span > i { flex-shrink: 0; align-self: flex-start; margin-top: 6px; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); transform: rotate(45deg); }
 
 @media (max-width: 1080px) {
   .vals, .owner { grid-template-columns: minmax(0, 1fr); }
@@ -1912,7 +1919,7 @@ header.site.scrolled, header.site.menu-open { background: color-mix(in srgb, var
 .medal .bn { transition: opacity .5s ease; }
 .medal.lining .bn { opacity: .4; }
 .medal.lining .bn.lit { opacity: 1; }
-.medal .bn.lit .ic { color: #fff; background: #4FB5E3; box-shadow: 0 0 0 6px rgba(79,181,227,.25); }
+@media (min-width: 1081px) { .medal .bn.lit .ic { color: #fff; background: #4FB5E3; box-shadow: 0 0 0 6px rgba(79,181,227,.25); } }
 @media (max-width: 1080px) { .mlines { display: none; } .medal.lining .bn { opacity: 1; } }
 
 /* ───────── CTA: a glowing band ───────── */
@@ -2046,7 +2053,6 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
   .chal-i { grid-template-columns: 40px 1fr; gap: 16px; padding: 24px 0; }
   .chal-i .n { width: 40px; height: 40px; }
   .chal-i h3 { font-size: 18px; line-height: 26px; }
-  .medal.long .bn h3 { font-size: 14px; line-height: 22px; }
   .seal-c b { font-size: 20px; line-height: 26px; }
   .pgrid, .doors { margin-top: 40px; grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .lead-post h2 { font-size: 28px; line-height: 36px; letter-spacing: -1px; }
@@ -2076,14 +2082,18 @@ footer { padding: 88px 0 40px; background: var(--bg-2); box-shadow: inset 0 1px 
   .sc-stage { border-radius: 24px; }
   .sc-copy h3 { margin-top: 16px; font-size: 30px; line-height: 38px; letter-spacing: -1px; }
   .sc-links { margin-top: 20px; } .sc-links a { font-size: 16px; line-height: 24px; min-height: 56px; }
-  .medal { margin-top: 40px; grid-template-columns: 1fr 1fr; gap: 0 20px; align-items: stretch; }
-  .seal { width: 200px; height: 200px; margin-bottom: 16px; }
+  /* benefits around the seal: one clean list on phones, every row the same */
+  .medal { margin-top: 40px; grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .seal { width: 200px; height: 200px; margin-bottom: 8px; }
   .seal-c img { width: 96px; height: 22px; } .seal-c span { font-size: 10px; letter-spacing: 2px; }
   .bside { display: contents; }
-  .bn, .bside.l .bn { grid-template-columns: 1fr; gap: 12px; align-items: start; align-content: start; min-height: 0; padding: 20px 0; text-align: left; box-shadow: inset 0 -1px 0 rgba(127,205,242,.16); }
+  .bn, .bside.l .bn { grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; min-height: 0; padding: 18px 0; text-align: left; box-shadow: inset 0 -1px 0 rgba(127,205,242,.16); }
+  .bside.l .bn .ic { order: 0; }
+  .bside.r .bn:last-child { box-shadow: none; }
   .bn .ic { width: 44px; height: 44px; } .bn .ic svg { width: 20px; height: 20px; }
-  .bn h3 { font-size: 16px; line-height: 22px; letter-spacing: -.5px; }
-  .bside.r .bn:nth-child(n+2) { box-shadow: none; }
+  .bn small { font-size: 11px; letter-spacing: 1.5px; }
+  .bn h3 { margin-top: 2px; font-size: 17px; line-height: 24px; letter-spacing: -.4px; }
+  .medal.long .bn h3 { font-size: 16px; line-height: 23px; letter-spacing: -.3px; }
   .list { margin-top: 32px; }
   .item { grid-template-columns: 1fr; gap: 20px; padding: 32px 0; }
   .item:hover .thumb { transform: none; } .item:hover .body2 { transform: none; }
